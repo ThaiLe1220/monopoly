@@ -13,10 +13,17 @@ struct ContentView: View {
     @State var currentTile: TilePosition = testTilePosition
     @State var currentTileId: Int = 0
     @State var sunMoving: Bool = false
+    
+    @State var dice1: Int = 1
+    @State var dice2: Int = 1
+    var totalDice: Int { dice1 + dice2 }
+    
+    
     var body: some View {
         VStack{
             Spacer().frame(height: 100)
             
+            /// BOARD VIEW
             ZStack() {
                 
                 ZStack {
@@ -27,12 +34,12 @@ struct ContentView: View {
                         .foregroundColor(.yellow)
                     
                     
-                    Image(systemName: "pawprint.fill")
+                    Image(systemName: "sun.max")
                         .font(.title2)
                         .foregroundColor(.yellow)
                         .offset(x: -75)
                         .rotationEffect(.degrees(sunMoving ? 360: 0))
-                        .animation(.easeInOut(duration: 6).delay(0.5).repeatForever(autoreverses: false), value: sunMoving)
+                        .animation(.easeOut(duration: 6).delay(0.5).repeatForever(autoreverses: false), value: sunMoving)
                         .onAppear(){
                             sunMoving.toggle()
                         }
@@ -355,6 +362,48 @@ struct ContentView: View {
                 
             }
             
+            
+            /// DICE VIEW
+            HStack() {
+                Spacer()
+                
+                ZStack {
+                    Button  {
+                        var delayRoll:Double = 0
+                        for _ in 0..<15 {
+                            withAnimation(.linear(duration: 0.08).delay(delayRoll)){
+                                dice1 = diceRoll(excluding: dice1)
+                                dice2 = diceRoll(excluding: dice2)
+                                delayRoll += 0.08
+                            }
+                        
+                        }
+                        
+                        let delayMove: Double = 1.2
+                        DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
+                            moveForwardBySteps(steps: totalDice)
+                        }
+                        
+                    } label: {
+                        Image("dice\(dice1)")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .cornerRadius(7.5)
+                        Image("dice\(dice2)")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .cornerRadius(7.5)
+
+                    }
+                }
+                .frame(width: 100, height: 50)
+//                .background(.blue)
+                .border(.black, width: 0.3)
+
+        
+                Spacer()
+            }
+            
             Spacer()
 
         }
@@ -453,6 +502,27 @@ struct ContentView: View {
     
     }
     
+    func diceRoll(excluding num: Int) -> Int{
+        var ran = Int.random(in: 1...6)
+        while ran == num {
+            ran = Int.random(in: 1...6)
+        }
+        return ran
+    }
+    
+    func moveForwardBySteps(steps: Int){
+        var delayMove: Double = 0
+        for _ in 0..<steps {
+            delayMove += 0.3
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
+                moveForward()
+            }
+        }
+    }
+    
+    func moveForwardToTile(targetTileId: Int){
+    
+    }
     
 }
 
