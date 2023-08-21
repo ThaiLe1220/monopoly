@@ -15,6 +15,7 @@
 		956CDD852A8E0F4E0019F0EC /* TilePositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956CDD842A8E0F4E0019F0EC /* TilePositionModel.swift */; };
 		956CDD862A8E15F80019F0EC /* TilePosition.json in Resources */ = {isa = PBXBuildFile; fileRef = 956CDD802A8E0C250019F0EC /* TilePosition.json */; };
 		95B62A392A91E9F400FE1FDD /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B62A382A91E9F400FE1FDD /* PlayerModel.swift */; };
+		95F83C9D2A92514B004D10B1 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F83C9C2A92514B004D10B1 /* SwiftUIView.swift */; };
 		95FF4D0C2A8F4DD000229C64 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FF4D0B2A8F4DD000229C64 /* Player.swift */; };
 		95FF4D0E2A8F8F4F00229C64 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FF4D0D2A8F8F4F00229C64 /* BoardView.swift */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 		956CDD822A8E0E490019F0EC /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
 		956CDD842A8E0F4E0019F0EC /* TilePositionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePositionModel.swift; sourceTree = "<group>"; };
 		95B62A382A91E9F400FE1FDD /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		95F83C9C2A92514B004D10B1 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		95FF4D0B2A8F4DD000229C64 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		95FF4D0D2A8F8F4F00229C64 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +71,7 @@
 				956CDD812A8E0E2F0019F0EC /* Model */,
 				954A5C622A8CC416008257D4 /* Assets.xcassets */,
 				956CDD802A8E0C250019F0EC /* TilePosition.json */,
+				95F83C9B2A925126004D10B1 /* testing */,
 				954A5C642A8CC416008257D4 /* Preview Content */,
 			);
 			path = monopoly;
@@ -91,6 +94,14 @@
 				95B62A382A91E9F400FE1FDD /* PlayerModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		95F83C9B2A925126004D10B1 /* testing */ = {
+			isa = PBXGroup;
+			children = (
+				95F83C9C2A92514B004D10B1 /* SwiftUIView.swift */,
+			);
+			path = testing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +177,7 @@
 			files = (
 				956CDD852A8E0F4E0019F0EC /* TilePositionModel.swift in Sources */,
 				954A5C612A8CC415008257D4 /* ContentView.swift in Sources */,
+				95F83C9D2A92514B004D10B1 /* SwiftUIView.swift in Sources */,
 				954A5C5F2A8CC415008257D4 /* monopolyApp.swift in Sources */,
 				95FF4D0E2A8F8F4F00229C64 /* BoardView.swift in Sources */,
 				95FF4D0C2A8F4DD000229C64 /* Player.swift in Sources */,
