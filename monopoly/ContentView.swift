@@ -183,658 +183,73 @@ struct ContentView: View {
 
                     /// TILE VIEWS
                     ZStack {
-                        /// BOTTOM TILES
-                        ZStack {
-                            
-                            /// TILE 0 - START
-                            ZStack {
-                                ZStack{
-                                    Text("Start")
-                                        .rotationEffect(Angle(degrees: -45))
-                                }
-                                .frame(width: 60, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 150, y: 150)
-                            }
-                            
-                            /// TILE 1 - GRANDA
-                            ZStack {
-                                ZStack (){
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.purple.opacity(0.8))
-                                        .offset(x: -6, y: -25)
-                                    Text("GRANDA")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.purple)
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 105, y: 150)
-                            }
-                            
-                            /// TILE 2 - SEVILLE
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.purple.opacity(0.8))
-                                        .offset(x: -6, y: -25)
-                                    Text("SEVILLE")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.purple)
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 75, y: 150)
-                            }
-                            
-                            /// TILE 3 - MADRID
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.purple.opacity(0.8))
-                                        .offset(x: -6, y: -25)
-                                    Text("MADRID")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.purple)
-                                        .offset(x: 9)
-                                    
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 45, y: 150)
-                            }
-                            
-                            /// TILE 4 - TAX
-                            ZStack {
-                                ZStack{
-                                    Text("TAX")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .light, design: .monospaced))
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 15, y: 150)
-                            }
-                            
-                            /// TILE 5 - BALI BEACH
-                            ZStack {
-                                ZStack{
-                                    Text("BALI")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .light, design: .monospaced))
-                                }
-                                .frame(width: 30, height: 60)
-                                .background(.brown.opacity(0.25))
-                                .border(.black, width: 0.3)
-                            .offset(x: -15, y: 150)
-                            }
-
-                            /// TILE 6 - HONG KONG
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.blue.opacity(0.3))
-                                        .offset(x: -6, y: -25)
-                                    Text("HONG KONG")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.blue.opacity(0.6))
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -45, y: 150)
-                            }
-                            
-                            /// TILE 7 - BEIJING
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.blue.opacity(0.3))
-                                        .offset(x: -6, y: -25)
-                                    Text("BEIJING")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.blue.opacity(0.6))
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -75, y: 150)
-                            }
-                            
-                            /// TILE 8 - SHANGHAI
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.blue.opacity(0.3))
-                                        .offset(x: -6, y: -25)
-                                    Text("SHANGHAI")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.blue.opacity(0.6))
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -105, y: 150)
-                            }
-                        }
-                        .frame(width: 360, height: 360)
-                        .rotationEffect(Angle(degrees: 0))
-                        .font(.system(size: 8, weight: .ultraLight, design: .monospaced))
-
-                        /// LEFT TILES
-                        ZStack {
-                            
-                            /// TILE 9 - LOST ISLAND
-                            ZStack {
-                                ZStack{
-                                    Text("LOST ISLAND")
-                                        .rotationEffect(Angle(degrees: -45))
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                }
-                                .frame(width: 60, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 150, y: 150)
-                            }
-                            
-                            /// TILE 10 - VENICE
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.pink.opacity(0.6))
-                                        .offset(x: -6, y: -25)
-                                    Text("VENINCE")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.pink)
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 105, y: 150)
-                            }
-                            
-                            /// TILE 11 - FREE MONEY
-                            ZStack {
-                                ZStack{
-                                    Text("FREE")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                        .offset(y: -5)
-                                    Text("$100")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                        .offset(y: 5)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 75, y: 150)
-                            }
-                            
-                            /// TILE 12 - MILAN
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.pink.opacity(0.6))
-                                        .offset(x: -6, y: -25)
-                                    Text("MILAN")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.pink)
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 45, y: 150)
-                            }
-                            
-                            /// TILE 13 - ROME
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.pink.opacity(0.6))
-                                        .offset(x: -6, y: -25)
-                                    Text("ROME")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.pink)
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 15, y: 150)
-                            }
-                            
-                            /// TILE 14 - CHANCE ?
-                            ZStack {
-                                ZStack{
-                                    Text("CHANCE")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                    
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -15, y: 150)
-                            }
-                            
-                            /// TILE 15 - HAMBURG
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.orange.opacity(0.6))
-                                        .offset(x: -6, y: -25)
-                                    Text("HAMBURG")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.orange)
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -45, y: 150)
-                            }
-                            
-                            /// TILE 16 - CYPRUS BEACH
-                            ZStack {
-                                ZStack{
-                                    Text("CYRUS")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .ultraLight, design: .default))
-                                    
-                                }
-                                .frame(width: 30, height: 60)
-                                .background(.brown.opacity(0.25))
-                                .border(.black, width: 0.3)
-                            .offset(x: -75, y: 150)
-                            }
-                            
-                            /// TILE 17- BERLIN
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.orange.opacity(0.6))
-                                        .offset(x: -6, y: -25)
-                                    Text("BERLIN")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.orange)
-                                        .offset(x: 9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -105, y: 150)
-                            }
-                        }
-                        .frame(width: 360, height: 360)
-                        .rotationEffect(Angle(degrees: 90))
-                        .font(.system(size: 8, weight: .regular, design: .monospaced))
-                      
-                        /// TOP TILES
-                        ZStack {
-                            
-                            /// TILE 18 - WORLD TOUR
-                            ZStack {
-                                ZStack{
-                                    Text("WOLRD")
-                                        .rotationEffect(Angle(degrees: 135))
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                        .offset(x: 6, y: 6)
-                                    
-                                    Text("CHAMPIONSHIPS")
-                                        .rotationEffect(Angle(degrees: 135))
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                        .offset(x: -2, y: -2)
-                                }
-                                .frame(width: 60, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 150, y: 150)
-                            }
-                            
-                            /// TILE 19 - LONDON
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.red.opacity(0.8))
-                                        .offset(x: 6, y: -25)
-                                    Text("LONDON")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.red)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 105, y: 150)
-                            }
-                            
-                            /// TILE 20 - DEVON BEACH
-                            ZStack {
-                                ZStack{
-                                    Text("DEVON")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                        .rotationEffect(Angle(degrees: 180))
-                                }
-                                .frame(width: 30, height: 60)
-                                .background(.brown.opacity(0.25))
-                                .border(.black, width: 0.3)
-                            .offset(x: 75, y: 150)
-                            }
-                            
-                            /// TILE 21 - BATH
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.red.opacity(0.8))
-                                        .offset(x: 6, y: -25)
-                                    Text("BATH")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.red)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 45, y: 150)
-                            }
-                            
-                            /// TILE 22 - CAMBRIDGE
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.red.opacity(0.8))
-                                        .offset(x: 6, y: -25)
-                                    Text("CAMBRIDGE")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.red)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 15, y: 150)
-                            }
-                            
-                            /// TILE 23 - CHANCE
-                            ZStack {
-                                ZStack{
-                                    Text("CHANCE")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                        .rotationEffect(Angle(degrees: 180))
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -15, y: 150)
-                            }
-                            
-                            /// TILE 24 - CHICAGO
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.yellow.opacity(0.3))
-                                        .offset(x: 6, y: -25)
-                                    Text("CHICAGO")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.yellow)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -45, y: 150)
-                            }
-                            
-                            /// TILE 25 - LAS VEGAS
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.yellow.opacity(0.3))
-                                        .offset(x: 6, y: -25)
-                                    Text("LAS VEGAS")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.yellow)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -75, y: 150)
-                            }
-                            
-                            /// TILE 26 - NEW YORK
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.yellow.opacity(0.3))
-                                        .offset(x: 6, y: -25)
-                                    Text("NEW YORK")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.yellow)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -105, y: 150)
-                            }
-                        }
-                        .frame(width: 360, height: 360)
-                        .rotationEffect(Angle(degrees: 180))
-                        .font(.system(size: 8, weight: .regular, design: .monospaced))
-                            
-                        /// RIGHT TILES
-                        ZStack {
-                            
-                            /// TILE 27 - WORLD TOUR
-                            ZStack {
-                                ZStack{
-                                    Text("WOLRD TOUR")
-                                        .rotationEffect(Angle(degrees: 135))
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                }
-                                .frame(width: 60, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 150, y: 150)
-                            }
-                            
-                            /// TILE 28 - LYON
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.green.opacity(0.9))
-                                        .offset(x: 6, y: -25)
-                                    Text("LYON")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: 90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.green)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 105, y: 150)
-                            }
-                            
-                            /// TILE 29 - NICE BEACH
-                            ZStack {
-                                ZStack{
-                                    Text("NICE")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                        .rotationEffect(Angle(degrees: 180))
-                                }
-                                .frame(width: 30, height: 60)
-                                .background(.brown.opacity(0.25))
-                                .border(.black, width: 0.3)
-                            .offset(x: 75, y: 150)
-                            }
-                            
-                            /// TILE 30 - PARIS
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.green.opacity(0.9))
-                                        .offset(x: 6, y: -25)
-                                    Text("PARIS")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: 90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.green)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 45, y: 150)
-                            }
-                            
-                            /// TILE 31- BORDEAUX
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.green.opacity(0.9))
-                                        .offset(x: 6, y: -25)
-                                    Text("BORDEAUX")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: 90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.green)
-                                        .offset(x: -9)
-                                    
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: 15, y: 150)
-                            }
-                            
-                            /// TILE 32 - CHANCE
-                            ZStack {
-                                ZStack{
-                                    Text("CHANCE")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                                        .rotationEffect(Angle(degrees: 180))
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -15, y: 150)
-                            }
-                            
-                            /// TILE 33 - OSAKA
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.blue.opacity(0.9))
-                                        .offset(x: 6, y: -25)
-                                    Text("OSAKA")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: 90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.blue)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -45, y: 150)
-                            }
-                            
-                            /// TILE 34 - TOKYO
-                            ZStack {
-                                ZStack{
-                                    Spacer()
-                                        .frame(width: 18, height: 10)
-                                        .background(.blue.opacity(0.9))
-                                        .offset(x: 6, y: -25)
-                                    Text("TOKYO")
-                                        .frame(width: 60, height: 12)
-                                        .rotationEffect(Angle(degrees: 90))
-                                        .font(.system(size: 8.5, weight: .medium, design: .default))
-                                        .foregroundColor(.blue)
-                                        .offset(x: -9)
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -75, y: 150)
-                            }
-                            
-                            /// TILE 35 - TAX
-                            ZStack {
-                                ZStack{
-                                    Text("TAX")
-                                        .frame(width: 30, height: 10)
-                                        .border(.black, width: 0.3)
-                                        .font(.system(size: 7, weight: .light, design: .monospaced))
-                                }
-                                .frame(width: 30, height: 60)
-                                .border(.black, width: 0.3)
-                            .offset(x: -105, y: 150)
-                            }
-                        }
-                        .frame(width: 360, height: 360)
-                        .rotationEffect(Angle(degrees: 270))
-                        .font(.system(size: 8, weight: .regular, design: .monospaced))
+                        BottomTileView()
+                        LeftTileView()
+                        TopTileView()
+                        RightTileView()
                     }
                 }
                 
-                /// DICE VIEW
+                /// MIDDLE BANNER
                 HStack() {
-                    Spacer()
+                    VStack {
+                        /// PLAYER 1 VIEW
+                        HStack {
+                            PlayerNameMoneyView(player: $gamePlayer1) /// PLAYER NAME AND MONEY VIEW
+
+                            ZStack {
+                                if player1Turn {
+                                    Circle()
+                                        .trim(from: 0, to: CGFloat(timeLeft/10))
+                                        .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
+                                        .frame(width: 43)
+                                        .rotationEffect(.degrees(-90))
+                                        .shadow(color: Color(diceColor), radius: 2)
+                                }
+//                                Image ("")
+//                                    .resizable()
+//                                    .background(.red.opacity(0.4))
+//                                    .frame(width: 40, height: 40)
+//                                    .clipShape(Circle())
+                            }
+                            .frame(width: 45)
+
+                        }
+                        .frame(width: 130, height: 50)
+                        .background(player1Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
+                        .cornerRadius(4)
+
+                        
+                        /// PLAYER 2 VIEW
+                        HStack {
+                            PlayerNameMoneyView(player: $gamePlayer2) /// PLAYER NAME AND MONEY VIEW
+
+                            ZStack {
+                                if player2Turn {
+                                    Circle()
+                                        .trim(from: 0, to: CGFloat(timeLeft/4))
+                                        .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
+                                        .frame(width: 43)
+                                        .rotationEffect(.degrees(-90))
+                                        .shadow(color: Color(diceColor), radius: 2)
+                                }
+//                                Image ("")
+//                                    .resizable()
+//                                    .background(.brown.opacity(0.4))
+//                                    .frame(width: 40, height: 40)
+//                                    .clipShape(Circle())
+                            }
+                            .frame(width: 45)
+
+                        }
+                        .frame(width: 130, height: 50)
+                        .background(player2Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
+                        .cornerRadius(4)
+                        
+                    }
+                    .padding(.horizontal, 4)
+
+                    /// BUTTON VIEW
                     ZStack {
                         Button  {
                             /// player 1 - start turn
@@ -844,19 +259,75 @@ struct ContentView: View {
                         } label: {
                             Image("dice\(dice1)")
                                 .resizable()
-                                .frame(width: 40, height: 40)
-                                .cornerRadius(8)
+                                .frame(width: 45, height: 45)
+                                .cornerRadius(9)
                             Image("dice\(dice2)")
                                 .resizable()
-                                .frame(width: 40, height: 40)
-                                .cornerRadius(8)
+                                .frame(width: 45, height: 45)
+                                .cornerRadius(9)
                         }
                     }
-                    .frame(width: 100, height: 50)
-                    .border(Color(diceColor).opacity(0.6), width: 4)
+                    
+                    VStack {
+                        /// PLAYER 3 VIEW
+                        HStack {
+                            PlayerNameMoneyView(player: $gamePlayer3) /// PLAYER NAME AND MONEY VIEW
 
-                    Spacer()
+                            ZStack {
+                                if player3Turn {
+                                    Circle()
+                                        .trim(from: 0, to: CGFloat(timeLeft/4))
+                                        .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
+                                        .frame(width: 43)
+                                        .rotationEffect(.degrees(-90))
+                                        .shadow(color: Color(diceColor), radius: 2)
+                                }
+//                                Image ("")
+//                                    .resizable()
+//                                    .background(.green.opacity(0.4))
+//                                    .frame(width: 40, height: 40)
+//                                    .clipShape(Circle())
+                            }
+                            .frame(width: 45)
+
+                        }
+                        .frame(width: 130, height: 50)
+                        .background(player3Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
+                        .cornerRadius(4)
+                        
+                        /// PLAYER 4 VIEW
+                        HStack {
+                            PlayerNameMoneyView(player: $gamePlayer4) /// PLAYER NAME AND MONEY VIEW
+                            
+                            ZStack {
+                                if player4Turn {
+                                    Circle()
+                                        .trim(from: 0, to: CGFloat(timeLeft/4))
+                                        .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
+                                        .frame(width: 43)
+                                        .rotationEffect(.degrees(-90))
+                                        .shadow(color: Color(diceColor), radius: 2)
+                                }
+//                                Image ("")
+//                                    .resizable()
+//                                    .background(.purple.opacity(0.4))
+//                                    .frame(width: 40, height: 40)
+//                                    .clipShape(Circle())
+                            }
+                            .frame(width: 45)
+
+                        }
+                        .frame(width: 130, height: 50)
+                        .background(player4Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
+                        .cornerRadius(4)
+                        
+                    }
+                    .padding(.horizontal, 4)
+
+                    
                 }
+                .padding(.vertical, 4)
+                
                 Spacer()
             }
         }
@@ -1296,24 +767,28 @@ struct ContentView: View {
         let delayMove: Double = 1.2
         
         if (player1Turn) {
+            print("player 1 roll: \(totalDice)", terminator: ", ")
             DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
                 moveForwardBySteps(steps: totalDice, player: &gamePlayer1)
             }
         }
         
         if (player2Turn) {
+            print("player 2 roll: \(totalDice)", terminator: ", ")
             DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
                 moveForwardBySteps(steps: totalDice, player: &gamePlayer2)
             }
         }
         
         if (player3Turn) {
+            print("player 3 roll: \(totalDice)", terminator: ", ")
             DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
                 moveForwardBySteps(steps: totalDice, player: &gamePlayer3)
             }
         }
         
         if (player4Turn) {
+            print("player 4 roll: \(totalDice)", terminator: ", ")
             DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
                 moveForwardBySteps(steps: totalDice, player: &gamePlayer4)
             }
@@ -1325,7 +800,7 @@ struct ContentView: View {
         if timer == nil {
             isTimerRunning = true
             timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true){ _ in
-                if timeLeft >= 0.1 {
+                if timeLeft > 0 {
                     timeLeft -= 0.1
                 } else {
                     stopPlayerTimer(playerId: playerId)
