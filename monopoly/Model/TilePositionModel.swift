@@ -10,6 +10,7 @@ class TilePositionModel{
     init(){ tiles = decodeFromJson(file: "TilePosition.json") }
         
     func decodeFromJson(file: String) -> [TilePosition] {
+        print("decodeFromJson invoked, filename: \(file)")
         if let file = Bundle.main.url(forResource: file, withExtension: nil){
             if let data = try? Data(contentsOf: file) {
                 do {
@@ -22,9 +23,8 @@ class TilePositionModel{
         } else {
             fatalError("Couldn't load \(file) file")
         }
-        
         return [ ] as [TilePosition]
     }
-
+    
 }
 

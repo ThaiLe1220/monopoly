@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     
     var tiles:[TilePosition] = TilePositionModel().tiles
+    @StateObject var cities:CityModel = CityModel()
+    
     @State var dollar1: Bool = false
     @State var dollar2: Bool = false
 
@@ -32,10 +34,14 @@ struct ContentView: View {
     @State var player3Turn = false
     @State var player4Turn = false
     
-    @State var timeLeft: Double = 10.0
+    @State var timeLeft: Double = 60.0
     @State var timer: Timer?
     @State var isTimerRunning = false
     @State var popupMessage = false
+    @State var buyingMessage = false
+    
+    @State var tickedBuyingOption : Set<Int> = []
+    @State var totalBuyingCost = 0
 
     var diceColor : String {
         if player4Turn {return player4.color.rawValue}
@@ -75,6 +81,25 @@ struct ContentView: View {
                 }
             }
     
+            if buyingMessage {
+                ZStack {
+                    Color.gray.opacity(0.4)
+                        .ignoresSafeArea()
+                    ZStack {
+                        VStack (spacing: 4){
+
+                            BuyingOptionView(buyingMessage: $buyingMessage, tickedBuyingOption: $tickedBuyingOption, totalBuyingCost: $totalBuyingCost, gamePlayer: $gamePlayer1, cities: cities)
+                                .padding(.vertical, 4)
+                        
+                            
+                        }
+                    }
+                    .frame(width: 240, height: 240)
+                    .background(.white)
+                    .offset(y:-180)
+                }
+                .zIndex(0)
+            }
             VStack{
                 Spacer().frame(height: 20)
                 /// BOARD VIEW
@@ -107,27 +132,18 @@ struct ContentView: View {
                     }
 
                     /// DOLLARS ANIMATION
-    //                ZStack {
-    //                    Image(systemName: "dollarsign")
-    //                        .font(.title2)
-    //                        .foregroundColor(.green)
-    //                        .offset(x: -60)
-    //                        .rotationEffect(.degrees(dollar1 ? 360: 0))
-    //                        .animation(.linear(duration: 6).delay(0.0).repeatForever(autoreverses: .random()), value: dollar1)
-    //                        .onAppear(){
-    //                            dollar1.toggle()
-    //                        }
-    //
-    //                    Image(systemName: "dollarsign")
-    //                        .font(.title2)
-    //                        .foregroundColor(.green)
-    //                        .offset(x: 60)
-    //                        .rotationEffect(.degrees(dollar2 ? 360: 0))
-    //                        .animation(.linear(duration: 5).delay(0.0).repeatForever(autoreverses: .random()), value: dollar2)
-    //                        .onAppear(){
-    //                            dollar2.toggle()
-    //                        }
-    //                }
+//                    ZStack {
+//                        Image(systemName: "dollarsign")
+//                            .font(.title2)
+//                            .foregroundColor(.green)
+//                            .offset(x: -60)
+//                            .rotationEffect(.degrees(dollar1 ? 360: 0))
+//                            .animation(.linear(duration: 5).delay(0.0).repeatForever(), value: dollar1)
+//                            .onAppear(){
+//                                dollar1.toggle()
+//                            }
+//    
+//                    }
                     
                     /// PLAYER POSITION VIEW
                     ZStack {
@@ -138,20 +154,24 @@ struct ContentView: View {
                             .onChange(of: player1Turn) { turn in
                                 if turn  {
                                     turnPlayedByPLayer()
+                                    if tiles[gamePlayer1.tilePositionId].type == .city {
+                                        buyingMessage = true
+                                    }
+                                    
                                 } else {
                                     /// player 2 - start turn
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0 + 1) {
-                                        resetPlayerTimer(playerId: 2, newTime: 4)
+                                        resetPlayerTimer(playerId: 2, newTime: 3)
                                         startPlayerTimer(playerId: 2)
                                     }
                                     /// player 3 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 4 + 2) {
-                                        resetPlayerTimer(playerId: 3, newTime: 4)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3 + 2) {
+                                        resetPlayerTimer(playerId: 3, newTime: 3)
                                         startPlayerTimer(playerId: 3)
                                     }
                                     /// player 4 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 8 + 3) {
-                                        resetPlayerTimer(playerId: 4, newTime: 4)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 6 + 3) {
+                                        resetPlayerTimer(playerId: 4, newTime: 3)
                                         startPlayerTimer(playerId: 4)
                                     }
                                 }
@@ -200,7 +220,7 @@ struct ContentView: View {
                             ZStack {
                                 if player1Turn {
                                     Circle()
-                                        .trim(from: 0, to: CGFloat(timeLeft/10))
+                                        .trim(from: 0, to: CGFloat(timeLeft/60))
                                         .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
                                         .frame(width: 43)
                                         .rotationEffect(.degrees(-90))
@@ -253,7 +273,7 @@ struct ContentView: View {
                     ZStack {
                         Button  {
                             /// player 1 - start turn
-                            resetPlayerTimer(playerId: 1, newTime: 10)
+                            resetPlayerTimer(playerId: 1, newTime: 60)
                             startPlayerTimer(playerId: 1)
                             player1Turn = true
                         } label: {
@@ -752,6 +772,8 @@ struct ContentView: View {
         player.setPosXY(x: tiles[targetTileId].posX, y: tiles[targetTileId].posY)
         player.updateTilePositionId()
         player.printBasicInfo()
+        
+        
     }
     
     func turnPlayedByPLayer() {
@@ -770,6 +792,9 @@ struct ContentView: View {
             print("player 1 roll: \(totalDice)", terminator: ", ")
             DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
                 moveForwardBySteps(steps: totalDice, player: &gamePlayer1)
+                if (tiles[gamePlayer1.tilePositionId].type == .city) {
+                    buyingMessage = true
+                }
             }
         }
         
@@ -837,6 +862,7 @@ struct ContentView: View {
                 break
         }
     }
+    
     
 }
 

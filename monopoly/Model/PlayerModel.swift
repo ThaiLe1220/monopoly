@@ -10,5 +10,10 @@ import Foundation
 class PlayerModel {
     var players: [Player] = []
 
+    init () {
+        players = [player1]
+    }
+    
+    
 }
 
