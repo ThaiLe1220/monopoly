@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct PlayerNameMoneyView: View {
-    @Binding var player: Player
+    @ObservedObject var players:PlayerModel
+    var playerId: Int
+    
     var body: some View {
             // PLAYER NAME AND MONEY VIEW
         VStack () {
-            Text(player.name)
+            Text(players.players[playerId].name)
                 .font(.system(size: 12, weight: .bold, design: .default))
                 .foregroundColor(.white)
                 .frame(width: 68, height: 20)
-                .background(Color(player.color.rawValue))
+                .background(Color(players.players[playerId].color.rawValue))
                 .cornerRadius(4)
             
-            Text("$ \(player.money)")
+            Text("$ \(players.players[playerId].money)")
                 .font(.system(size: 12, weight: .medium, design: .default))
                 .foregroundColor(Color.green.opacity(0.9))
             .frame(height: 8)
@@ -30,6 +32,6 @@ struct PlayerNameMoneyView: View {
 
 struct PlayerNameMoneyView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerNameMoneyView(player: .constant(player1))
+        PlayerNameMoneyView(players: PlayerModel(), playerId: 0)
     }
 }

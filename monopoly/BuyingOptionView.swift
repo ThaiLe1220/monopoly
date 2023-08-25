@@ -12,18 +12,19 @@ struct BuyingOptionView: View {
     @Binding var buyingMessage: Bool
     @Binding var tickedBuyingOption : Set<Int>
     @Binding var totalBuyingCost : Int
-    @Binding var gamePlayer : Player
+    
     @ObservedObject var cities:CityModel
+    @ObservedObject var players:PlayerModel
 
     var body: some View {
         VStack (spacing: 4) {
-            ForEach(cities.cities.filter({ $0.tileId == gamePlayer.tilePositionId})) { city in
+            ForEach(cities.cities.filter({ $0.tileId == players.players[0].tilePositionId})) { city in
                 ZStack {
                     Text("\(city.cityName)")
                         .font(.system(size: 16, weight: .heavy, design: .monospaced))
                         .foregroundColor(.white)
                         .frame(width: 230, height: 24)
-                        .background(Color(gamePlayer.color.rawValue).opacity(0.8))
+                        .background(Color(players.players[0].color.rawValue).opacity(0.8))
                     
                     Button {
                         buyingMessage = false
@@ -103,7 +104,7 @@ struct BuyingOptionView: View {
                 
                 VStack {
                     Button {
-                        cities.buyProperty(player: &gamePlayer, tickedBuyingOption: tickedBuyingOption)
+                        cities.buyProperty(player: &players.players[0], options: tickedBuyingOption)
                         buyingMessage = false
                     } label: {
                         HStack {
@@ -145,6 +146,6 @@ struct BuyingOptionView: View {
 
 struct BuyingOptionView_Previews: PreviewProvider {
     static var previews: some View {
-        BuyingOptionView(buyingMessage: .constant(true), tickedBuyingOption: .constant([]), totalBuyingCost: .constant(0), gamePlayer: .constant(player1), cities: CityModel())
+        BuyingOptionView(buyingMessage: .constant(true), tickedBuyingOption: .constant([]), totalBuyingCost: .constant(0), cities: CityModel(), players: PlayerModel())
     }
 }

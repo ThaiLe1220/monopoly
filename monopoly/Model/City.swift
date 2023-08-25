@@ -28,6 +28,10 @@ struct City: Codable, Hashable, Identifiable, Equatable{
     }
     
     var totalCost: Int = 0
+    
+    func printCityBasicInfo () {
+        print("id \(id), tileId: \(tileId), ownerId: \(ownerId), level: \(currentLevel), rent: \(rent)")
+    }
 }
 
 

@@ -40,11 +40,11 @@ struct Player:Codable, Hashable, Identifiable, Equatable{
         posY = y
     }
 
-    func printBasicInfo () {
+    func printPlayerBasicInfo () {
         print("id \(id), x: \(posX), y: \(posY), tile: \(tilePositionId)")
     }
     
-    func printEveryInfo () {
+    func printPlayerAllInfo () {
         print("id \(id), x: \(posX), y: \(posY), tile: \(tilePositionId), own: \(tilePropertyIds), money: \(money)")
     }
     

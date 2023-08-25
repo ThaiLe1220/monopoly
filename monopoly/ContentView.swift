@@ -10,8 +10,10 @@ import SwiftUI
 struct ContentView: View {
     
     var tiles:[TilePosition] = TilePositionModel().tiles
-    @StateObject var cities:CityModel = CityModel()
     
+    @StateObject var cities:CityModel = CityModel()
+    @StateObject var players:PlayerModel = PlayerModel()
+
     @State var dollar1: Bool = false
     @State var dollar2: Bool = false
 
@@ -19,10 +21,10 @@ struct ContentView: View {
     @State var dice2: Int = 1
     var totalDice: Int { dice1 + dice2 }
     
-    @State var gamePlayer1: Player = player1
-    @State var gamePlayer2: Player = player2
-    @State var gamePlayer3: Player = player3
-    @State var gamePlayer4: Player = player4
+//    @State var gamePlayer1: Player = player1
+//    @State var gamePlayer2: Player = player2
+//    @State var gamePlayer3: Player = player3
+//    @State var gamePlayer4: Player = player4
 
     @State var player1Tile = startingPosition
     @State var player2Tile = startingPosition
@@ -34,26 +36,44 @@ struct ContentView: View {
     @State var player3Turn = false
     @State var player4Turn = false
     
+    var currentGamePlayerId : Int{
+        if (player1Turn && !player2Turn && !player3Turn && !player4Turn ) {
+            return 1
+        }
+        else if (player2Turn && !player1Turn && !player3Turn && !player4Turn ) {
+            return 2
+        }
+        else if (player3Turn && !player2Turn && !player1Turn && !player4Turn ) {
+            return 3
+        }
+        else if (player4Turn && !player2Turn && !player3Turn && !player1Turn ) {
+            return 4
+        }
+        else {
+            return -1
+        }
+    }
+    var diceColor : String {
+        return players.players[currentGamePlayerId-1].color.rawValue
+    }
+    
     @State var timeLeft: Double = 60.0
     @State var timer: Timer?
     @State var isTimerRunning = false
-    @State var popupMessage = false
+    @State var endTurnMessage = false
     @State var buyingMessage = false
+    @State var paidRentMessage = false
+    
+    @State var showTileDetailedInfo = false
+    @State var selectedTileId: Int = -1
     
     @State var tickedBuyingOption : Set<Int> = []
     @State var totalBuyingCost = 0
-
-    var diceColor : String {
-        if player4Turn {return player4.color.rawValue}
-        if player3Turn {return player3.color.rawValue}
-        if player2Turn {return player2.color.rawValue}
-        return player1.color.rawValue
-    }
     
     var body: some View {
         ZStack {
             /// POPUP MESSAGE VIEW
-            if popupMessage {
+            if endTurnMessage {
                 ZStack {
                     Color.gray.opacity(0.4)
                         .ignoresSafeArea()
@@ -61,14 +81,15 @@ struct ContentView: View {
                         Text("Do you want to end your turn here")
                         HStack {
                             Button {
-                                popupMessage = false
+                                endTurnMessage = false
+                                buyingMessage = false
                                 stopPlayerTimer(playerId: 1)
                             } label: {
                                 Text("Yes")
                             }
 
                             Button {
-                                popupMessage = false
+                                endTurnMessage = false
                             } label: {
                                 Text("No")
                             }
@@ -79,27 +100,33 @@ struct ContentView: View {
                     .font(.system(size: 14))
                     .offset(y:-100)
                 }
+                .zIndex(2)
+
             }
     
+            /// BUYING MESSAGE VIEW
             if buyingMessage {
                 ZStack {
                     Color.gray.opacity(0.4)
                         .ignoresSafeArea()
                     ZStack {
                         VStack (spacing: 4){
-
-                            BuyingOptionView(buyingMessage: $buyingMessage, tickedBuyingOption: $tickedBuyingOption, totalBuyingCost: $totalBuyingCost, gamePlayer: $gamePlayer1, cities: cities)
+                            BuyingOptionView(buyingMessage: $buyingMessage, tickedBuyingOption: $tickedBuyingOption, totalBuyingCost: $totalBuyingCost, cities: cities, players: players)
                                 .padding(.vertical, 4)
-                        
-                            
                         }
                     }
                     .frame(width: 240, height: 240)
                     .background(.white)
                     .offset(y:-180)
                 }
-                .zIndex(0)
+                .zIndex(-1)
             }
+            
+            /// PAID RENT MESSAGE
+            if paidRentMessage {
+                
+            }
+            
             VStack{
                 Spacer().frame(height: 20)
                 /// BOARD VIEW
@@ -120,7 +147,7 @@ struct ContentView: View {
                     /// END TURN VIEW
                     ZStack {
                         Button {
-                            popupMessage = true
+                            endTurnMessage = true
                         } label: {
                             Text("End Turn")
                         }
@@ -150,28 +177,28 @@ struct ContentView: View {
                         Image(systemName: "pawprint.fill")
                             .offset(x: player1Tile.posX - 8, y: player1Tile.posY - 8)
                             .font(.system(size: 12))
-                            .foregroundColor(Color(gamePlayer1.color.rawValue))
+                            .foregroundColor(Color(players.players[0].color.rawValue))
                             .onChange(of: player1Turn) { turn in
                                 if turn  {
                                     turnPlayedByPLayer()
-                                    if tiles[gamePlayer1.tilePositionId].type == .city {
+                                    if tiles[players.players[0].tilePositionId].type == .city {
                                         buyingMessage = true
                                     }
                                     
                                 } else {
                                     /// player 2 - start turn
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0 + 1) {
-                                        resetPlayerTimer(playerId: 2, newTime: 3)
+                                        resetPlayerTimer(newTime: 4)
                                         startPlayerTimer(playerId: 2)
                                     }
                                     /// player 3 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3 + 2) {
-                                        resetPlayerTimer(playerId: 3, newTime: 3)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 4 + 2) {
+                                        resetPlayerTimer(newTime: 4)
                                         startPlayerTimer(playerId: 3)
                                     }
                                     /// player 4 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 6 + 3) {
-                                        resetPlayerTimer(playerId: 4, newTime: 3)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 8 + 3) {
+                                        resetPlayerTimer(newTime: 4)
                                         startPlayerTimer(playerId: 4)
                                     }
                                 }
@@ -180,7 +207,7 @@ struct ContentView: View {
                         Image(systemName: "pawprint.fill")
                             .offset(x: player2Tile.posX + 8, y: player2Tile.posY - 8)
                             .font(.system(size: 12))
-                            .foregroundColor(Color(gamePlayer2.color.rawValue))
+                            .foregroundColor(Color(players.players[1].color.rawValue))
                             .onChange(of: player2Turn) { turn in
                                 turn ? turnPlayedByPLayer() : nil
                             }
@@ -188,14 +215,14 @@ struct ContentView: View {
                         Image(systemName: "pawprint.fill")
                             .offset(x: player3Tile.posX + 8, y: player3Tile.posY + 8)
                             .font(.system(size: 13))
-                            .foregroundColor(Color(gamePlayer3.color.rawValue))
+                            .foregroundColor(Color(players.players[2].color.rawValue))
                             .onChange(of: player3Turn) { turn in
                                 turn ? turnPlayedByPLayer() : nil
                             }
                         Image(systemName: "pawprint.fill")
                             .offset(x: player4Tile.posX - 8, y: player4Tile.posY + 8)
                             .font(.system(size: 12))
-                            .foregroundColor(Color(gamePlayer4.color.rawValue))
+                            .foregroundColor(Color(players.players[3].color.rawValue))
                             .onChange(of: player4Turn) { turn in
                                 turn ? turnPlayedByPLayer() : nil
                             }
@@ -203,150 +230,161 @@ struct ContentView: View {
 
                     /// TILE VIEWS
                     ZStack {
-                        BottomTileView()
-                        LeftTileView()
-                        TopTileView()
-                        RightTileView()
+                        BottomTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                        
+                        LeftTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                        
+                        TopTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                        
+                        RightTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
                     }
                 }
                 
                 /// MIDDLE BANNER
-                HStack() {
-                    VStack {
-                        /// PLAYER 1 VIEW
-                        HStack {
-                            PlayerNameMoneyView(player: $gamePlayer1) /// PLAYER NAME AND MONEY VIEW
-
+                ZStack {
+                    HStack() {
+                        VStack {
+                            /// PLAYER 1 VIEW
                             ZStack {
-                                if player1Turn {
-                                    Circle()
-                                        .trim(from: 0, to: CGFloat(timeLeft/60))
-                                        .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
-                                        .frame(width: 43)
-                                        .rotationEffect(.degrees(-90))
-                                        .shadow(color: Color(diceColor), radius: 2)
+                                HStack {
+                                    PlayerNameMoneyView(players: players, playerId: 0) /// PLAYER NAME AND MONEY VIEW
+
+                                    ZStack {
+                                        if player1Turn {
+                                            Circle()
+                                                .trim(from: 0, to: CGFloat(timeLeft/60))
+                                                .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
+                                                .frame(width: 43)
+                                                .rotationEffect(.degrees(-90))
+                                                .shadow(color: Color(diceColor), radius: 2)
+                                        }
+        //                                Image ("")
+        //                                    .resizable()
+        //                                    .background(.red.opacity(0.4))
+        //                                    .frame(width: 40, height: 40)
+        //                                    .clipShape(Circle())
+                                    }
+                                    .frame(width: 45)
+
                                 }
-//                                Image ("")
-//                                    .resizable()
-//                                    .background(.red.opacity(0.4))
-//                                    .frame(width: 40, height: 40)
-//                                    .clipShape(Circle())
+                                .frame(width: 130, height: 50)
+                                .background(player1Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
+                            .cornerRadius(4)
                             }
-                            .frame(width: 45)
 
-                        }
-                        .frame(width: 130, height: 50)
-                        .background(player1Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
-                        .cornerRadius(4)
-
-                        
-                        /// PLAYER 2 VIEW
-                        HStack {
-                            PlayerNameMoneyView(player: $gamePlayer2) /// PLAYER NAME AND MONEY VIEW
-
+                            /// PLAYER 2 VIEW
                             ZStack {
-                                if player2Turn {
-                                    Circle()
-                                        .trim(from: 0, to: CGFloat(timeLeft/4))
-                                        .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
-                                        .frame(width: 43)
-                                        .rotationEffect(.degrees(-90))
-                                        .shadow(color: Color(diceColor), radius: 2)
+                                HStack {
+                                    PlayerNameMoneyView(players: players, playerId: 1) /// PLAYER NAME AND MONEY VIEW
+
+                                    ZStack {
+                                        if player2Turn {
+                                            Circle()
+                                                .trim(from: 0, to: CGFloat(timeLeft/4))
+                                                .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
+                                                .frame(width: 43)
+                                                .rotationEffect(.degrees(-90))
+                                                .shadow(color: Color(diceColor), radius: 2)
+                                        }
+        //                                Image ("")
+        //                                    .resizable()
+        //                                    .background(.brown.opacity(0.4))
+        //                                    .frame(width: 40, height: 40)
+        //                                    .clipShape(Circle())
+                                    }
+                                    .frame(width: 45)
+
                                 }
-//                                Image ("")
-//                                    .resizable()
-//                                    .background(.brown.opacity(0.4))
-//                                    .frame(width: 40, height: 40)
-//                                    .clipShape(Circle())
+                                .frame(width: 130, height: 50)
+                                .background(player2Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
+                            .cornerRadius(4)
                             }
-                            .frame(width: 45)
-
-                        }
-                        .frame(width: 130, height: 50)
-                        .background(player2Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
-                        .cornerRadius(4)
-                        
-                    }
-                    .padding(.horizontal, 4)
-
-                    /// BUTTON VIEW
-                    ZStack {
-                        Button  {
-                            /// player 1 - start turn
-                            resetPlayerTimer(playerId: 1, newTime: 60)
-                            startPlayerTimer(playerId: 1)
-                            player1Turn = true
-                        } label: {
-                            Image("dice\(dice1)")
-                                .resizable()
-                                .frame(width: 45, height: 45)
-                                .cornerRadius(9)
-                            Image("dice\(dice2)")
-                                .resizable()
-                                .frame(width: 45, height: 45)
-                                .cornerRadius(9)
-                        }
-                    }
-                    
-                    VStack {
-                        /// PLAYER 3 VIEW
-                        HStack {
-                            PlayerNameMoneyView(player: $gamePlayer3) /// PLAYER NAME AND MONEY VIEW
-
-                            ZStack {
-                                if player3Turn {
-                                    Circle()
-                                        .trim(from: 0, to: CGFloat(timeLeft/4))
-                                        .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
-                                        .frame(width: 43)
-                                        .rotationEffect(.degrees(-90))
-                                        .shadow(color: Color(diceColor), radius: 2)
-                                }
-//                                Image ("")
-//                                    .resizable()
-//                                    .background(.green.opacity(0.4))
-//                                    .frame(width: 40, height: 40)
-//                                    .clipShape(Circle())
-                            }
-                            .frame(width: 45)
-
-                        }
-                        .frame(width: 130, height: 50)
-                        .background(player3Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
-                        .cornerRadius(4)
-                        
-                        /// PLAYER 4 VIEW
-                        HStack {
-                            PlayerNameMoneyView(player: $gamePlayer4) /// PLAYER NAME AND MONEY VIEW
                             
-                            ZStack {
-                                if player4Turn {
-                                    Circle()
-                                        .trim(from: 0, to: CGFloat(timeLeft/4))
-                                        .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
-                                        .frame(width: 43)
-                                        .rotationEffect(.degrees(-90))
-                                        .shadow(color: Color(diceColor), radius: 2)
-                                }
-//                                Image ("")
-//                                    .resizable()
-//                                    .background(.purple.opacity(0.4))
-//                                    .frame(width: 40, height: 40)
-//                                    .clipShape(Circle())
-                            }
-                            .frame(width: 45)
-
                         }
-                        .frame(width: 130, height: 50)
-                        .background(player4Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
-                        .cornerRadius(4)
+                        .padding(.horizontal, 4)
+
+                        /// BUTTON VIEW
+                        ZStack {
+                            Button  {
+                                /// player 1 - start turn
+                                resetPlayerTimer(newTime: 60)
+                                startPlayerTimer(playerId: 1)
+                                player1Turn = true
+                            } label: {
+                                Image("dice\(dice1)")
+                                    .resizable()
+                                    .frame(width: 45, height: 45)
+                                    .cornerRadius(9)
+                                Image("dice\(dice2)")
+                                    .resizable()
+                                    .frame(width: 45, height: 45)
+                                    .cornerRadius(9)
+                            }
+                        }
+                        
+                        VStack {
+                            /// PLAYER 3 VIEW
+                            ZStack {
+                                HStack {
+                                    PlayerNameMoneyView(players: players, playerId: 2) /// PLAYER NAME AND MONEY VIEW
+
+                                    ZStack {
+                                        if player3Turn {
+                                            Circle()
+                                                .trim(from: 0, to: CGFloat(timeLeft/4))
+                                                .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
+                                                .frame(width: 43)
+                                                .rotationEffect(.degrees(-90))
+                                                .shadow(color: Color(diceColor), radius: 2)
+                                        }
+        //                                Image ("")
+        //                                    .resizable()
+        //                                    .background(.green.opacity(0.4))
+        //                                    .frame(width: 40, height: 40)
+        //                                    .clipShape(Circle())
+                                    }
+                                    .frame(width: 45)
+
+                                }
+                                .frame(width: 130, height: 50)
+                                .background(player3Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
+                            .cornerRadius(4)
+                            }
+                            
+                            /// PLAYER 4 VIEW
+                            ZStack {
+                                HStack {
+                                    PlayerNameMoneyView(players: players, playerId: 3) /// PLAYER NAME AND MONEY VIEW
+
+                                    ZStack {
+                                        if player4Turn {
+                                            Circle()
+                                                .trim(from: 0, to: CGFloat(timeLeft/4))
+                                                .stroke(Color(diceColor).opacity(0.6),  lineWidth: 3)
+                                                .frame(width: 43)
+                                                .rotationEffect(.degrees(-90))
+                                                .shadow(color: Color(diceColor), radius: 2)
+                                        }
+        //                                Image ("")
+        //                                    .resizable()
+        //                                    .background(.purple.opacity(0.4))
+        //                                    .frame(width: 40, height: 40)
+        //                                    .clipShape(Circle())
+                                    }
+                                    .frame(width: 45)
+
+                                }
+                                .frame(width: 130, height: 50)
+                                .background(player4Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
+                            .cornerRadius(4)
+                            }
+                            
+                        }
+                        .padding(.horizontal, 4)
                         
                     }
-                    .padding(.horizontal, 4)
-
-                    
+                    .padding(.vertical, 4)
                 }
-                .padding(.vertical, 4)
                 
                 Spacer()
             }
@@ -721,11 +759,12 @@ struct ContentView: View {
         return ran
     }
     
+    /// UI Animation for all game player movement
     func moveForwardBySteps(steps: Int, player: inout Player){
-        print("moveForwardBySteps() invoked/ ", terminator: "")
+        print("moveForwardBySteps() invoked,", terminator: " ")
         switch player.id {
             case 1:
-                print("Player 1/ ", terminator: "")
+                print("Player 1, ", terminator: "")
                 var delayMove: Double = 0
                 for _ in 0..<steps {
                     delayMove += 0.3
@@ -733,9 +772,8 @@ struct ContentView: View {
                         moveForwardPlayer1()
                     }
                 }
-                
             case 2:
-                print("Player 2/ ", terminator: "")
+                print("Player 2, ", terminator: "")
                 var delayMove: Double = 0
                 for _ in 0..<steps {
                     delayMove += 0.3
@@ -743,9 +781,8 @@ struct ContentView: View {
                         moveForwardPlayer2()
                     }
                 }
-                
             case 3:
-                print("Player 3/ ", terminator: "")
+                print("Player 3, ", terminator: "")
                 var delayMove: Double = 0
                 for _ in 0..<steps {
                     delayMove += 0.3
@@ -753,9 +790,8 @@ struct ContentView: View {
                         moveForwardPlayer3()
                     }
                 }
-                
             case 4:
-                print("Player 4/ ", terminator: "")
+                print("Player 4, ", terminator: "")
                 var delayMove: Double = 0
                 for _ in 0..<steps {
                     delayMove += 0.3
@@ -763,64 +799,16 @@ struct ContentView: View {
                         moveForwardPlayer4()
                     }
                 }
-                
             default:
-                print("[No Player selected]/")
+                print("No Player selected")
         }
         
         let targetTileId = (player.tilePositionId + steps) % 36
         player.setPosXY(x: tiles[targetTileId].posX, y: tiles[targetTileId].posY)
         player.updateTilePositionId()
-        player.printBasicInfo()
-        
-        
+        player.printPlayerBasicInfo()
     }
-    
-    func turnPlayedByPLayer() {
-        var delayRoll:Double = 0
-        for _ in 0..<15 {
-            withAnimation(.easeIn(duration: 0.08).delay(delayRoll)){
-                dice1 = diceRoll(num: dice1)
-                dice2 = diceRoll(num: dice2)
-                delayRoll += 0.08
-            }
-        }
         
-        let delayMove: Double = 1.2
-        
-        if (player1Turn) {
-            print("player 1 roll: \(totalDice)", terminator: ", ")
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
-                moveForwardBySteps(steps: totalDice, player: &gamePlayer1)
-                if (tiles[gamePlayer1.tilePositionId].type == .city) {
-                    buyingMessage = true
-                }
-            }
-        }
-        
-        if (player2Turn) {
-            print("player 2 roll: \(totalDice)", terminator: ", ")
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
-                moveForwardBySteps(steps: totalDice, player: &gamePlayer2)
-            }
-        }
-        
-        if (player3Turn) {
-            print("player 3 roll: \(totalDice)", terminator: ", ")
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
-                moveForwardBySteps(steps: totalDice, player: &gamePlayer3)
-            }
-        }
-        
-        if (player4Turn) {
-            print("player 4 roll: \(totalDice)", terminator: ", ")
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayMove) {
-                moveForwardBySteps(steps: totalDice, player: &gamePlayer4)
-            }
-        }
-
-    }
-    
     func startPlayerTimer(playerId: Int) {
         if timer == nil {
             isTimerRunning = true
@@ -835,7 +823,7 @@ struct ContentView: View {
         }
     }
     
-    func resetPlayerTimer(playerId: Int, newTime: Double) {
+    func resetPlayerTimer(newTime: Double) {
         timer?.invalidate()
         timer = nil
         isTimerRunning = false
@@ -862,8 +850,57 @@ struct ContentView: View {
                 break
         }
     }
+        
+    func pLayerCityTileAction(playerId: Int) {
+        print("playerCityTileAction invoked() by Player \(playerId),", terminator: " ")
+        if (tiles[players.players[playerId-1].tilePositionId].type == .city) {
+            cities.updateTicketBuyingOption(player: players.players[playerId-1], options: &tickedBuyingOption)
+            
+            if let index = cities.cities.firstIndex(where: {$0.tileId == players.players[playerId-1].tilePositionId}) {
+                print("in city: \(cities.cities[index].id)", terminator: " ")
+                if cities.cities[index].ownerId != -1 && cities.cities[index].ownerId != playerId {
+                    players.players[playerId-1].money -= cities.cities[index].rent
+                    players.players[cities.cities[index].ownerId-1].money += cities.cities[index].rent
+                    print("Player \(playerId) paid \(cities.cities[index].rent) to Player  \(players.players[cities.cities[index].ownerId-1].id)")
+                }
+                else {
+                    cities.cities[index].printCityBasicInfo()
+                    if playerId == 1 {
+                        buyingMessage = true
+                    }
+                    else {
+                            //                        buyingMessage = false
+                        cities.buyPropertyAutomatically(player: &players.players[playerId-1])
+                    }
+                }
+            }
+            else {
+                print("but can not find city")
+            }
+            
+        }
+        
+        else { print("") }
+    }
     
-    
+    func turnPlayedByPLayer() {
+        var delayRoll:Double = 0
+        for _ in 0..<15 {
+            withAnimation(.easeIn(duration: 0.08).delay(delayRoll)){
+                dice1 = diceRoll(num: dice1)
+                dice2 = diceRoll(num: dice2)
+                delayRoll += 0.08
+            }
+        }
+        
+        print("\nplayer \(currentGamePlayerId) roll: \(totalDice)", terminator: ", ")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            moveForwardBySteps(steps: totalDice, player: &players.players[currentGamePlayerId-1])
+            pLayerCityTileAction(playerId: currentGamePlayerId)
+        }
+    }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
