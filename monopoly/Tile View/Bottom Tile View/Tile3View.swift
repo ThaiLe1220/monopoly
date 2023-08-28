@@ -19,7 +19,6 @@ struct Tile3View: View {
         ZStack {
             CityTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId, cityId: 3, cityColor: .purple, backgroundColor: .purple.opacity(0.8))
                 .frame(width: 30, height: 60)
-                .border(.black, width: 0.2)
                 .offset(x: 45, y: 150)
         }
     }

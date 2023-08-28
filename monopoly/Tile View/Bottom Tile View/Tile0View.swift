@@ -20,7 +20,6 @@ struct Tile0View: View {
                     .rotationEffect(Angle(degrees: -45))
             }
             .frame(width: 60, height: 60)
-            .border(.black, width: 0.2)
             .offset(x: 150, y: 150)
         }
     }

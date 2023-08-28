@@ -67,7 +67,7 @@ struct ContentView: View {
     @State var showTileDetailedInfo = false
     @State var selectedTileId: Int = -1
     
-    @State var tickedBuyingOption : Set<Int> = []
+    @State var tickedBuyingOption: Set<Int> = []
     @State var totalBuyingCost = 0
     
     var body: some View {
@@ -81,8 +81,10 @@ struct ContentView: View {
                         Text("Do you want to end your turn here")
                         HStack {
                             Button {
-                                endTurnMessage = false
-                                buyingMessage = false
+                                withAnimation(.easeInOut(duration: 0.5)) {
+                                    endTurnMessage = false
+                                    buyingMessage = false
+                                }
                                 stopPlayerTimer(playerId: 1)
                             } label: {
                                 Text("Yes")
@@ -127,37 +129,37 @@ struct ContentView: View {
                 
             }
             
+            /// TIME LEFT VIEW
+            ZStack {
+                HStack {
+                    Text("Time Left: \(String(format: "%.1f", timeLeft))")
+                        .font(.system(size: 10, weight: .regular, design: .monospaced))
+                }
+                .frame(width: 100, height: 20)
+                .offset(x: -65, y: -285)
+//                        .opacity(isTimerRunning ? 1 : 0)
+            }
+        
+            /// END TURN VIEW
+            ZStack {
+                Button {
+                    endTurnMessage = true
+                } label: {
+                    Text("End Turn")
+                }
+                .frame(width: 60, height: 20)
+                .background(.tint)
+                .cornerRadius(4)
+                .font(.system(size: 10.5, weight: .bold, design: .default))
+                .offset(x: 85, y: -285)
+                .foregroundColor(.white)
+            }
+            
             VStack{
                 Spacer().frame(height: 20)
                 /// BOARD VIEW
                 ZStack() {
                     
-                    /// TIME LEFT VIEW
-                    ZStack {
-                        HStack {
-                            Text("Time Left: \(String(format: "%.1f", timeLeft))")
-                                .font(.system(size: 10, weight: .regular, design: .monospaced))
-                        }
-                        .frame(width: 100, height: 20)
-                        .border(.black, width: 0.3)
-                        .offset(x: -120 + 50, y: -120 + 10)
-//                        .opacity(isTimerRunning ? 1 : 0)
-                    }
-                
-                    /// END TURN VIEW
-                    ZStack {
-                        Button {
-                            endTurnMessage = true
-                        } label: {
-                            Text("End Turn")
-                        }
-                        .frame(width: 60, height: 20)
-                        .border(.black, width: 0.3)
-                        .foregroundColor(.black)
-                        .font(.system(size: 10, weight: .regular, design: .monospaced))
-                        .offset(x: 120 - 30, y: -120 + 10)
-                    }
-
                     /// DOLLARS ANIMATION
 //                    ZStack {
 //                        Image(systemName: "dollarsign")
@@ -181,9 +183,6 @@ struct ContentView: View {
                             .onChange(of: player1Turn) { turn in
                                 if turn  {
                                     turnPlayedByPLayer()
-                                    if tiles[players.players[0].tilePositionId].type == .city {
-                                        buyingMessage = true
-                                    }
                                     
                                 } else {
                                     /// player 2 - start turn
@@ -866,10 +865,12 @@ struct ContentView: View {
                 else {
                     cities.cities[index].printCityBasicInfo()
                     if playerId == 1 {
-                        buyingMessage = true
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            buyingMessage = true
+                        }
                     }
                     else {
-                            //                        buyingMessage = false
+                        buyingMessage = false
                         cities.buyPropertyAutomatically(player: &players.players[playerId-1])
                     }
                 }

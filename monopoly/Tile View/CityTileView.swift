@@ -26,22 +26,38 @@ struct CityTileView: View {
         ZStack {
             ZStack (){
                 Spacer()
-                    .frame(width: 20, height: 10)
+                    .frame(width: 30, height: 10)
                     .background(backgroundColor)
-                    .offset(x: -5, y: -25)
-                
-                Spacer()
-                    .frame(width: 10, height: 10)
-                    .background(backgroundColor)
-                    .rotationEffect(Angle(degrees: 90))
-                    .offset(x: -10, y: -15)
+                    .offset(x: 0, y: -25)
                 
                 Text("\(cities.cities[cityId].cityName)")
-                    .frame(width: 60, height: 10)
+                    .frame(width: 50, height: 10)
                     .rotationEffect(Angle(degrees: -90 + rotatedAngle))
-                    .font(.system(size: 8.5, weight: .medium, design: .default))
+                    .font(.system(size: 7.5, weight: .medium, design: .default))
                     .foregroundColor(cityColor)
-                    .offset(x: 10)
+                    .offset(x: 10, y: 5)
+                
+                Spacer()
+                    .frame(width: 30, height: 1.4)
+                    .background(.black.opacity(0.7))
+                    .offset(y:-20)
+                
+                Spacer()
+                    .frame(width: 1.4, height: 61.4)
+                    .background(.black.opacity(0.7))
+                    .offset(x:-15)
+                Spacer()
+                    .frame(width: 1.4, height: 61.4)
+                    .background(.black.opacity(0.7))
+                    .offset(x:15)
+                Spacer()
+                    .frame(width: 30, height: 1.4)
+                    .background(.black.opacity(0.7))
+                    .offset(y:30)
+                Spacer()
+                    .frame(width: 30, height: 1.4)
+                    .background(.black.opacity(0.7))
+                    .offset(y:-30)
                 
                 if (cities.cities[cityId].currentLevel == 0) {
                     Text("\(cities.cities[cityId].rent) $")
@@ -65,7 +81,7 @@ struct CityTileView: View {
                         Image(systemName: "flag.fill")
                             .frame(width: 10, height: 10)
                             .font(.system(size: 5, weight: .regular, design: .default))
-                            .rotationEffect(Angle(degrees: -90))
+                            .rotationEffect(Angle(degrees: 90 * rotatedAngle))
                             .foregroundColor(Color(players.players[cities.cities[cityId].ownerId-1].color.rawValue))
                     }
                     
@@ -74,7 +90,7 @@ struct CityTileView: View {
                             Image(systemName: "house.fill")
                                 .frame(width: 10, height: 10)
                                 .font(.system(size: 5, weight: .regular, design: .default))
-                                .rotationEffect(Angle(degrees: -90))
+                                .rotationEffect(Angle(degrees: 90 * rotatedAngle))
                                 .foregroundColor(Color(players.players[cities.cities[cityId].ownerId-1].color.rawValue))
                         }
                     }
@@ -82,17 +98,15 @@ struct CityTileView: View {
                         Image(systemName: "building.2.fill")
                             .frame(width: 10, height: 10)
                             .font(.system(size: 6, weight: .regular, design: .default))
-                            .rotationEffect(Angle(degrees: -90))
+                            .rotationEffect(Angle(degrees: 90 * rotatedAngle))
                             .foregroundColor(Color(players.players[cities.cities[cityId].ownerId-1].color.rawValue))
                     }
                     else {
                         
                     }
                 }
-                .frame(width: 40, height: 10)
-                .rotationEffect(Angle(degrees: 090))
-                .foregroundColor(.green)
-                .offset(x: -10, y: 10)
+                .frame(width: 30, height: 10)
+                .offset(y: -25)
             }
             
         }

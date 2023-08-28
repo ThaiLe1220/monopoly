@@ -21,7 +21,6 @@ struct Tile5View: View {
             }
             .frame(width: 30, height: 60)
             .background(.brown.opacity(0.25))
-            .border(.black, width: 0.2)
             .offset(x: -15, y: 150)
         }
     }

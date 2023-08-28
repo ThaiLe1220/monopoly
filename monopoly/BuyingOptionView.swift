@@ -27,7 +27,9 @@ struct BuyingOptionView: View {
                         .background(Color(players.players[0].color.rawValue).opacity(0.8))
                     
                     Button {
-                        buyingMessage = false
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            buyingMessage = false
+                        }
                     } label: {
                         Image(systemName: "xmark")
                             .frame(width: 24, height: 24)
@@ -105,7 +107,9 @@ struct BuyingOptionView: View {
                 VStack {
                     Button {
                         cities.buyProperty(player: &players.players[0], options: tickedBuyingOption)
-                        buyingMessage = false
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            buyingMessage = false
+                        }
                     } label: {
                         HStack {
                             Text("Buy For: ")

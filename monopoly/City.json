@@ -43,7 +43,7 @@
         "id": 4,
         "tileId": 6,
         "ownerId": -1,
-        "cityName" : "HONG KONG",
+        "cityName" : "HONGKONG",
         "currentLevel": 0,
         "rentByLevel": [0, 30, 90, 270, 400, 550],
         "costByLevel": [100, 110, 120, 130, 140, 0],

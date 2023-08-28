@@ -20,7 +20,6 @@ struct Tile4View: View {
                     .font(.system(size: 7, weight: .light, design: .monospaced))
             }
             .frame(width: 30, height: 60)
-            .border(.black, width: 0.2)
             .offset(x: 15, y: 150)
         }
     }
