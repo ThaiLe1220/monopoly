@@ -27,7 +27,7 @@ struct RightTileView: View {
              Tile32View(showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 32 - CHANCE
              Tile33View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 33 - OSAKA
              Tile34View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 34 - TOKYO
-             Tile35View(showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 35 - TAX
+             Tile35View(players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 35 - TAX
          }
          .frame(width: 360, height: 360)
          .rotationEffect(Angle(degrees: 270))

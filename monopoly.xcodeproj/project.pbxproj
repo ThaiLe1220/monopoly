@@ -65,6 +65,10 @@
 		95F83CFE2A95F234004D10B1 /* CityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F83CFD2A95F234004D10B1 /* CityModel.swift */; };
 		95FF4D0C2A8F4DD000229C64 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FF4D0B2A8F4DD000229C64 /* Player.swift */; };
 		95FF4D0E2A8F8F4F00229C64 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FF4D0D2A8F8F4F00229C64 /* BoardView.swift */; };
+		DE38FBB82A9F7CED00424BEE /* BeachTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38FBB72A9F7CED00424BEE /* BeachTileView.swift */; };
+		DE38FBBC2A9F7D5000424BEE /* Beach.json in Resources */ = {isa = PBXBuildFile; fileRef = DE38FBBB2A9F7D5000424BEE /* Beach.json */; };
+		DE38FBBE2A9F808300424BEE /* Beach.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38FBBD2A9F808300424BEE /* Beach.swift */; };
+		DE38FBC02A9F808900424BEE /* BeachModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38FBBF2A9F808900424BEE /* BeachModel.swift */; };
 		DE4D515F2A9CA89000CC7E82 /* TaxTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D515E2A9CA89000CC7E82 /* TaxTileView.swift */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +132,10 @@
 		95F83CFD2A95F234004D10B1 /* CityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
 		95FF4D0B2A8F4DD000229C64 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		95FF4D0D2A8F8F4F00229C64 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		DE38FBB72A9F7CED00424BEE /* BeachTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeachTileView.swift; sourceTree = "<group>"; };
+		DE38FBBB2A9F7D5000424BEE /* Beach.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Beach.json; sourceTree = "<group>"; };
+		DE38FBBD2A9F808300424BEE /* Beach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beach.swift; sourceTree = "<group>"; };
+		DE38FBBF2A9F808900424BEE /* BeachModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeachModel.swift; sourceTree = "<group>"; };
 		DE4D515E2A9CA89000CC7E82 /* TaxTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxTileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +180,7 @@
 				954A5C622A8CC416008257D4 /* Assets.xcassets */,
 				956CDD802A8E0C250019F0EC /* TilePosition.json */,
 				95F83CF92A95F220004D10B1 /* City.json */,
+				DE38FBBB2A9F7D5000424BEE /* Beach.json */,
 				95F83C9B2A925126004D10B1 /* testing */,
 				954A5C642A8CC416008257D4 /* Preview Content */,
 			);
@@ -195,6 +204,8 @@
 				95B62A382A91E9F400FE1FDD /* PlayerModel.swift */,
 				95F83CFB2A95F22F004D10B1 /* City.swift */,
 				95F83CFD2A95F234004D10B1 /* CityModel.swift */,
+				DE38FBBD2A9F808300424BEE /* Beach.swift */,
+				DE38FBBF2A9F808900424BEE /* BeachModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,6 +215,7 @@
 			children = (
 				959E37DD2A9864F8006E7508 /* CityTileView.swift */,
 				DE4D515E2A9CA89000CC7E82 /* TaxTileView.swift */,
+				DE38FBB72A9F7CED00424BEE /* BeachTileView.swift */,
 				95F83CA12A94B04F004D10B1 /* Right Tile View */,
 				95F83CA02A94AEB5004D10B1 /* Top Tile View */,
 				95F83C9F2A94AE8C004D10B1 /* Left Tile View */,
@@ -349,6 +361,7 @@
 				954A5C662A8CC416008257D4 /* Preview Assets.xcassets in Resources */,
 				954A5C632A8CC416008257D4 /* Assets.xcassets in Resources */,
 				95F83CFA2A95F220004D10B1 /* City.json in Resources */,
+				DE38FBBC2A9F7D5000424BEE /* Beach.json in Resources */,
 				956CDD862A8E15F80019F0EC /* TilePosition.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -365,6 +378,7 @@
 				954A5C612A8CC415008257D4 /* ContentView.swift in Sources */,
 				95F83CCF2A94B279004D10B1 /* Tile22View.swift in Sources */,
 				95F83CC12A94B23D004D10B1 /* Tile15View.swift in Sources */,
+				DE38FBC02A9F808900424BEE /* BeachModel.swift in Sources */,
 				95F83CFE2A95F234004D10B1 /* CityModel.swift in Sources */,
 				95F83CC32A94B244004D10B1 /* Tile16View.swift in Sources */,
 				95F83CCB2A94B26D004D10B1 /* Tile19View.swift in Sources */,
@@ -377,6 +391,7 @@
 				95F83CBD2A94B232004D10B1 /* Tile13View.swift in Sources */,
 				95F83CF32A94B543004D10B1 /* BottomTileView.swift in Sources */,
 				95F83C9D2A92514B004D10B1 /* SwiftUIView.swift in Sources */,
+				DE38FBBE2A9F808300424BEE /* Beach.swift in Sources */,
 				95F83CB72A94B21D004D10B1 /* Tile10View.swift in Sources */,
 				95F83CA52A94B0B7004D10B1 /* Tile1View.swift in Sources */,
 				95F83CED2A94B510004D10B1 /* RightTileView.swift in Sources */,
@@ -394,6 +409,7 @@
 				95F83CF82A94D92A004D10B1 /* PlayerNameMoneyView.swift in Sources */,
 				95F83CC92A94B268004D10B1 /* Tile20View.swift in Sources */,
 				95FF4D0C2A8F4DD000229C64 /* Player.swift in Sources */,
+				DE38FBB82A9F7CED00424BEE /* BeachTileView.swift in Sources */,
 				95F83CDB2A94B2B2004D10B1 /* Tile27View.swift in Sources */,
 				95F83CB32A94B1F5004D10B1 /* Tile8View.swift in Sources */,
 				956CDD832A8E0E490019F0EC /* TilePosition.swift in Sources */,

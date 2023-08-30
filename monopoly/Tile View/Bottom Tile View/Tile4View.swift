@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct Tile4View: View {
+    @ObservedObject var players:PlayerModel
     @Binding var showTileDetailedInfo: Bool
     @Binding var selectedTileId: Int
     
     var body: some View {
         ZStack {
             ZStack{
-                Text("TAX")
-                    .frame(width: 30, height: 10)
-                    .border(.black, width: 0.3)
-                    .font(.system(size: 7, weight: .light, design: .monospaced))
+                TaxTileView(players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
             }
             .frame(width: 30, height: 60)
             .offset(x: 15, y: 150)
@@ -27,6 +25,6 @@ struct Tile4View: View {
 
 struct Tile4View_Previews: PreviewProvider {
     static var previews: some View {
-        Tile4View(showTileDetailedInfo: .constant(false), selectedTileId: .constant(-1))
+        Tile4View(players: PlayerModel(), showTileDetailedInfo: .constant(false), selectedTileId: .constant(-1))
     }
 }

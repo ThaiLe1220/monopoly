@@ -20,11 +20,6 @@ struct ContentView: View {
     @State var dice1: Int = 1
     @State var dice2: Int = 1
     var totalDice: Int { dice1 + dice2 }
-    
-//    @State var gamePlayer1: Player = player1
-//    @State var gamePlayer2: Player = player2
-//    @State var gamePlayer3: Player = player3
-//    @State var gamePlayer4: Player = player4
 
     @State var player1Tile = startingPosition
     @State var player2Tile = startingPosition

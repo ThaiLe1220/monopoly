@@ -8,7 +8,7 @@
 import Foundation
 
 
-/// Defines Tile Position struct
+/// Defines Tile City struct
 struct City: Codable, Hashable, Identifiable, Equatable{
     var id: Int
     var tileId: Int

@@ -1,0 +1,49 @@
+
+[
+    {
+        "id": 0,
+        "tileId": 0,
+        "ownerId": -1,
+        "beachName": "NHATRANG",
+        "currentLevel": 0,
+        "rent": [0, 50, 100, 150, 200],
+        "cost": 200000,
+    },
+    {
+        "id": 1,
+        "tileId": 5,
+        "ownerId": -1,
+        "beachName": "BALI",
+        "currentLevel": 0,
+        "rent": [0, 50, 100, 150, 200],
+        "cost": 200000,
+    },
+    {
+        "id": 2,
+        "tileId": 16,
+        "ownerId": -1,
+        "beachName": "CYRUS",
+        "currentLevel": 0,
+        "rent": [0, 50, 100, 150, 200],
+        "cost": 200000,
+    },
+    {
+        "id": 3,
+        "tileId": 20,
+        "ownerId": -1,
+        "beachName": "DEVON",
+        "currentLevel": 0,
+        "rent": [0, 50, 100, 150, 200],
+        "cost": 200000,
+    },
+    {
+        "id": 4,
+        "tileId": 29,
+        "ownerId": -1,
+        "beachName": "NICE",
+        "currentLevel": 0,
+        "rent": [0, 50, 100, 150, 200],
+        "cost": 200000,
+    },
+    
+]
