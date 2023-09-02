@@ -13,7 +13,7 @@ class CityModel: ObservableObject{
     
     init(){ cities = decodeFromJson(file: "City.json") }
         
-    func decodeFromJson(file: String) -> [City] {
+    func decodeFromJson (file: String) -> [City] {
 //        print("decodeFromJson invoked, filename: \(file)")
 
         if let file = Bundle.main.url(forResource: file, withExtension: nil){
@@ -33,8 +33,8 @@ class CityModel: ObservableObject{
     }
     
     // Buy unowned Property and Upgrade owned Property by game player
-    func buyProperty (player: inout Player, options:  Set<Int>) {        
-        print("buyProperty invoked by Player: \(player.id)", terminator: " ")
+    func buyCity (player: inout Player, options:  Set<Int>) {        
+        print("buyCity invoked by Player: \(player.id)", terminator: " ")
         if let index = cities.firstIndex(where: {$0.tileId == player.tilePositionId}) {
             print("in city: \(cities[index].id),", terminator: " ")
             let n = options.max() ?? 0
@@ -65,8 +65,8 @@ class CityModel: ObservableObject{
     }
     
     // Autimatically Buy unowned Property and Upgrade owned Property by game player
-    func buyPropertyAutomatically (player: inout Player) {
-        print("buyPropertyAutomatically invoked by Player: \(player.id),", terminator: " ")
+    func buyCityAutomatically (player: inout Player) {
+        print("buyCityAutomatically invoked by Player: \(player.id),", terminator: " ")
         if let index = cities.firstIndex(where: {$0.tileId == player.tilePositionId}) {
             print("in city: \(cities[index].id)", terminator: " ")
 
@@ -114,8 +114,8 @@ class CityModel: ObservableObject{
     }
     
     // Sell Property owned by game player
-    func sellProperty (city: inout City, player: inout Player) -> Bool{
-        print("sellProperty invoked by Player: \(player.id),", terminator: " ")
+    func sellCity (city: inout City, player: inout Player) -> Bool{
+        print("sellCity invoked by Player: \(player.id),", terminator: " ")
         if let index = cities.firstIndex(where: {$0.tileId == player.tilePositionId}) {
             print("in city: \(cities[index].id)", terminator: " ")
             if (player.tilePropertyIds.contains(cities[index].tileId)){
@@ -135,8 +135,8 @@ class CityModel: ObservableObject{
     }
     
     // Update Ticket Buying Set using game player city level at current position
-    func updateTicketBuyingOption(player: Player, options: inout Set<Int>) {
-        print("updateTicketBuyingOption invoked by Player: \(player.id),", terminator: " ")
+    func updateCityBuyingOption(player: Player, options: inout Set<Int>) {
+        print("updateCityBuyingOption invoked by Player: \(player.id),", terminator: " ")
         if let index = cities.firstIndex(where: {$0.tileId == player.tilePositionId}) {
             print("in city: \(cities[index].id)", terminator: " ")
             options.removeAll()

@@ -10,6 +10,7 @@ import SwiftUI
 struct CityTileView: View {
     @ObservedObject var cities:CityModel
     @ObservedObject var players:PlayerModel
+    
     @Binding var showTileDetailedInfo: Bool
     @Binding var selectedTileId: Int
     
@@ -70,7 +71,7 @@ struct CityTileView: View {
                 else {
                     Text("\(cities.cities[cityId].rent) $")
                         .frame(width: 50, height: 10)
-                        .rotationEffect(Angle(degrees: -90))
+                        .rotationEffect(Angle(degrees: -90 + rotatedAngle))
                         .font(.system(size: 8.5, weight: .medium, design: .default))
                         .foregroundColor(.green)
                         .offset(x: 0, y: 5)
@@ -80,33 +81,32 @@ struct CityTileView: View {
                     if cities.cities[cityId].currentLevel == 1 {
                         Image(systemName: "flag.fill")
                             .frame(width: 10, height: 10)
-                            .font(.system(size: 5, weight: .regular, design: .default))
+                            .font(.system(size: 8, weight: .regular, design: .default))
                             .rotationEffect(Angle(degrees: 90 * rotatedAngle))
                             .foregroundColor(Color(players.players[cities.cities[cityId].ownerId-1].color.rawValue))
                     }
                     
                     else if cities.cities[cityId].currentLevel > 1 && cities.cities[cityId].currentLevel < 5 {
-                        ForEach(1..<cities.cities[cityId].currentLevel, id: \.self) { _ in
-                            Image(systemName: "house.fill")
-                                .frame(width: 10, height: 10)
-                                .font(.system(size: 5, weight: .regular, design: .default))
-                                .rotationEffect(Angle(degrees: 90 * rotatedAngle))
-                                .foregroundColor(Color(players.players[cities.cities[cityId].ownerId-1].color.rawValue))
-                        }
+                        Image(systemName: "house.and.flag.fill")
+                            .frame(width: 10, height: 10)
+                            .font(.system(size: 8, weight: .regular, design: .default))
+                            .rotationEffect(Angle(degrees: 90 * rotatedAngle))
+                            .foregroundColor(Color(players.players[cities.cities[cityId].ownerId-1].color.rawValue))
+                    
                     }
                     else if cities.cities[cityId].currentLevel == 5 {
                         Image(systemName: "building.2.fill")
                             .frame(width: 10, height: 10)
-                            .font(.system(size: 6, weight: .regular, design: .default))
+                            .font(.system(size: 8, weight: .regular, design: .default))
                             .rotationEffect(Angle(degrees: 90 * rotatedAngle))
                             .foregroundColor(Color(players.players[cities.cities[cityId].ownerId-1].color.rawValue))
                     }
                     else {
                         
                     }
+           
                 }
-                .frame(width: 30, height: 10)
-                .offset(y: -25)
+                .offset(y: -35)
             }
             
         }

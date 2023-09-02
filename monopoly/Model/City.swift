@@ -13,7 +13,6 @@ struct City: Codable, Hashable, Identifiable, Equatable{
     var id: Int
     var tileId: Int
     var ownerId: Int
-
     var cityName: String
     var currentLevel: Int // 0, 1, 2, 3, 4, 5
     let rentByLevel: [Int]
@@ -22,15 +21,13 @@ struct City: Codable, Hashable, Identifiable, Equatable{
     var rent: Int {
         rentByLevel[currentLevel]
     }
-    
     var cost: Int {
         costByLevel[currentLevel]
     }
-    
     var totalCost: Int = 0
     
     func printCityBasicInfo () {
-        print("id \(id), tileId: \(tileId), ownerId: \(ownerId), level: \(currentLevel), rent: \(rent)")
+        print("City id \(id), tileId: \(tileId), ownerId: \(ownerId), level: \(currentLevel), rent: \(rent)")
     }
 }
 

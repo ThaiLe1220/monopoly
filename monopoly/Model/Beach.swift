@@ -14,12 +14,15 @@ struct Beach: Codable, Hashable, Identifiable, Equatable{
     var ownerId: Int
     var beachName: String
     var currentLevel: Int // 0, 1, 2, 3, 4
-    let rent: [Int]
+    let rentByLevel: [Int]
+    var rent: Int {
+        rentByLevel[currentLevel]
+    }
+
     let cost: Int
 
-   
     func printBeachBasicInfo () {
-        print("id \(id), tileId: \(tileId), ownerId: \(ownerId), level: \(currentLevel), rent: \(rent)")
+        print("Beach id \(id), tileId: \(tileId), ownerId: \(ownerId), level: \(currentLevel), rent: \(rent)")
     }
 }
 

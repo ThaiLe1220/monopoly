@@ -9,34 +9,30 @@ import SwiftUI
 
 struct TaxTileView: View {
     @ObservedObject var players:PlayerModel
+
     @Binding var showTileDetailedInfo: Bool
     @Binding var selectedTileId: Int
     
+    @State private var isAnimating = false
+       
     var body: some View {
         ZStack {
             ZStack (){
-            
-    //                Image(systemName: "banknote.fill")
-    //                    .font(.system(size: 10))
-    //                    .foregroundColor(.green)
-                
-                Image(systemName: "dollarsign")
-                    .font(.system(size: 8))
-                    .foregroundColor(.green)
-                    .offset(x: 0, y: -20)
-
                 Text("TAX")
                     .frame(width: 30, height: 10)
-                    .font(.system(size: 7, weight: .semibold, design: .monospaced))
-                
-                Image(systemName: "dollarsign")
-                    .font(.system(size: 8))
+                    .font(.system(size: 9, weight: .semibold, design: .monospaced))
+                    .rotationEffect(Angle(degrees: 90))
                     .foregroundColor(.green)
-                    .offset(x: 0, y: 20)
+
                 
-                Spacer()
-                    .frame(width: 30, height: 10)
-                    .offset(x: 0, y: -25)
+                ZStack {
+                    DollarSignAnimation(isAnimating: $isAnimating)
+                }
+                .rotationEffect(Angle(degrees: -90))
+                .onAppear {
+                    isAnimating.toggle()
+                    startAnimation()
+                }
                 
                 Spacer()
                     .frame(width: 1.4, height: 61.4)
@@ -54,9 +50,13 @@ struct TaxTileView: View {
                     .frame(width: 30, height: 1.4)
                     .background(.black.opacity(0.7))
                     .offset(y:-30)
-                
-                
             }
+        }
+    }
+    
+    func startAnimation() {
+        Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { timer in
+            self.isAnimating.toggle()
         }
     }
 }

@@ -7,23 +7,24 @@
 
 import SwiftUI
 
-struct BuyingOptionView: View {
+struct BuyingCityView: View {
     
     @Binding var buyingMessage: Bool
-    @Binding var tickedBuyingOption : Set<Int>
+    @Binding var cityBuyingOption : Set<Int>
     @Binding var totalBuyingCost : Int
     
     @ObservedObject var cities:CityModel
     @ObservedObject var players:PlayerModel
 
     var body: some View {
-        VStack (spacing: 4) {
+        VStack (spacing: 0) {
+            Spacer().frame(height: 30)
             ForEach(cities.cities.filter({ $0.tileId == players.players[0].tilePositionId})) { city in
                 ZStack {
                     Text("\(city.cityName)")
-                        .font(.system(size: 16, weight: .heavy, design: .monospaced))
+                        .font(.system(size: 15, weight: .heavy, design: .monospaced))
                         .foregroundColor(.white)
-                        .frame(width: 230, height: 24)
+                        .frame(width: 210, height: 24)
                         .background(Color(players.players[0].color.rawValue).opacity(0.8))
                     
                     Button {
@@ -34,79 +35,78 @@ struct BuyingOptionView: View {
                         Image(systemName: "xmark")
                             .frame(width: 24, height: 24)
                             .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .heavy, design: .monospaced))
+                            .font(.system(size: 15, weight: .heavy, design: .monospaced))
                         
                     }
-                    .offset(x: 103)
-                    
+                    .offset(x: 93)
                 }
+                .padding(.bottom, 5)
+
                 
-                VStack (spacing: 4){
+                VStack (spacing: 3){
                     ForEach(1..<6, id: \.self) { index in
                         if (index == 1) {
                             HStack (spacing: 0){
-                                Text("Level")
-                                    .frame(width: 100)
+                                Text("Level").frame(width: 90)
                                 Text("Rent").frame(width: 50)
                                 Text("Cost").frame(width: 50)
                                 Spacer().frame(width: 20)
                             }
-                            .frame(width: 230, height: 24)
+                            .frame(width: 210, height: 20)
                             .border(.black, width: 0.2)
                             .font(.system(size: 13, weight: .semibold, design: .monospaced))
                             
                             HStack (spacing: 0){
-                                Text("Land")
-                                    .frame(width: 100)
+                                Text("Land").frame(width: 90)
                                 Text("\(city.rentByLevel[index])").frame(width: 50)
                                 Text("\(city.costByLevel[index-1])").frame(width: 50)
-                                Image(systemName: tickedBuyingOption.contains(index) ? "checkmark.square" : "square")
+                                Image(systemName: cityBuyingOption.contains(index) ? "checkmark.square" : "square")
                                     .onTapGesture {
                                         toggleBuyingOption(index, city)
                                     }
-                                
+                                    .frame(width: 20)
                             }
-                            .frame(width: 230, height: 16)
-                            .font(.system(size: 13, weight: .regular, design: .monospaced))
+                            .frame(width: 210, height: 16)
+                            .font(.system(size: 12, weight: .regular, design: .monospaced))
                         }
                         else if (index == 5) {
                             HStack (spacing: 0){
                                 Text("Hotel")
-                                    .frame(width: 100)
+                                    .frame(width: 90)
                                 Text("\(city.rentByLevel[index])").frame(width: 50)
                                 Text("\(city.costByLevel[index-1])").frame(width: 50)
-                                Image(systemName: tickedBuyingOption.contains(index) ? "checkmark.square" : "square")
+                                Image(systemName: cityBuyingOption.contains(index) ? "checkmark.square" : "square")
                                     .onTapGesture {
                                         toggleBuyingOption(index, city)
                                     }
+                                    .frame(width: 20)
                             }
-                            .frame(width: 230, height: 16)
-                            .font(.system(size: 13, weight: .regular, design: .monospaced))
+                            .frame(width: 210, height: 16)
+                            .font(.system(size: 12, weight: .regular, design: .monospaced))
                         }
                         else {
                             HStack (spacing: 0){
                                 Text("House \(index-1)")
-                                    .frame(width: 100)
+                                    .frame(width: 90)
                                 Text("\(city.rentByLevel[index])").frame(width: 50)
                                 Text("\(city.costByLevel[index-1])").frame(width: 50)
-                                Image(systemName: tickedBuyingOption.contains(index) ? "checkmark.square" : "square")
+                                Image(systemName: cityBuyingOption.contains(index) ? "checkmark.square" : "square")
                                     .onTapGesture {
                                         toggleBuyingOption(index, city)
                                     }
+                                    .frame(width: 20)
                             }
-                            .frame(width: 230, height: 16)
-                            .font(.system(size: 13, weight: .regular, design: .monospaced))
+                            .frame(width: 210, height: 16)
+                            .font(.system(size: 12, weight: .regular, design: .monospaced))
                         }
-                        
                     }
-                    
                 }
-                .padding(.bottom, 8)
+                .padding(.bottom, 3)
                 .border(.black, width: 0.2)
                 
                 VStack {
                     Button {
-                        cities.buyProperty(player: &players.players[0], options: tickedBuyingOption)
+                        cities.buyCity(player: &players.players[0], options: cityBuyingOption)
                         withAnimation(.easeInOut(duration: 0.5)) {
                             buyingMessage = false
                         }
@@ -115,32 +115,34 @@ struct BuyingOptionView: View {
                             Text("Buy For: ")
                             Text("\(totalBuyingCost) $")
                         }
-                        .font(.system(size: 14, weight: .bold, design: .default))
-                        .frame(width: 160, height: 24)
+                        .font(.system(size: 13, weight: .bold, design: .default))
+                        .frame(width: 150, height: 24)
                         .background(.blue)
                         .foregroundColor(.white)
                         .cornerRadius(12)
-                        
+                        .padding(.top, 5)
                     }
                 }
             }
         }
+        .frame(width: 210, height: 210)
+
     }
     
     func toggleBuyingOption(_ number: Int, _ city: City) {
-        if tickedBuyingOption.contains(number) {
+        if cityBuyingOption.contains(number) {
             for n in number...5 {
-                if tickedBuyingOption.contains(n) {
+                if cityBuyingOption.contains(n) {
                     totalBuyingCost -= city.costByLevel[n-1]
                 }
-                tickedBuyingOption.remove(n)
+                cityBuyingOption.remove(n)
             }
         } else {
             for n in 1...number {
-                if !tickedBuyingOption.contains(n) {
+                if !cityBuyingOption.contains(n) {
                     totalBuyingCost += city.costByLevel[n-1]
                 }
-                tickedBuyingOption.insert(n)
+                cityBuyingOption.insert(n)
             }
         
         }
@@ -148,8 +150,8 @@ struct BuyingOptionView: View {
 
 }
 
-struct BuyingOptionView_Previews: PreviewProvider {
+struct BuyingCityView_Previews: PreviewProvider {
     static var previews: some View {
-        BuyingOptionView(buyingMessage: .constant(true), tickedBuyingOption: .constant([]), totalBuyingCost: .constant(0), cities: CityModel(), players: PlayerModel())
+        BuyingCityView(buyingMessage: .constant(true), cityBuyingOption: .constant([]), totalBuyingCost: .constant(0), cities: CityModel(), players: PlayerModel())
     }
 }

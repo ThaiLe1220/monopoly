@@ -8,13 +8,92 @@
 import SwiftUI
 
 struct BeachTileView: View {
+    @ObservedObject var beaches:BeachModel
+    @ObservedObject var players:PlayerModel
+    
+    @Binding var showTileDetailedInfo: Bool
+    @Binding var selectedTileId: Int
+    
+    var tiles:[TilePosition] = TilePositionModel().tiles
+    var beachId: Int
+    
+    var rotatedAngle: Double {
+        if beachId > 2 {return 180} else {return 0}
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Text("\(beaches.beaches[beachId].beachName)")
+                .font(.system(size: 8, weight: .semibold, design: .monospaced))
+                .rotationEffect(Angle(degrees: rotatedAngle))
+                .foregroundColor(.blue)
+            
+            Text("\(beaches.beaches[beachId].rent)$")
+                .font(.system(size: 8.5, weight: .semibold, design: .monospaced))
+                .rotationEffect(Angle(degrees: rotatedAngle))
+                .foregroundColor(.green)
+                .offset(y: -12.5)
+
+            ZStack {
+                Image(systemName: "beach.umbrella.fill")
+                    .font(.system(size: 8))
+                    .foregroundColor(.blue)
+                .offset(x: 6, y: 23)
+                Image(systemName: "beach.umbrella.fill")
+                    .font(.system(size: 8))
+                    .foregroundColor(.blue)
+                    .offset(x: -6, y: 23)
+                Image(systemName: "beach.umbrella.fill")
+                    .font(.system(size: 8))
+                    .foregroundColor(.blue)
+                    .offset(x: 0, y: 14)
+            }
+            
+            /// BORDER
+            ZStack {
+                Spacer()
+                    .frame(width: 1.4, height: 61.4)
+                    .background(.black.opacity(0.7))
+                .offset(x:-15)
+                Spacer()
+                    .frame(width: 1.4, height: 61.4)
+                    .background(.black.opacity(0.7))
+                    .offset(x:15)
+                Spacer()
+                    .frame(width: 30, height: 1.4)
+                    .background(.black.opacity(0.7))
+                    .offset(y:30)
+                Spacer()
+                    .frame(width: 30, height: 1.4)
+                    .background(.black.opacity(0.7))
+                    .offset(y:-30)
+            }
+
+            HStack (spacing: 0) {
+                if beaches.beaches[beachId].currentLevel < 4 {
+                    ForEach(0..<beaches.beaches[beachId].currentLevel, id: \.self) { _ in
+                        Image(systemName: "house.fill")
+                            .frame(width: 10, height: 10)
+                            .font(.system(size: 9, weight: .regular, design: .default))
+                            .rotationEffect(Angle(degrees: 90 * rotatedAngle))
+                            .foregroundColor(Color(players.players[beaches.beaches[beachId].ownerId-1].color.rawValue))
+                    }
+                }
+                else {
+                    Image(systemName: "building.2.fill")
+                        .frame(width: 10, height: 10)
+                        .font(.system(size: 9, weight: .regular, design: .default))
+                        .rotationEffect(Angle(degrees: 90 * rotatedAngle))
+                        .foregroundColor(Color(players.players[beaches.beaches[beachId].ownerId-1].color.rawValue))
+                }
+            }
+            .offset(y: -38)
+        }
     }
 }
 
 struct BeachTileView_Previews: PreviewProvider {
     static var previews: some View {
-        BeachTileView()
+        BeachTileView(beaches: BeachModel(), players: PlayerModel(), showTileDetailedInfo: .constant(false), selectedTileId: .constant(-1), beachId: 0)
     }
 }

@@ -20,9 +20,6 @@ struct Tile1View: View {
             CityTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId, cityId: 1, cityColor: .purple, backgroundColor: .purple.opacity(0.8))
                 .frame(width: 30, height: 60)
                 .offset(x: 105, y: 150)
-                .onTapGesture {
-                    
-                }
         }
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LeftTileView: View {
     @ObservedObject var cities:CityModel
+    @ObservedObject var beaches:BeachModel
     @ObservedObject var players:PlayerModel
 
     @Binding var showTileDetailedInfo: Bool
@@ -19,15 +20,78 @@ struct LeftTileView: View {
     var body: some View {
         /// LEFT TILES
         ZStack {
-            Tile9View(showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 9 - LOST ISLAND
-            Tile10View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 10 - VENICE
-            Tile11View(showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 11 - FREE MONEY
-            Tile12View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 12 - MILAN
-            Tile13View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 13 - ROME
-            Tile14View(showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 14 - CHANCE ?
-            Tile15View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 15 - HAMBURG
-            Tile16View(showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 16 - CYPRUS BEACH
-            Tile17View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId) // TILE 17- BERLIN
+            
+            // TILE 9 - LOST ISLAND
+            Tile9View(showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                .onTapGesture {
+                    showTileDetailedInfo = true
+                    selectedTileId = 9
+                    print(selectedTileId)
+                }
+            
+            // TILE 10 - VENICE
+            Tile10View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                .onTapGesture {
+                    showTileDetailedInfo = true
+                    selectedTileId = 10
+                    print(selectedTileId)
+                }
+            
+            // TILE 11 - FREE MONEY
+            Tile11View(showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                .onTapGesture {
+                    showTileDetailedInfo = true
+                    selectedTileId = 11
+                    print(selectedTileId)
+                }
+            
+            // TILE 12 - MILAN
+            Tile12View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                .onTapGesture {
+                    showTileDetailedInfo = true
+                    selectedTileId = 12
+                    print(selectedTileId)
+                }
+            
+            // TILE 13 - ROME
+            Tile13View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                .onTapGesture {
+                    showTileDetailedInfo = true
+                    selectedTileId = 13
+                    print(selectedTileId)
+                }
+            
+            // TILE 14 - CHANCE ?
+            Tile14View(showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                .onTapGesture {
+                    showTileDetailedInfo = true
+                    selectedTileId = 14
+                    print(selectedTileId)
+                }
+            
+            // TILE 15 - HAMBURG
+            Tile15View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                .onTapGesture {
+                    showTileDetailedInfo = true
+                    selectedTileId = 15
+                    print(selectedTileId)
+                }
+            
+            // TILE 16 - CYPRUS BEACH
+            Tile16View(beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                .onTapGesture {
+                    showTileDetailedInfo = true
+                    selectedTileId = 16
+                    print(selectedTileId)
+                }
+            
+            // TILE 17- BERLIN
+            Tile17View(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                .onTapGesture {
+                    showTileDetailedInfo = true
+                    selectedTileId = 17
+                    print(selectedTileId)
+                }
         }
         .frame(width: 360, height: 360)
         .rotationEffect(Angle(degrees: 90))
@@ -37,6 +101,6 @@ struct LeftTileView: View {
 
 struct LeftTileView_Previews: PreviewProvider {
     static var previews: some View {
-        LeftTileView(cities: CityModel(), players: PlayerModel(), showTileDetailedInfo: .constant(false), selectedTileId: .constant(-1))
+        LeftTileView(cities: CityModel(), beaches: BeachModel(), players: PlayerModel(), showTileDetailedInfo: .constant(false), selectedTileId: .constant(-1))
     }
 }

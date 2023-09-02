@@ -12,6 +12,7 @@ struct ContentView: View {
     var tiles:[TilePosition] = TilePositionModel().tiles
     
     @StateObject var cities:CityModel = CityModel()
+    @StateObject var beaches:BeachModel = BeachModel()
     @StateObject var players:PlayerModel = PlayerModel()
 
     @State var dollar1: Bool = false
@@ -54,126 +55,145 @@ struct ContentView: View {
     
     @State var timeLeft: Double = 60.0
     @State var timer: Timer?
+    
     @State var isTimerRunning = false
     @State var endTurnMessage = false
-    @State var buyingMessage = false
+    @State var startTurnMessage = false
     @State var paidRentMessage = false
     
     @State var showTileDetailedInfo = false
     @State var selectedTileId: Int = -1
-    
-    @State var tickedBuyingOption: Set<Int> = []
+    @State var cityBuyingOption: Set<Int> = []
     @State var totalBuyingCost = 0
     
     var body: some View {
         ZStack {
-            /// POPUP MESSAGE VIEW
-            if endTurnMessage {
-                ZStack {
-                    Color.gray.opacity(0.4)
-                        .ignoresSafeArea()
-                    VStack {
-                        Text("Do you want to end your turn here")
-                        HStack {
-                            Button {
-                                withAnimation(.easeInOut(duration: 0.5)) {
-                                    endTurnMessage = false
-                                    buyingMessage = false
-                                }
-                                stopPlayerTimer(playerId: 1)
-                            } label: {
-                                Text("Yes")
-                            }
-
-                            Button {
-                                endTurnMessage = false
-                            } label: {
-                                Text("No")
-                            }
-                        }
-                    }
-                    .frame(width: 240, height: 80)
-                    .background(.white)
-                    .font(.system(size: 14))
-                    .offset(y:-100)
-                }
-                .zIndex(2)
-
-            }
-    
-            /// BUYING MESSAGE VIEW
-            if buyingMessage {
-                ZStack {
-                    Color.gray.opacity(0.4)
-                        .ignoresSafeArea()
+            
+            // Turn View
+            ZStack {
+                /// END TURN MESSAGE VIEW
+                if endTurnMessage {
                     ZStack {
-                        VStack (spacing: 4){
-                            BuyingOptionView(buyingMessage: $buyingMessage, tickedBuyingOption: $tickedBuyingOption, totalBuyingCost: $totalBuyingCost, cities: cities, players: players)
-                                .padding(.vertical, 4)
+                        VStack {
+                            Spacer()
+                                .frame(height: 30)
+                            
+                            VStack (spacing: 0) {
+                                Text("Do you want to end")
+                                    .frame(width: 210, height: 20)
+                                    .font(.system(size: 14, weight: .semibold, design: .monospaced))
+
+                                Text("your turn here ?")
+                                    .frame(width: 210, height: 20)
+                                    .font(.system(size: 14, weight: .semibold, design: .monospaced))
+
+                                HStack {
+                                    Button {
+                                        withAnimation(.easeInOut(duration: 0.5)) {
+                                            endTurnMessage = false
+                                            startTurnMessage = false
+                                        }
+                                        stopPlayerTimer(playerId: 1)
+                                    } label: {
+                                        Text("Yes")
+                                            .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                                    }
+                                    
+                                    Button {
+                                        endTurnMessage = false
+                                    } label: {
+                                        Text("No")
+                                            .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                                    }
+                                }
+                                .padding(.top, 8)
+                            }
+                            .frame(width: 210, height: 180)
+                            .background(.white)
+                            .zIndex(2)
+
                         }
+                        .frame(width: 210, height: 210)
                     }
-                    .frame(width: 240, height: 240)
-                    .background(.white)
-                    .offset(y:-180)
                 }
-                .zIndex(-1)
-            }
-            
-            /// PAID RENT MESSAGE
-            if paidRentMessage {
                 
-            }
-            
-            /// TIME LEFT VIEW
-            ZStack {
-                HStack {
-                    Text("Time Left: \(String(format: "%.1f", timeLeft))")
-                        .font(.system(size: 10, weight: .regular, design: .monospaced))
+                /// START TURN MESSAGE VIEW
+                if startTurnMessage {
+                    ZStack {
+                        Color.gray.opacity(0.4)
+                            .ignoresSafeArea()
+                        ZStack {
+                            if (tiles[players.players[0].tilePositionId].type == .city) {
+                                VStack (spacing: 4){
+                                    BuyingCityView(buyingMessage: $startTurnMessage, cityBuyingOption: $cityBuyingOption, totalBuyingCost: $totalBuyingCost, cities: cities, players: players)
+                                        .padding(.vertical, 4)
+                                }
+                            }
+                            else if (tiles[players.players[0].tilePositionId].type == .beach) {
+                                VStack (spacing: 4){
+                                    BuyingBeachView(buyingMessage: $startTurnMessage, totalBuyingCost: $totalBuyingCost, beaches: beaches, players: players)
+                                        .padding(.vertical, 4)
+                                }
+                            }
+                            
+                            
+                        }
+                        .frame(width: 240, height: 240)
+                        .background(.white)
+//                        .offset(y:-180)
+                    }
+                    .zIndex(-1)
                 }
-                .frame(width: 100, height: 20)
-                .offset(x: -65, y: -285)
-//                        .opacity(isTimerRunning ? 1 : 0)
-            }
-        
-            /// END TURN VIEW
-            ZStack {
-                Button {
-                    endTurnMessage = true
-                } label: {
-                    Text("End Turn")
+                
+                /// PAID RENT MESSAGE
+                if paidRentMessage {
+                    
                 }
-                .frame(width: 60, height: 20)
-                .background(.tint)
-                .cornerRadius(4)
-                .font(.system(size: 10.5, weight: .bold, design: .default))
-                .offset(x: 85, y: -285)
-                .foregroundColor(.white)
+                
+                /// TIME LEFT TEXT VIEW
+                ZStack {
+                    HStack {
+                        Text("Time Left: \(String(format: "%.1f", timeLeft))")
+                            .font(.system(size: 10.5, weight: .bold, design: .monospaced))
+                    }
+                    .frame(width: 110, height: 20)
+                    .background(.tint.opacity(0.9))
+                    .cornerRadius(3)
+                    .offset(x: -45, y: -90)
+                    .foregroundColor(.white)
+                    //  .opacity(isTimerRunning ? 1 : 0)
+                }
+                
+                /// END TURN BUTTON VIEW
+                ZStack {
+                    Button {
+                        endTurnMessage = true
+                    } label: {
+                        Text("End Turn")
+                    }
+                    .frame(width: 60, height: 20)
+                    .background(.tint.opacity(0.9))
+                    .cornerRadius(4)
+                    .font(.system(size: 10.5, weight: .bold, design: .default))
+                    .foregroundColor(.white)
+                }
+                .offset(x: 70, y: -90)
+
             }
-            
+            .frame(width: 210, height: 210)
+            .border(.black, width: 0.3)
+            .offset(y: -180)
+
             VStack{
                 Spacer().frame(height: 20)
                 /// BOARD VIEW
                 ZStack() {
-                    
-                    /// DOLLARS ANIMATION
-//                    ZStack {
-//                        Image(systemName: "dollarsign")
-//                            .font(.title2)
-//                            .foregroundColor(.green)
-//                            .offset(x: -60)
-//                            .rotationEffect(.degrees(dollar1 ? 360: 0))
-//                            .animation(.linear(duration: 5).delay(0.0).repeatForever(), value: dollar1)
-//                            .onAppear(){
-//                                dollar1.toggle()
-//                            }
-//    
-//                    }
-                    
+    
                     /// PLAYER POSITION VIEW
                     ZStack {
                         Image(systemName: "pawprint.fill")
                             .offset(x: player1Tile.posX - 8, y: player1Tile.posY - 8)
-                            .font(.system(size: 12))
+                            .font(.system(size: 10))
                             .foregroundColor(Color(players.players[0].color.rawValue))
                             .onChange(of: player1Turn) { turn in
                                 if turn  {
@@ -200,7 +220,7 @@ struct ContentView: View {
                         
                         Image(systemName: "pawprint.fill")
                             .offset(x: player2Tile.posX + 8, y: player2Tile.posY - 8)
-                            .font(.system(size: 12))
+                            .font(.system(size: 10))
                             .foregroundColor(Color(players.players[1].color.rawValue))
                             .onChange(of: player2Turn) { turn in
                                 turn ? turnPlayedByPLayer() : nil
@@ -208,14 +228,14 @@ struct ContentView: View {
                         
                         Image(systemName: "pawprint.fill")
                             .offset(x: player3Tile.posX + 8, y: player3Tile.posY + 8)
-                            .font(.system(size: 13))
+                            .font(.system(size: 10))
                             .foregroundColor(Color(players.players[2].color.rawValue))
                             .onChange(of: player3Turn) { turn in
                                 turn ? turnPlayedByPLayer() : nil
                             }
                         Image(systemName: "pawprint.fill")
                             .offset(x: player4Tile.posX - 8, y: player4Tile.posY + 8)
-                            .font(.system(size: 12))
+                            .font(.system(size: 10))
                             .foregroundColor(Color(players.players[3].color.rawValue))
                             .onChange(of: player4Turn) { turn in
                                 turn ? turnPlayedByPLayer() : nil
@@ -224,13 +244,13 @@ struct ContentView: View {
 
                     /// TILE VIEWS
                     ZStack {
-                        BottomTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                        BottomTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
                         
-                        LeftTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                        LeftTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
                         
-                        TopTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                        TopTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
                         
-                        RightTileView(cities: cities, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                        RightTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
                     }
                 }
                 
@@ -847,38 +867,88 @@ struct ContentView: View {
         
     func pLayerCityTileAction(playerId: Int) {
         print("playerCityTileAction invoked() by Player \(playerId),", terminator: " ")
-        if (tiles[players.players[playerId-1].tilePositionId].type == .city) {
-            cities.updateTicketBuyingOption(player: players.players[playerId-1], options: &tickedBuyingOption)
-            
-            if let index = cities.cities.firstIndex(where: {$0.tileId == players.players[playerId-1].tilePositionId}) {
-                print("in city: \(cities.cities[index].id)", terminator: " ")
-                if cities.cities[index].ownerId != -1 && cities.cities[index].ownerId != playerId {
-                    players.players[playerId-1].money -= cities.cities[index].rent
-                    players.players[cities.cities[index].ownerId-1].money += cities.cities[index].rent
-                    print("Player \(playerId) paid \(cities.cities[index].rent) to Player  \(players.players[cities.cities[index].ownerId-1].id)")
+        cities.updateCityBuyingOption(player: players.players[playerId-1], options: &cityBuyingOption)
+        
+        if let index = cities.cities.firstIndex(where: {$0.tileId == players.players[playerId-1].tilePositionId}) {
+            print("in city: \(cities.cities[index].id)", terminator: " ")
+            if cities.cities[index].ownerId != -1 && cities.cities[index].ownerId != playerId {
+                players.players[playerId-1].money -= cities.cities[index].rent
+                players.players[cities.cities[index].ownerId-1].money += cities.cities[index].rent
+                paidRentMessage = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    paidRentMessage = false
                 }
-                else {
-                    cities.cities[index].printCityBasicInfo()
-                    if playerId == 1 {
-                        withAnimation(.easeInOut(duration: 0.5)) {
-                            buyingMessage = true
-                        }
-                    }
-                    else {
-                        buyingMessage = false
-                        cities.buyPropertyAutomatically(player: &players.players[playerId-1])
-                    }
-                }
+
+                print("Player \(playerId) paid \(cities.cities[index].rent) to Player  \(players.players[cities.cities[index].ownerId-1].id)")
             }
             else {
-                print("but can not find city")
+                cities.cities[index].printCityBasicInfo()
+                if playerId == 1 {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        startTurnMessage = true
+                    }
+                }
+                else {
+                    startTurnMessage = false
+                    cities.buyCityAutomatically(player: &players.players[playerId-1])
+                }
             }
-            
         }
-        
-        else { print("") }
+        else {
+            print("but can not find city")
+        }
+        print("")
     }
     
+    func pLayerBeachTileAction(playerId: Int) {
+        print("pLayerBeachTileAction invoked() by Player \(playerId),", terminator: " ")
+        
+        if let index = beaches.beaches.firstIndex(where: {$0.tileId == players.players[playerId-1].tilePositionId}) {
+            print("in beach: \(beaches.beaches[index].id)", terminator: " ")
+            
+            if beaches.beaches[index].ownerId != -1 && beaches.beaches[index].ownerId != playerId {
+                players.players[playerId-1].money -= beaches.beaches[index].rent
+                players.players[beaches.beaches[index].ownerId-1].money += beaches.beaches[index].rent
+                paidRentMessage = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    paidRentMessage = false
+                }
+                
+                print("Player \(playerId) paid \(beaches.beaches[index].rent) to Player  \(players.players[beaches.beaches[index].ownerId-1].id)")
+            }
+            else {
+                beaches.beaches[index].printBeachBasicInfo()
+                if playerId == 1 {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        startTurnMessage = true
+                    }
+                }
+                else {
+                    startTurnMessage = false
+                    beaches.buyBeach(player: &players.players[playerId-1])
+                }
+            }
+        }
+        else {
+            print("but can not find beach")
+        }
+        print("")
+    }
+    
+    func pLayerTaxTileAction(playerId: Int) {
+        print("pLayerTaxTileAction invoked() by Player \(playerId),", terminator: " ")
+        let tax = Int.random(in: 5...15)
+        print("Player \(playerId) paid \(players.players[playerId-1].money*tax/100) as Tax")
+        players.players[playerId-1].money -= players.players[playerId-1].money*tax/100
+    }
+    
+    func pLayerMoneyTileAction(playerId: Int) {
+        print("pLayerTaxTileAction invoked() by Player \(playerId),", terminator: " ")
+        let money = Int.random(in: 100...150)
+        print("Player \(playerId) received \(money) as Free Reward")
+        players.players[playerId-1].money += money
+    }
+
     func turnPlayedByPLayer() {
         var delayRoll:Double = 0
         for _ in 0..<15 {
@@ -890,13 +960,24 @@ struct ContentView: View {
         }
         
         print("\nplayer \(currentGamePlayerId) roll: \(totalDice)", terminator: ", ")
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
             moveForwardBySteps(steps: totalDice, player: &players.players[currentGamePlayerId-1])
-            pLayerCityTileAction(playerId: currentGamePlayerId)
+            if (tiles[players.players[currentGamePlayerId-1].tilePositionId].type == .city) {
+                pLayerCityTileAction(playerId: currentGamePlayerId)
+            }
+            else if (tiles[players.players[currentGamePlayerId-1].tilePositionId].type == .beach) {
+                pLayerBeachTileAction(playerId: currentGamePlayerId)
+            }
+            else if (tiles[players.players[currentGamePlayerId-1].tilePositionId].type == .tax) {
+                pLayerTaxTileAction(playerId: currentGamePlayerId)
+            }
+            else if (tiles[players.players[currentGamePlayerId-1].tilePositionId].type == .money) {
+                pLayerMoneyTileAction(playerId: currentGamePlayerId)
+            }
+            
         }
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {
