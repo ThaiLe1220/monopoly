@@ -82,6 +82,12 @@ struct ContentView: View {
     @State var paidPropertyOwnerId = 1
     @State var rentMoneyPaid = 0
     
+    @State var taxPaidMessage = false
+    @State var taxMoneyPaid = 0
+    
+    @State var moneyReceivedMessage = false
+    @State var moneyReceived = 0
+
     @State var showTileDetailedInfo = false
     @State var selectedTileId: Int = -1
     
@@ -332,49 +338,157 @@ struct ContentView: View {
                 /// PAID RENT MESSAGE VIEW
                 if rentPaidMessage {
                     ZStack {
-                            // Paid Rent Text
+                        // PAID RENT Text
                         ZStack {
                             VStack (spacing: 2){
                                 Circle()
                                     .stroke(Color("\(players.players[currentGamePlayerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
                                     .frame(width: 36)
-                                
+                                    .padding(.bottom, 4)
+
                                 Text("\(players.players[currentGamePlayerId-1].name)")
-                                    .font(.system(size: 13, weight: .regular, design: .monospaced))
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
                             }
-                            .frame(width: 60, height: 100)
-                            .offset(x: -72)
+                            .frame(width: 70, height: 100)
+                            .offset(x: -70)
                             
-                            VStack (spacing: 2){
-                                HStack {
-                                    Text("Paid")
-                                        .font(.system(size: 13, weight: .regular, design: .monospaced))
-                                    Text("\(rentMoneyPaid)$")
-                                        .font(.system(size: 13, weight: .regular, design: .monospaced))
-                                        .foregroundColor(.green)
-                                }
+                            VStack (spacing: 4){
+                                Text("Paid")
+                                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                Text("\(rentMoneyPaid)$")
+                                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                    .foregroundColor(.green)
                             }
                             
                             VStack (spacing: 2){
                                 Circle()
                                     .stroke(Color("\(players.players[paidPropertyOwnerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
                                     .frame(width: 36)
-                                
+                                    .padding(.bottom, 4)
+
                                 Text("\(players.players[paidPropertyOwnerId-1].name)")
-                                    .font(.system(size: 13, weight: .regular, design: .monospaced))
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
                             }
-                            .frame(width: 60, height: 100)
-                            .offset(x: 72)
+                            .frame(width: 70, height: 100)
+                            .offset(x: 70)
                         }
                         
-                            // Paid Rent Arrow Animation
+                        // PAID RENT Arrow Animation
                         ZStack{
                             ArrowAnimationView()
                         }
+                        .offset(y: -7.5)
                         .foregroundColor(.green)
                     }
                     .frame(width: 210, height: 160)
-                    .offset(y: 25)
+                    .offset(y: 7.5)
+                }
+                
+                /// PAID TAX TEXT MESSAGE VIEW
+                if taxPaidMessage {
+                    ZStack {
+                        // PAID TAX Text
+                        ZStack {
+                            VStack (spacing: 2){
+                                Circle()
+                                    .stroke(Color("\(players.players[currentGamePlayerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
+                                    .frame(width: 36)
+                                    .padding(.bottom, 4)
+                                
+                                Text("\(players.players[currentGamePlayerId-1].name)")
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                Text("")
+                            }
+                            .frame(width: 70, height: 100)
+                            .offset(x: -70)
+                            
+                            VStack (spacing: 4){
+                                Text("Paid Tax")
+                                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                Text("\(taxMoneyPaid)$")
+                                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                    .foregroundColor(.green)
+                            }
+                            
+                            VStack (spacing: 2){
+                                Rectangle()
+                                    .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
+                                    .frame(width: 36, height: 36)
+                                    .padding(.bottom, 4)
+
+                                Text("Taxation")
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                Text("Department")
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                            }
+                            .frame(width: 70, height: 100)
+                            .offset(x: 70)
+                        }
+                        
+                        // PAID TAX Arrow Animation
+                        ZStack{
+                            ArrowAnimationView()
+                        }
+                        .offset(y: -15)
+                        .foregroundColor(.green)
+                    }
+                    .frame(width: 210, height: 160)
+                    .offset(y: 15)
+                }
+                
+                /// RECEIVE MONEY TEXT MESSAGE VIEW
+                if moneyReceivedMessage {
+                    ZStack {
+                        // RECEIVE MONEY Text
+                        ZStack {
+                            VStack (spacing: 2){
+                                Circle()
+                                    .stroke(Color("\(players.players[currentGamePlayerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
+                                    .frame(width: 36)
+                                    .padding(.bottom, 4)
+
+                                
+                                Text("\(players.players[currentGamePlayerId-1].name)")
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                Text("")
+                            }
+                            .frame(width: 70, height: 100)
+                            .offset(x: -70)
+                            
+                            VStack (spacing: 4){
+                                Text("Receive Cash")
+                                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                Text("\(moneyReceived)$")
+                                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                    .foregroundColor(.green)
+                            }
+                            
+                            VStack (spacing: 2){
+                                Rectangle()
+                                    .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
+                                    .frame(width: 36, height: 36)
+                                    .padding(.bottom, 4)
+                                
+                                Text("RMIT")
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                Text("University")
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                            }
+                            .frame(width: 70, height: 100)
+                            .offset(x: 70)
+                        }
+                        
+                        // RECEIVE MONEY Arrow Animation
+                        ZStack{
+                            ArrowAnimationView()
+                        }
+                        .offset(x: 0, y: -20)
+                        .foregroundColor(.green)
+                        .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+
+                    }
+                    .frame(width: 210, height: 160)
+                    .offset(y: 15)
                 }
   
                 /// TIME LEFT TEXT VIEW
@@ -1099,7 +1213,7 @@ struct ContentView: View {
                 break
         }
     }
-        
+    
     func pLayerCityTileAction(playerId: Int) {
         print("playerCityTileAction invoked() by Player \(playerId),", terminator: " ")
         cities.updateCityBuyingOption(player: players.players[playerId-1], options: &cityBuyingOption)
@@ -1110,13 +1224,18 @@ struct ContentView: View {
                 players.players[playerId-1].money -= cities.cities[index].rent
                 players.players[cities.cities[index].ownerId-1].money += cities.cities[index].rent
                 
-                rentPaidMessage = true
                 paidPropertyOwnerId = cities.cities[index].ownerId
                 rentMoneyPaid = cities.cities[index].rent
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                    withAnimation(.linear(duration: 1)){
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    rentPaidMessage = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
+                    withAnimation(.linear(duration: 0.3)){
                         rentPaidMessage = false
                     }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    rentMoneyPaid = 0
                 }
 
                 print("Player \(playerId) paid \(cities.cities[index].rent) to Player  \(players.players[cities.cities[index].ownerId-1].id)")
@@ -1157,13 +1276,18 @@ struct ContentView: View {
                 players.players[playerId-1].money -= beaches.beaches[index].rent
                 players.players[beaches.beaches[index].ownerId-1].money += beaches.beaches[index].rent
                 
-                rentPaidMessage = true
                 paidPropertyOwnerId = beaches.beaches[index].ownerId
                 rentMoneyPaid = beaches.beaches[index].rent
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    withAnimation(.linear(duration: 1)){
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    rentPaidMessage = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
+                    withAnimation(.linear(duration: 0.3)){
                         rentPaidMessage = false
                     }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    rentMoneyPaid = 0
                 }
                 
                 print("Player \(playerId) paid \(beaches.beaches[index].rent) to Player  \(players.players[beaches.beaches[index].ownerId-1].id)")
@@ -1197,15 +1321,44 @@ struct ContentView: View {
     func pLayerTaxTileAction(playerId: Int) {
         print("pLayerTaxTileAction invoked() by Player \(playerId),", terminator: " ")
         let tax = Int.random(in: 5...15)
-        print("Player \(playerId) paid \(players.players[playerId-1].money*tax/100) as Tax")
-        players.players[playerId-1].money -= players.players[playerId-1].money*tax/100
+        taxMoneyPaid = players.players[playerId-1].money*tax/100
+        print("Player \(playerId) paid \(taxMoneyPaid) as Tax")
+        players.players[playerId-1].money -= taxMoneyPaid
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            taxPaidMessage = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
+            withAnimation(.linear(duration: 0.3)){
+                taxPaidMessage = false
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            taxMoneyPaid = 0
+        }
+        
+        print("Player \(playerId) paid tax with \(taxMoneyPaid)")
     }
     
     func pLayerMoneyTileAction(playerId: Int) {
         print("pLayerTaxTileAction invoked() by Player \(playerId),", terminator: " ")
-        let money = Int.random(in: 100...150)
-        print("Player \(playerId) received \(money) as Free Reward")
-        players.players[playerId-1].money += money
+        moneyReceived = Int.random(in: 100...150)
+        print("Player \(playerId) received \(moneyReceived) as Free Reward")
+        players.players[playerId-1].money += moneyReceived
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            moneyReceivedMessage = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
+            withAnimation(.linear(duration: 0.3)){
+                moneyReceivedMessage = false
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            moneyReceived = 0
+        }
+        
+        print("Player \(playerId) receive money of \(moneyReceived)")
     }
 
     func turnPlayedByPLayer() {
@@ -1237,6 +1390,7 @@ struct ContentView: View {
             
         }
     }
+    
     
 }
 
