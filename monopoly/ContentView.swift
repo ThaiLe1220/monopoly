@@ -10,6 +10,9 @@ import SwiftUI
 struct ContentView: View {
     
     var tiles:[TilePosition] = TilePositionModel().tiles
+    var turnTimeNPC: Double = 6
+    
+    @StateObject var game = GameModel()
     
     @StateObject var cities:CityModel = CityModel()
     @StateObject var beaches:BeachModel = BeachModel()
@@ -46,11 +49,21 @@ struct ContentView: View {
             return 4
         }
         else {
-            return -1
+            return 1
         }
     }
     var diceColor : String {
         return players.players[currentGamePlayerId-1].color.rawValue
+    }
+    var diceAvaialble: Bool {
+        if player1Turn || player2Turn || player3Turn || player4Turn
+        {
+            return false
+        }
+        else
+        {
+            return true
+        }
     }
     
     @State var timeLeft: Double = 60.0
@@ -58,110 +71,333 @@ struct ContentView: View {
     
     @State var isTimerRunning = false
     @State var endTurnMessage = false
+    
     @State var startTurnMessage = false
-    @State var paidRentMessage = false
+    @State var cityBuyingOption: Set<Int> = []
+    @State var totalBuyingCost = 0
+    @State var beachBoughtMessage = false
+    @State var cityBoughtMessage = false
+
+    @State var rentPaidMessage = false
+    @State var paidPropertyOwnerId = 1
+    @State var rentMoneyPaid = 0
     
     @State var showTileDetailedInfo = false
     @State var selectedTileId: Int = -1
-    @State var cityBuyingOption: Set<Int> = []
-    @State var totalBuyingCost = 0
     
     var body: some View {
         ZStack {
-            
+
             // Turn View
             ZStack {
                 /// END TURN MESSAGE VIEW
-                if endTurnMessage {
+                ZStack {
+                    VStack {
+                        Spacer()
+                            .frame(height: 30)
+                        
+                        VStack (spacing: 0) {
+                            Text("Do you want to end")
+                                .frame(width: 210, height: 20)
+                                .font(.system(size: 14, weight: .semibold, design: .monospaced))
+
+                            Text("your turn here ?")
+                                .frame(width: 210, height: 20)
+                                .font(.system(size: 14, weight: .semibold, design: .monospaced))
+
+                            HStack {
+                                Button {
+                                    withAnimation(.easeInOut(duration: 0.5)) {
+                                        endTurnMessage = false
+                                        startTurnMessage = false
+                                    }
+                                    stopPlayerTimer(playerId: 1)
+                                } label: {
+                                    Text("Yes")
+                                        .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                                }
+                                
+                                Button {
+                                    endTurnMessage = false
+                                } label: {
+                                    Text("No")
+                                        .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                                }
+                            }
+                            .padding(.top, 8)
+                        }
+                        .frame(width: 210, height: 180)
+                        .background(.white)
+                        .zIndex(2)
+
+                    }
+                    .opacity(endTurnMessage ? 1 : 0)
+
+                    .frame(width: 210, height: 210)
+
+                }
+                
+                /// PLAYER 1 START TURN MESSAGE VIEW
+                ZStack {
+                    Color.gray.opacity(0.4)
+                        .ignoresSafeArea()
                     ZStack {
-                        VStack {
-                            Spacer()
-                                .frame(height: 30)
+                        if (tiles[players.players[0].tilePositionId].type == .city) {
+                            VStack (spacing: 4){
+                                BuyingCityView(buyingMessage: $startTurnMessage, cityBuyingOption: $cityBuyingOption, totalBuyingCost: $totalBuyingCost, cityBoughtMessage: $cityBoughtMessage, cities: cities, players: players)
+                                    .padding(.vertical, 4)
+                            }
+                        }
+                        else if (tiles[players.players[0].tilePositionId].type == .beach) {
+                            VStack (spacing: 4){
+                                BuyingBeachView(buyingMessage: $startTurnMessage, totalBuyingCost: $totalBuyingCost, beachBoughtMessage: $beachBoughtMessage, beaches: beaches, players: players)
+                                    .padding(.vertical, 4)
+                            }
+                        }
+                        
+                    }
+                    .frame(width: 240, height: 240)
+                    .background(.white)
+//                        .offset(y:-180)
+                }
+                .opacity(startTurnMessage ? 1 : 0)
+                .zIndex(-1)
+                
+                /// BEACH BOUGHT MESSAGE VIEW
+                ZStack {
+                    VStack (spacing: 0) {
+                        ForEach(beaches.beaches.filter({ $0.tileId == players.players[currentGamePlayerId-1].tilePositionId})) { beach in
                             
-                            VStack (spacing: 0) {
-                                Text("Do you want to end")
-                                    .frame(width: 210, height: 20)
-                                    .font(.system(size: 14, weight: .semibold, design: .monospaced))
-
-                                Text("your turn here ?")
-                                    .frame(width: 210, height: 20)
-                                    .font(.system(size: 14, weight: .semibold, design: .monospaced))
-
-                                HStack {
-                                    Button {
-                                        withAnimation(.easeInOut(duration: 0.5)) {
-                                            endTurnMessage = false
-                                            startTurnMessage = false
+                            Text("\(beach.beachName) bought by \(players.players[currentGamePlayerId-1].name)")
+                                .font(.system(size: 12, weight: .heavy, design: .monospaced))
+                                .foregroundColor(.white)
+                                .frame(width: 210, height: 24)
+                                .background(Color(players.players[0].color.rawValue).opacity(0.8))
+                
+                            ZStack {
+                                VStack (spacing: 5){
+                                    ForEach(1..<5, id: \.self) { index in
+                                        if (index == 1) {
+                                            HStack (spacing: 0){
+                                                Text("Level \(beach.currentLevel)").frame(width: 130)
+                                                Text("Rent").frame(width: 60)
+                                                Spacer()
+                                            }
+                                            .frame(width: 210, height: 24)
+                                            .border(.black, width: 0.2)
+                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
                                         }
-                                        stopPlayerTimer(playerId: 1)
-                                    } label: {
-                                        Text("Yes")
-                                            .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                                        
+                                        HStack (spacing: 0){
+                                            Text(index < 2 ? "Own \(index) beach" : "Own \(index) beaches")
+                                                .frame(width: 130)
+                                            Text("\(beach.rentByLevel[index])").frame(width: 60)
+                                            Spacer()
+                                        }
+                                        .frame(width: 210, height: 16)
+                                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                                    }
+                                }
+                                
+                                VStack (spacing: 0) {
+                                    Text("").frame(width: 24, height: 24)
+                                    ForEach(0..<beach.currentLevel, id: \.self) { _ in
+                                        Image(systemName: "checkmark.seal.fill")
+                                            .font(.system(size: 13))
+                                            .frame(width: 16, height: 16)
+                                            .foregroundColor(.blue)
+                                            .padding(.top, 5)
                                     }
                                     
-                                    Button {
-                                        endTurnMessage = false
-                                    } label: {
-                                        Text("No")
-                                            .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                                    if (beach.currentLevel == 4) {
+                                        Spacer().frame(width: 0, height: 0)
+                                    }
+                                    else {
+                                        Spacer()
+                                        
                                     }
                                 }
+                                .frame(width: 24, height: 108)
+                                .offset(x: 95)
+                            }
+                            .padding(.bottom, 5)
+                            .border(.black, width: 0.2)
+                            
+                            VStack {
+                                HStack {
+                                    Text("Total Amount of")
+                                    Text("200$")
+                                }
+                                .font(.system(size: 13, weight: .bold, design: .default))
+                                .frame(width: 180, height: 24)
+                                .background(.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(12)
                                 .padding(.top, 8)
                             }
-                            .frame(width: 210, height: 180)
-                            .background(.white)
-                            .zIndex(2)
+                        }
+                    }
+                }
+                .frame(width: 210, height: 190)
+                .offset(y: 10)
+                .opacity(beachBoughtMessage ? 1 : 0)
+                .animation(.linear(duration: 0.3), value: beachBoughtMessage)
 
-                        }
-                        .frame(width: 210, height: 210)
-                    }
-                }
                 
-                /// START TURN MESSAGE VIEW
-                if startTurnMessage {
-                    ZStack {
-                        Color.gray.opacity(0.4)
-                            .ignoresSafeArea()
-                        ZStack {
-                            if (tiles[players.players[0].tilePositionId].type == .city) {
-                                VStack (spacing: 4){
-                                    BuyingCityView(buyingMessage: $startTurnMessage, cityBuyingOption: $cityBuyingOption, totalBuyingCost: $totalBuyingCost, cities: cities, players: players)
-                                        .padding(.vertical, 4)
+                /// CITY BOUGHT MESSAGE VIEW
+                ZStack {
+                    VStack (spacing: 0) {
+                        ForEach(cities.cities.filter({ $0.tileId == players.players[currentGamePlayerId-1].tilePositionId})) { city in
+                            Text("\(city.cityName) bought by \(players.players[currentGamePlayerId-1].name)")
+                                .font(.system(size: 12, weight: .heavy, design: .monospaced))
+                                .foregroundColor(.white)
+                                .frame(width: 210, height: 24)
+                                .background(Color(players.players[currentGamePlayerId-1].color.rawValue).opacity(0.8))
+                            VStack (spacing: 3){
+                                ForEach(1..<6, id: \.self) { index in
+                                    if (index == 1) {
+                                        HStack (spacing: 0){
+                                            Text("Level \(city.currentLevel)").frame(width: 90)
+                                            Text("Rent").frame(width: 50)
+                                            Text("Cost").frame(width: 50)
+                                            Spacer().frame(width: 20)
+                                        }
+                                        .frame(width: 210, height: 24)
+                                        .border(.black, width: 0.2)
+                                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                        
+                                        HStack (spacing: 0){
+                                            Text("Land").frame(width: 90)
+                                            Text("\(city.rentByLevel[index])").frame(width: 50)
+                                            Text("\(city.costByLevel[index-1])").frame(width: 50)
+                                            Image(systemName: cityBuyingOption.contains(index) ? "checkmark.seal.fill" : "")
+                                                .frame(width: 20)
+                                                .foregroundColor(Color(players.players[currentGamePlayerId-1].color.rawValue))
+                                        }
+                                        .frame(width: 210, height: 16)
+                                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                                    }
+                                    else if (index == 5) {
+                                        HStack (spacing: 0){
+                                            Text("Hotel")
+                                                .frame(width: 90)
+                                            Text("\(city.rentByLevel[index])").frame(width: 50)
+                                            Text("\(city.costByLevel[index-1])").frame(width: 50)
+                                            Image(systemName: cityBuyingOption.contains(index) ? "checkmark.seal.fill" : "")
+                                                .frame(width: 20)
+                                                .foregroundColor(Color(players.players[currentGamePlayerId-1].color.rawValue))
+                                        }
+                                        .frame(width: 210, height: 16)
+                                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                                    }
+                                    else {
+                                        HStack (spacing: 0){
+                                            Text("House \(index-1)")
+                                                .frame(width: 90)
+                                            Text("\(city.rentByLevel[index])").frame(width: 50)
+                                            Text("\(city.costByLevel[index-1])").frame(width: 50)
+                                            Image(systemName: cityBuyingOption.contains(index) ? "checkmark.seal.fill" : "")
+                                                .frame(width: 20)
+                                                .foregroundColor(Color(players.players[currentGamePlayerId-1].color.rawValue))
+                                        }
+                                        .frame(width: 210, height: 16)
+                                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                                    }
                                 }
                             }
-                            else if (tiles[players.players[0].tilePositionId].type == .beach) {
-                                VStack (spacing: 4){
-                                    BuyingBeachView(buyingMessage: $startTurnMessage, totalBuyingCost: $totalBuyingCost, beaches: beaches, players: players)
-                                        .padding(.vertical, 4)
+                            .padding(.bottom, 3)
+                            .border(.black, width: 0.2)
+                            
+                            VStack {
+                                HStack {
+                                    Text("Total Amount of")
+                                    Text("\(totalBuyingCost)$")
                                 }
+                                .font(.system(size: 13, weight: .bold, design: .default))
+                                .frame(width: 190, height: 24)
+                                .background(.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(12)
+                                .padding(.top, 8)
                             }
-                            
-                            
                         }
-                        .frame(width: 240, height: 240)
-                        .background(.white)
-//                        .offset(y:-180)
                     }
-                    .zIndex(-1)
                 }
-                
-                /// PAID RENT MESSAGE
-                if paidRentMessage {
+                .frame(width: 210, height: 190)
+                .offset(y: 10)
+                .opacity(cityBoughtMessage ? 1 : 0)
+                .animation(.linear(duration: 0.3), value: cityBoughtMessage)
                     
+                    
+                /// PAID RENT MESSAGE VIEW
+                if rentPaidMessage {
+                    ZStack {
+                            // Paid Rent Text
+                        ZStack {
+                            VStack (spacing: 2){
+                                Circle()
+                                    .stroke(Color("\(players.players[currentGamePlayerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
+                                    .frame(width: 36)
+                                
+                                Text("\(players.players[currentGamePlayerId-1].name)")
+                                    .font(.system(size: 13, weight: .regular, design: .monospaced))
+                            }
+                            .frame(width: 60, height: 100)
+                            .offset(x: -72)
+                            
+                            VStack (spacing: 2){
+                                HStack {
+                                    Text("Paid")
+                                        .font(.system(size: 13, weight: .regular, design: .monospaced))
+                                    Text("\(rentMoneyPaid)$")
+                                        .font(.system(size: 13, weight: .regular, design: .monospaced))
+                                        .foregroundColor(.green)
+                                }
+                            }
+                            
+                            VStack (spacing: 2){
+                                Circle()
+                                    .stroke(Color("\(players.players[paidPropertyOwnerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
+                                    .frame(width: 36)
+                                
+                                Text("\(players.players[paidPropertyOwnerId-1].name)")
+                                    .font(.system(size: 13, weight: .regular, design: .monospaced))
+                            }
+                            .frame(width: 60, height: 100)
+                            .offset(x: 72)
+                        }
+                        
+                            // Paid Rent Arrow Animation
+                        ZStack{
+                            ArrowAnimationView()
+                        }
+                        .foregroundColor(.green)
+                    }
+                    .frame(width: 210, height: 160)
+                    .offset(y: 25)
                 }
-                
+  
                 /// TIME LEFT TEXT VIEW
                 ZStack {
                     HStack {
-                        Text("Time Left: \(String(format: "%.1f", timeLeft))")
-                            .font(.system(size: 10.5, weight: .bold, design: .monospaced))
+                        Text("Time: \(String(format: "%.1f", timeLeft))")
+                            .font(.system(size: 9, weight: .bold, design: .monospaced))
                     }
-                    .frame(width: 110, height: 20)
-                    .background(.tint.opacity(0.9))
+                    .frame(width: 60, height: 16)
                     .cornerRadius(3)
-                    .offset(x: -45, y: -90)
-                    .foregroundColor(.white)
-                    //  .opacity(isTimerRunning ? 1 : 0)
+                    .offset(x: -70, y: -92)
+                }
+                .opacity(player1Turn ? 1 : 0)
+
+                /// TURN NUMBER TEXT VIEW
+                ZStack {
+                    HStack {
+                        Text("Turn \(game.game.turn)")
+                            .font(.system(size: 12, weight: .bold, design: .monospaced))
+                    }
+                    .frame(width: 60, height: 16)
+                    .cornerRadius(3)
+                    .offset(x: 0, y: -100)
                 }
                 
                 /// END TURN BUTTON VIEW
@@ -171,13 +407,14 @@ struct ContentView: View {
                     } label: {
                         Text("End Turn")
                     }
-                    .frame(width: 60, height: 20)
-                    .background(.tint.opacity(0.9))
+                    .frame(width: 45, height: 16)
+                    .background(.blue.opacity(0.9))
                     .cornerRadius(4)
-                    .font(.system(size: 10.5, weight: .bold, design: .default))
+                    .font(.system(size: 8, weight: .bold, design: .default))
                     .foregroundColor(.white)
                 }
-                .offset(x: 70, y: -90)
+                .opacity(player1Turn ? 1 : 0)
+                .offset(x: 78, y: -92)
 
             }
             .frame(width: 210, height: 210)
@@ -196,23 +433,24 @@ struct ContentView: View {
                             .font(.system(size: 10))
                             .foregroundColor(Color(players.players[0].color.rawValue))
                             .onChange(of: player1Turn) { turn in
+                                /// player 1 - start turn
                                 if turn  {
+                                    game.game.turn += 1
                                     turnPlayedByPLayer()
-                                    
                                 } else {
                                     /// player 2 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0 + 1) {
-                                        resetPlayerTimer(newTime: 4)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + turnTimeNPC*0 + 1) {
+                                        resetPlayerTimer(newTime: turnTimeNPC)
                                         startPlayerTimer(playerId: 2)
                                     }
                                     /// player 3 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 4 + 2) {
-                                        resetPlayerTimer(newTime: 4)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + turnTimeNPC*1 + 2) {
+                                        resetPlayerTimer(newTime: turnTimeNPC)
                                         startPlayerTimer(playerId: 3)
                                     }
                                     /// player 4 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 8 + 3) {
-                                        resetPlayerTimer(newTime: 4)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + turnTimeNPC*2 + 3) {
+                                        resetPlayerTimer(newTime: turnTimeNPC)
                                         startPlayerTimer(playerId: 4)
                                     }
                                 }
@@ -313,11 +551,10 @@ struct ContentView: View {
                                 .background(player2Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
                             .cornerRadius(4)
                             }
-                            
                         }
                         .padding(.horizontal, 4)
 
-                        /// BUTTON VIEW
+                        /// DICE BUTTON VIEW
                         ZStack {
                             Button  {
                                 /// player 1 - start turn
@@ -334,6 +571,7 @@ struct ContentView: View {
                                     .frame(width: 45, height: 45)
                                     .cornerRadius(9)
                             }
+                            .disabled(!diceAvaialble)
                         }
                         
                         VStack {
@@ -392,14 +630,11 @@ struct ContentView: View {
                                 .background(player4Turn ? .gray.opacity(0.2) :.blue.opacity(0.2))
                             .cornerRadius(4)
                             }
-                            
                         }
                         .padding(.horizontal, 4)
-                        
                     }
                     .padding(.vertical, 4)
                 }
-                
                 Spacer()
             }
         }
@@ -874,9 +1109,14 @@ struct ContentView: View {
             if cities.cities[index].ownerId != -1 && cities.cities[index].ownerId != playerId {
                 players.players[playerId-1].money -= cities.cities[index].rent
                 players.players[cities.cities[index].ownerId-1].money += cities.cities[index].rent
-                paidRentMessage = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    paidRentMessage = false
+                
+                rentPaidMessage = true
+                paidPropertyOwnerId = cities.cities[index].ownerId
+                rentMoneyPaid = cities.cities[index].rent
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                    withAnimation(.linear(duration: 1)){
+                        rentPaidMessage = false
+                    }
                 }
 
                 print("Player \(playerId) paid \(cities.cities[index].rent) to Player  \(players.players[cities.cities[index].ownerId-1].id)")
@@ -884,13 +1124,20 @@ struct ContentView: View {
             else {
                 cities.cities[index].printCityBasicInfo()
                 if playerId == 1 {
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        startTurnMessage = true
-                    }
+                    startTurnMessage = true
                 }
                 else {
                     startTurnMessage = false
-                    cities.buyCityAutomatically(player: &players.players[playerId-1])
+                    cities.buyCityAutomatically(player: &players.players[playerId-1], totalBuyingCost: &totalBuyingCost)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        cityBoughtMessage = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
+                        cityBoughtMessage = false
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        totalBuyingCost = 0
+                    }
                 }
             }
         }
@@ -909,9 +1156,14 @@ struct ContentView: View {
             if beaches.beaches[index].ownerId != -1 && beaches.beaches[index].ownerId != playerId {
                 players.players[playerId-1].money -= beaches.beaches[index].rent
                 players.players[beaches.beaches[index].ownerId-1].money += beaches.beaches[index].rent
-                paidRentMessage = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    paidRentMessage = false
+                
+                rentPaidMessage = true
+                paidPropertyOwnerId = beaches.beaches[index].ownerId
+                rentMoneyPaid = beaches.beaches[index].rent
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    withAnimation(.linear(duration: 1)){
+                        rentPaidMessage = false
+                    }
                 }
                 
                 print("Player \(playerId) paid \(beaches.beaches[index].rent) to Player  \(players.players[beaches.beaches[index].ownerId-1].id)")
@@ -919,13 +1171,20 @@ struct ContentView: View {
             else {
                 beaches.beaches[index].printBeachBasicInfo()
                 if playerId == 1 {
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        startTurnMessage = true
-                    }
+                    startTurnMessage = true
                 }
                 else {
                     startTurnMessage = false
                     beaches.buyBeach(player: &players.players[playerId-1])
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        beachBoughtMessage = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
+                        beachBoughtMessage = false
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        totalBuyingCost = 0
+                    }
                 }
             }
         }
@@ -978,6 +1237,7 @@ struct ContentView: View {
             
         }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

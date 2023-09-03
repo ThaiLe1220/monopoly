@@ -10,9 +10,10 @@ import SwiftUI
 struct BuyingCityView: View {
     
     @Binding var buyingMessage: Bool
-    @Binding var cityBuyingOption : Set<Int>
-    @Binding var totalBuyingCost : Int
-    
+    @Binding var cityBuyingOption: Set<Int>
+    @Binding var totalBuyingCost: Int
+    @Binding var cityBoughtMessage: Bool
+
     @ObservedObject var cities:CityModel
     @ObservedObject var players:PlayerModel
 
@@ -110,6 +111,16 @@ struct BuyingCityView: View {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             buyingMessage = false
                         }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                cityBoughtMessage = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
+                                cityBoughtMessage = false
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            totalBuyingCost = 0
+                        }
+
                     } label: {
                         HStack {
                             Text("Buy For: ")
@@ -125,7 +136,7 @@ struct BuyingCityView: View {
                 }
             }
         }
-        .frame(width: 210, height: 210)
+        .frame(width: 210, height: 190)
 
     }
     
@@ -152,6 +163,6 @@ struct BuyingCityView: View {
 
 struct BuyingCityView_Previews: PreviewProvider {
     static var previews: some View {
-        BuyingCityView(buyingMessage: .constant(true), cityBuyingOption: .constant([]), totalBuyingCost: .constant(0), cities: CityModel(), players: PlayerModel())
+        BuyingCityView(buyingMessage: .constant(true), cityBuyingOption: .constant([]), totalBuyingCost: .constant(0), cityBoughtMessage: .constant(false), cities: CityModel(), players: PlayerModel())
     }
 }

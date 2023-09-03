@@ -10,7 +10,8 @@ import SwiftUI
 struct BuyingBeachView: View {
     @Binding var buyingMessage: Bool
     @Binding var totalBuyingCost : Int
-    
+    @Binding var beachBoughtMessage: Bool
+
     @ObservedObject var beaches:BeachModel
     @ObservedObject var players:PlayerModel
     
@@ -74,10 +75,20 @@ struct BuyingBeachView: View {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             buyingMessage = false
                         }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                beachBoughtMessage = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
+                                beachBoughtMessage = false
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            totalBuyingCost = 0
+                        }
+                        
                     } label: {
                         HStack {
                             Text("Buy For: ")
-                            Text("\(beach.cost) $")
+                            Text("\(beach.cost)$")
                         }
                         .font(.system(size: 13, weight: .bold, design: .default))
                         .frame(width: 160, height: 24)
@@ -89,13 +100,12 @@ struct BuyingBeachView: View {
                 }
             }
         }
-        .frame(width: 210, height: 210)
-        .border(.blue)
+        .frame(width: 210, height: 190)
     }
 }
 
 struct BuyingBeachView_Previews: PreviewProvider {
     static var previews: some View {
-        BuyingBeachView(buyingMessage: .constant(true), totalBuyingCost: .constant(0), beaches: BeachModel(), players: PlayerModel())
+        BuyingBeachView(buyingMessage: .constant(true), totalBuyingCost: .constant(0), beachBoughtMessage: .constant(false), beaches: BeachModel(), players: PlayerModel())
     }
 }

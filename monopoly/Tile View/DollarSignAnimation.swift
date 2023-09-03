@@ -20,7 +20,6 @@ struct DollarSignAnimation: View {
         ZStack {
             Spacer()
                 .frame(width: 40, height: 20)
-//                .border(.green, width: 0.3)
             
             Text("$")
                 .rotationEffect(Angle(degrees: 90))

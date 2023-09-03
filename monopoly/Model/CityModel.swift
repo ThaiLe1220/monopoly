@@ -65,7 +65,7 @@ class CityModel: ObservableObject{
     }
     
     // Autimatically Buy unowned Property and Upgrade owned Property by game player
-    func buyCityAutomatically (player: inout Player) {
+    func buyCityAutomatically (player: inout Player, totalBuyingCost: inout Int) {
         print("buyCityAutomatically invoked by Player: \(player.id),", terminator: " ")
         if let index = cities.firstIndex(where: {$0.tileId == player.tilePositionId}) {
             print("in city: \(cities[index].id)", terminator: " ")
@@ -77,6 +77,7 @@ class CityModel: ObservableObject{
                     player.tilePropertyIds.append(cities[index].tileId)
                     cities[index].totalCost += cities[index].cost
                     player.money -= cities[index].cost
+                    totalBuyingCost += cities[index].cost
                     cities[index].currentLevel = 1
                     print("bought", terminator: " ")
                 }
@@ -88,6 +89,7 @@ class CityModel: ObservableObject{
                     if player.money * 8/10 >= cities[index].cost && cities[index].ownerId == player.id { //sufficient player money && city owned
                         cities[index].totalCost += cities[index].cost
                         player.money -= cities[index].cost
+                        totalBuyingCost += cities[index].cost
                         cities[index].currentLevel += 1
                         print("upgraded", terminator: " ")
                     }
@@ -99,6 +101,7 @@ class CityModel: ObservableObject{
                 if player.money * 9/10 >= cities[index].cost && cities[index].ownerId == player.id { //sufficient player money && city owned
                     cities[index].totalCost += cities[index].cost
                     player.money -= cities[index].cost
+                    totalBuyingCost += cities[index].cost
                     cities[index].currentLevel += 1
                     print("upgraded", terminator: " ")
                 }

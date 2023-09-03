@@ -77,7 +77,8 @@ struct CityTileView: View {
                         .offset(x: 0, y: 5)
                 }
                 
-                HStack (spacing: 0) {
+                /// OWNER IDENTIFICATION VIEW
+                ZStack {
                     if cities.cities[cityId].currentLevel == 1 {
                         Image(systemName: "flag.fill")
                             .frame(width: 10, height: 10)
@@ -85,7 +86,6 @@ struct CityTileView: View {
                             .rotationEffect(Angle(degrees: 90 * rotatedAngle))
                             .foregroundColor(Color(players.players[cities.cities[cityId].ownerId-1].color.rawValue))
                     }
-                    
                     else if cities.cities[cityId].currentLevel > 1 && cities.cities[cityId].currentLevel < 5 {
                         Image(systemName: "house.and.flag.fill")
                             .frame(width: 10, height: 10)
@@ -101,14 +101,9 @@ struct CityTileView: View {
                             .rotationEffect(Angle(degrees: 90 * rotatedAngle))
                             .foregroundColor(Color(players.players[cities.cities[cityId].ownerId-1].color.rawValue))
                     }
-                    else {
-                        
-                    }
-           
                 }
                 .offset(y: -35)
             }
-            
         }
     }
 }

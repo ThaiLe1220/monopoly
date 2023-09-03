@@ -68,13 +68,14 @@ struct BeachTileView: View {
                     .background(.black.opacity(0.7))
                     .offset(y:-30)
             }
-
-            HStack (spacing: 0) {
+            
+            /// OWNER IDENTIFICATION VIEW
+            ZStack {
                 if beaches.beaches[beachId].currentLevel < 4 {
                     ForEach(0..<beaches.beaches[beachId].currentLevel, id: \.self) { _ in
                         Image(systemName: "house.fill")
                             .frame(width: 10, height: 10)
-                            .font(.system(size: 9, weight: .regular, design: .default))
+                            .font(.system(size: 8, weight: .regular, design: .default))
                             .rotationEffect(Angle(degrees: 90 * rotatedAngle))
                             .foregroundColor(Color(players.players[beaches.beaches[beachId].ownerId-1].color.rawValue))
                     }
@@ -82,12 +83,12 @@ struct BeachTileView: View {
                 else {
                     Image(systemName: "building.2.fill")
                         .frame(width: 10, height: 10)
-                        .font(.system(size: 9, weight: .regular, design: .default))
+                        .font(.system(size: 8, weight: .regular, design: .default))
                         .rotationEffect(Angle(degrees: 90 * rotatedAngle))
                         .foregroundColor(Color(players.players[beaches.beaches[beachId].ownerId-1].color.rawValue))
                 }
             }
-            .offset(y: -38)
+            .offset(y: -35)
         }
     }
 }
