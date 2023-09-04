@@ -26,7 +26,7 @@ struct BuyingCityView: View {
                         .font(.system(size: 15, weight: .heavy, design: .monospaced))
                         .foregroundColor(.white)
                         .frame(width: 210, height: 24)
-                        .background(Color(players.players[0].color.rawValue).opacity(0.8))
+                        .background(Color(players.players[0].color.rawValue))
                     
                     Button {
                         withAnimation(.easeInOut(duration: 0.5)) {
@@ -108,7 +108,7 @@ struct BuyingCityView: View {
                 VStack {
                     Button {
                         cities.buyCity(player: &players.players[0], options: cityBuyingOption)
-                        withAnimation(.easeInOut(duration: 0.5)) {
+                        withAnimation(.linear(duration: 0.5)) {
                             buyingMessage = false
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
@@ -128,7 +128,7 @@ struct BuyingCityView: View {
                         }
                         .font(.system(size: 13, weight: .bold, design: .default))
                         .frame(width: 150, height: 24)
-                        .background(.blue)
+                        .background(Color(players.players[0].color.rawValue))
                         .foregroundColor(.white)
                         .cornerRadius(12)
                         .padding(.top, 5)

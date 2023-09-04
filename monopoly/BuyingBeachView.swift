@@ -92,7 +92,7 @@ struct BuyingBeachView: View {
                         }
                         .font(.system(size: 13, weight: .bold, design: .default))
                         .frame(width: 160, height: 24)
-                        .background(.blue)
+                        .background(Color(players.players[0].color.rawValue))
                         .foregroundColor(.white)
                         .cornerRadius(12)
                         .padding(.top, 5)

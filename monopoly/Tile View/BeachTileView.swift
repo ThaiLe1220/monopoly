@@ -27,27 +27,33 @@ struct BeachTileView: View {
                 .font(.system(size: 8, weight: .semibold, design: .monospaced))
                 .rotationEffect(Angle(degrees: rotatedAngle))
                 .foregroundColor(.blue)
+                .offset(y: -5)
+
             
             Text("\(beaches.beaches[beachId].rent)$")
                 .font(.system(size: 8.5, weight: .semibold, design: .monospaced))
                 .rotationEffect(Angle(degrees: rotatedAngle))
                 .foregroundColor(.green)
-                .offset(y: -12.5)
+                .offset(y: -17.5)
 
             ZStack {
                 Image(systemName: "beach.umbrella.fill")
+                    .rotationEffect(Angle(degrees: rotatedAngle))
                     .font(.system(size: 8))
                     .foregroundColor(.blue)
-                .offset(x: 6, y: 23)
+                    .offset(x: 6, y: 23)
                 Image(systemName: "beach.umbrella.fill")
+                    .rotationEffect(Angle(degrees: rotatedAngle))
                     .font(.system(size: 8))
                     .foregroundColor(.blue)
                     .offset(x: -6, y: 23)
-                Image(systemName: "beach.umbrella.fill")
-                    .font(.system(size: 8))
+                Image(systemName: "figure.open.water.swim")
+                    .rotationEffect(Angle(degrees: rotatedAngle))
+                    .font(.system(size: 10))
                     .foregroundColor(.blue)
-                    .offset(x: 0, y: 14)
+                    .offset(x: 0, y: 11)
             }
+
             
             /// BORDER
             ZStack {

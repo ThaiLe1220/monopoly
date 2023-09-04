@@ -34,22 +34,26 @@ struct TaxTileView: View {
                     startAnimation()
                 }
                 
-                Spacer()
-                    .frame(width: 1.4, height: 61.4)
-                    .background(.black.opacity(0.7))
+                /// BORDER
+                ZStack {
+                    Spacer()
+                        .frame(width: 1.4, height: 61.4)
+                        .background(.black.opacity(0.7))
                     .offset(x:-15)
-                Spacer()
-                    .frame(width: 1.4, height: 61.4)
-                    .background(.black.opacity(0.7))
-                    .offset(x:15)
-                Spacer()
-                    .frame(width: 30, height: 1.4)
-                    .background(.black.opacity(0.7))
-                    .offset(y:30)
-                Spacer()
-                    .frame(width: 30, height: 1.4)
-                    .background(.black.opacity(0.7))
-                    .offset(y:-30)
+                    Spacer()
+                        .frame(width: 1.4, height: 61.4)
+                        .background(.black.opacity(0.7))
+                        .offset(x:15)
+                    Spacer()
+                        .frame(width: 30, height: 1.4)
+                        .background(.black.opacity(0.7))
+                        .offset(y:30)
+                    Spacer()
+                        .frame(width: 30, height: 1.4)
+                        .background(.black.opacity(0.7))
+                        .offset(y:-30)
+                }
+    
             }
         }
     }

@@ -15,6 +15,10 @@ struct DollarSignAnimation: View {
     @State private var xPosition2: CGFloat = 20
     @State private var yPosition2: CGFloat = 10
     
+    @State private var xPosition3: CGFloat = -20
+    @State private var yPosition3: CGFloat = 10
+    @State private var xPosition4: CGFloat = 20
+    @State private var yPosition4: CGFloat = -10
     
     var body: some View {
         ZStack {
@@ -31,7 +35,7 @@ struct DollarSignAnimation: View {
                         restartAnimation()
                     }
                 }
-            
+
             Text("$")
                 .rotationEffect(Angle(degrees: 90))
                 .font(.system(size: 10, weight: .regular))
@@ -42,7 +46,29 @@ struct DollarSignAnimation: View {
                         restartAnimation2()
                     }
                 }
-    
+            
+            Text("$")
+                .rotationEffect(Angle(degrees: 90))
+                .font(.system(size: 10, weight: .regular))
+                .foregroundColor(.green)
+                .offset(x: xPosition3, y: yPosition3)
+                .onChange(of: isAnimating) { newValue in
+                    if newValue {
+                        restartAnimation5()
+                    }
+                }
+            
+            Text("$")
+                .rotationEffect(Angle(degrees: 90))
+                .font(.system(size: 10, weight: .regular))
+                .foregroundColor(.green)
+                .offset(x: xPosition4, y: yPosition4)
+                .onChange(of: isAnimating) { newValue in
+                    if newValue {
+                        restartAnimation6()
+                    }
+                }
+
         }
     }
     
@@ -93,6 +119,105 @@ struct DollarSignAnimation: View {
             }
         }
     }
+    
+    private func restartAnimation3() {
+        withAnimation(Animation.linear(duration: 0.8)) {
+            yPosition3 = -10
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            withAnimation(Animation.linear(duration: 1.6)) {
+                xPosition3 = 20
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.4) {
+            withAnimation(Animation.linear(duration: 0.8)) {
+                yPosition3 = 10
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.2) {
+            withAnimation(Animation.linear(duration: 1.6)) {
+                xPosition3 = -20
+            }
+        }
+    }
+    
+    private func restartAnimation4() {
+        withAnimation(Animation.linear(duration: 0.8)) {
+            yPosition4 = 10
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            withAnimation(Animation.linear(duration: 1.6)) {
+                xPosition4 = -20
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.4) {
+            withAnimation(Animation.linear(duration: 0.8)) {
+                yPosition4 = -10
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.2) {
+            withAnimation(Animation.linear(duration: 1.6)) {
+                xPosition4 = 20
+            }
+        }
+    }
+    
+    private func restartAnimation5() {
+        withAnimation(Animation.linear(duration: 1.6)) {
+            xPosition3 = 20
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
+            withAnimation(Animation.linear(duration: 0.8)) {
+                yPosition3 = -10
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.4) {
+            withAnimation(Animation.linear(duration: 1.6)) {
+                xPosition3 = -20
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            withAnimation(Animation.linear(duration: 0.8)) {
+                yPosition3 = 10
+            }
+        }
+    }
+    
+    private func restartAnimation6() {
+        withAnimation(Animation.linear(duration: 1.6)) {
+            xPosition4 = -20
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
+            withAnimation(Animation.linear(duration: 0.8)) {
+                yPosition4 = 10
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.4) {
+            withAnimation(Animation.linear(duration: 1.6)) {
+                xPosition4 = 20
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            withAnimation(Animation.linear(duration: 0.8)) {
+                yPosition4 = -10
+            }
+        }
+    }
+    
+
+
 
 }
 

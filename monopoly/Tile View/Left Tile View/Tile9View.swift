@@ -14,9 +14,29 @@ struct Tile9View: View {
     var body: some View {
         ZStack {
             ZStack{
-                Text("LOST ISLAND")
+                Text("RMIT HEARING")
                     .rotationEffect(Angle(degrees: -45))
-                    .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
+                    .font(.system(size: 8, weight: .light, design: .monospaced))
+                
+                /// BORDER
+                ZStack {
+                    Spacer()
+                        .frame(width: 1.4, height: 61.4)
+                        .background(.black.opacity(0.7))
+                        .offset(x:-30)
+                    Spacer()
+                        .frame(width: 1.4, height: 61.4)
+                        .background(.black.opacity(0.7))
+                        .offset(x:30)
+                    Spacer()
+                        .frame(width: 60, height: 1.4)
+                        .background(.black.opacity(0.7))
+                        .offset(y:30)
+                    Spacer()
+                        .frame(width: 60, height: 1.4)
+                        .background(.black.opacity(0.7))
+                        .offset(y:-30)
+                }
             }
             .frame(width: 60, height: 60)
             .border(.black, width: 0.2)
