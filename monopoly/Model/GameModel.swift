@@ -11,7 +11,7 @@ class GameModel: ObservableObject {
     @Published var game: Game
     
     init () {
-        game = Game(id: 1, userName: "Eugene", turn: 0, players: PlayerModel().players, cities: CityModel().cities, beaches: BeachModel().beaches, achivements: AchievementModel().achievements)
+        game = Game(username: "Eugene", startingMoney: 2000, language: "en", darkModeEnabled: false, turn: 0, players: PlayerModel().players, cities: CityModel().cities, beaches: BeachModel().beaches, achivements: AchievementModel().achievements, adjusted: false)
     }
     
     

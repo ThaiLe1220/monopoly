@@ -80,6 +80,11 @@
 		DE38FBBE2A9F808300424BEE /* Beach.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38FBBD2A9F808300424BEE /* Beach.swift */; };
 		DE38FBC02A9F808900424BEE /* BeachModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38FBBF2A9F808900424BEE /* BeachModel.swift */; };
 		DE4D515F2A9CA89000CC7E82 /* TaxTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D515E2A9CA89000CC7E82 /* TaxTileView.swift */; };
+		DED51EDE2AA7588D009A58DC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED51EDD2AA7588D009A58DC /* SettingsView.swift */; };
+		DED51EE02AA76D0F009A58DC /* SoundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED51EDF2AA76D0F009A58DC /* SoundController.swift */; };
+		DED51EE22AA76D81009A58DC /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DED51EE12AA76D81009A58DC /* background.mp3 */; };
+		DED51EE42AA76F73009A58DC /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED51EE32AA76F73009A58DC /* AchievementView.swift */; };
+		DED51EE62AA76FA8009A58DC /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED51EE52AA76FA8009A58DC /* AchievementsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +163,11 @@
 		DE38FBBD2A9F808300424BEE /* Beach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beach.swift; sourceTree = "<group>"; };
 		DE38FBBF2A9F808900424BEE /* BeachModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeachModel.swift; sourceTree = "<group>"; };
 		DE4D515E2A9CA89000CC7E82 /* TaxTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxTileView.swift; sourceTree = "<group>"; };
+		DED51EDD2AA7588D009A58DC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		DED51EDF2AA76D0F009A58DC /* SoundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundController.swift; sourceTree = "<group>"; };
+		DED51EE12AA76D81009A58DC /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
+		DED51EE32AA76F73009A58DC /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
+		DED51EE52AA76FA8009A58DC /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,10 +207,14 @@
 				95EE88842A977C9800EA5DE2 /* BuyingCityView.swift */,
 				D735704B2AA32BDB001FE585 /* BuyingBeachView.swift */,
 				95F83CF72A94D92A004D10B1 /* PlayerNameMoneyView.swift */,
+				DED51EDD2AA7588D009A58DC /* SettingsView.swift */,
+				DED51EE32AA76F73009A58DC /* AchievementView.swift */,
+				DED51EE52AA76FA8009A58DC /* AchievementsView.swift */,
 				95F83CF52A94C987004D10B1 /* PLayerInfoView.swift */,
 				95FF4D0D2A8F8F4F00229C64 /* ArrowAnimationView.swift */,
 				956CDD812A8E0E2F0019F0EC /* Model */,
 				954A5C622A8CC416008257D4 /* Assets.xcassets */,
+				DED51EE12AA76D81009A58DC /* background.mp3 */,
 				956CDD802A8E0C250019F0EC /* TilePosition.json */,
 				95F83CF92A95F220004D10B1 /* City.json */,
 				95522F942AA6FA7C00C216FB /* Achievement.json */,
@@ -223,6 +237,7 @@
 		956CDD812A8E0E2F0019F0EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DED51EDF2AA76D0F009A58DC /* SoundController.swift */,
 				956CDD822A8E0E490019F0EC /* TilePosition.swift */,
 				956CDD842A8E0F4E0019F0EC /* TilePositionModel.swift */,
 				95FF4D0B2A8F4DD000229C64 /* Player.swift */,
@@ -396,6 +411,7 @@
 				95522F9C2AA7068200C216FB /* Localizable.strings in Resources */,
 				95F83CFA2A95F220004D10B1 /* City.json in Resources */,
 				DE38FBBC2A9F7D5000424BEE /* Beach.json in Resources */,
+				DED51EE22AA76D81009A58DC /* background.mp3 in Resources */,
 				956CDD862A8E15F80019F0EC /* TilePosition.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +425,7 @@
 			files = (
 				DE4D515F2A9CA89000CC7E82 /* TaxTileView.swift in Sources */,
 				956CDD852A8E0F4E0019F0EC /* TilePositionModel.swift in Sources */,
+				DED51EE62AA76FA8009A58DC /* AchievementsView.swift in Sources */,
 				954A5C612A8CC415008257D4 /* GameView.swift in Sources */,
 				95F83CCF2A94B279004D10B1 /* Tile22View.swift in Sources */,
 				95F83CC12A94B23D004D10B1 /* Tile15View.swift in Sources */,
@@ -425,12 +442,14 @@
 				95F83CCD2A94B274004D10B1 /* Tile21View.swift in Sources */,
 				95F83CA32A94B071004D10B1 /* Tile0View.swift in Sources */,
 				95F83CBD2A94B232004D10B1 /* Tile13View.swift in Sources */,
+				DED51EDE2AA7588D009A58DC /* SettingsView.swift in Sources */,
 				95F83CF32A94B543004D10B1 /* BottomTileView.swift in Sources */,
 				95F83C9D2A92514B004D10B1 /* SwiftUIView.swift in Sources */,
 				DE38FBBE2A9F808300424BEE /* Beach.swift in Sources */,
 				95522F992AA6FE9700C216FB /* AchievementModel.swift in Sources */,
 				95522F972AA6FE0C00C216FB /* Achievement.swift in Sources */,
 				95F83CB72A94B21D004D10B1 /* Tile10View.swift in Sources */,
+				DED51EE02AA76D0F009A58DC /* SoundController.swift in Sources */,
 				95F83CA52A94B0B7004D10B1 /* Tile1View.swift in Sources */,
 				9558732D2AA6C3B900A6F00F /* ChanceTileView.swift in Sources */,
 				95F83CED2A94B510004D10B1 /* RightTileView.swift in Sources */,
@@ -457,6 +476,7 @@
 				95F83CB92A94B221004D10B1 /* Tile11View.swift in Sources */,
 				95F83CDF2A94B2C6004D10B1 /* Tile29View.swift in Sources */,
 				95F83CA92A94B176004D10B1 /* Tile3View.swift in Sources */,
+				DED51EE42AA76F73009A58DC /* AchievementView.swift in Sources */,
 				95F83CEB2A94B2EE004D10B1 /* Tile35View.swift in Sources */,
 				95B62A392A91E9F400FE1FDD /* PlayerModel.swift in Sources */,
 				95EE88852A977C9800EA5DE2 /* BuyingCityView.swift in Sources */,

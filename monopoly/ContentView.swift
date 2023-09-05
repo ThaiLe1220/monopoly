@@ -17,8 +17,10 @@ struct ContentView: View {
             TabView (selection: $selectedTab){
                 /// GAME VIEW
                 ZStack  {
+                 
                     GameView()
                 }
+                .background(.regularMaterial)
                 .tabItem {Label("Game", systemImage: "gamecontroller.fill")}
                 .tag(0)
 
@@ -36,12 +38,15 @@ struct ContentView: View {
                 .tabItem {Label("Achievement", systemImage: "trophy.fill")}
                 .tag(2)
 
-                /// Wishlist View
-                NavigationStack  {
-                   
+                /// Setting View
+                VStack  {
+                   SettingsView()
                 }
                 .tabItem {Label("Setting", systemImage: "gearshape.2.fill")}
                 .tag(3)
+            }
+            .onAppear {
+                playBackground()
             }
             .overlay(
                 /// overlay navbar
@@ -69,6 +74,7 @@ struct ContentView: View {
                 .padding(.horizontal, 8)
                 .padding(.top, 0),
                 alignment: .top
+                
         )}
     }
 

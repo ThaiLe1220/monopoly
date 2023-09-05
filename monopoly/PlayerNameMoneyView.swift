@@ -22,10 +22,10 @@ struct PlayerNameMoneyView: View {
                 .cornerRadius(8)
                 .offset(y: -4)
             
-            Text("$\(players.players[playerId].money)")
+            Text("\(players.players[playerId].money)$")
                 .font(.system(size: 12, weight: .semibold, design: .monospaced))
                 .foregroundColor(Color.green.opacity(0.9))
-                .frame(height: 6)
+                .frame(height: 10)
             
         }
 

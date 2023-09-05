@@ -139,1125 +139,1128 @@ struct GameView: View {
     @State var endTurn: Bool = false
     
     var body: some View {
-        ZStack {
-            /// Turn View
+        
+        VStack {
+            Spacer()
             ZStack {
-                /// TURN NUMBER TEXT VIEW
+                /// TURN VIEW
                 ZStack {
-                    HStack {
-                        Text("turn")
-                        Text("\(game.game.turn)")
-                    }
-                    .font(.system(size: 14, weight: .semibold, design: .monospaced))
-                    .offset(x: 0, y: -100)
-                }
-                
-                /// GAME UTILITY VIEW
-                ZStack {
-                    /// TIME LEFT TEXT VIEW
+                    /// TURN NUMBER TEXT VIEW
                     ZStack {
-                        HStack (spacing:0) {
-                            Text("time")
-                            Text(": \(String(format: "%.1f", timeLeft))")
+                        HStack {
+                            Text("turn")
+                            Text("\(game.game.turn)")
                         }
-                        .font(.system(size: 9.5, weight: .bold, design: .monospaced))
-                        .frame(width: 80, height: 16)
-                        .cornerRadius(3)
-                        .offset(x: -75, y: -92)
+                        .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                        .offset(x: 0, y: -100)
                     }
-                    .opacity(player1Turn ? 1 : 0)
                     
-                    /// END TURN BUTTON VIEW
+                    /// GAME UTILITY VIEW
                     ZStack {
-                        Button {
-                            endTurnMessage = true
-                        } label: {
-                            Text("end-turn")
-                        }
-                        .frame(width: 55, height: 16)
-                        .background(.blue.opacity(0.9))
-                        .cornerRadius(4)
-                        .font(.system(size: 9.5, weight: .bold, design: .default))
-                        .foregroundColor(.white)
-                    }
-                    .offset(x: 85, y: -92)
-                    .opacity(player1Turn ? 1 : 0)
-                    
-                    /// END TURN MESSAGE VIEW
-                    ZStack {
-                        VStack (spacing: 0) {
-                            Text("do-you-want-to-end")
-                            Text("your-turn-here")
-                                .padding(.top, 4)
-                            
-                            HStack {
-                                Button {
-                                    withAnimation(.easeInOut(duration: 0.5)) {
-                                        endTurnMessage = false
-                                        buyingPropertyMessage = false
-                                        wentToTourTileMessage = false
-                                    }
-                                    stopPlayerTimer(playerId: 1)
-                                } label: {
-                                    Text("yes")
-                                }
-                                
-                                Button {
-                                    endTurnMessage = false
-                                } label: {
-                                    Text("no")
-                                }
-                            }
-                            .padding(.top, 4)
-                        }
-                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                    }
-                    .frame(width: 220, height: 80)
-                    .background(Color("BabyWhite"))
-                    .border(.black)
-                    .opacity(endTurnMessage ? 1 : 0)
-                    .zIndex(10)
-                }
-                
-                /// PROPERTY BUYING & BOUGT MESSAGE VIEW
-                ZStack {
-                    /// BUYING MESSAGE VIEW
-                    ZStack {
-                        Color.gray.opacity(0.4)
-                            .ignoresSafeArea()
+                        /// TIME LEFT TEXT VIEW
                         ZStack {
-                            if (tiles[players.players[0].tilePositionId].type == .city) {
-                                VStack (spacing: 4){
-                                    BuyingCityView(buyingMessage: $buyingPropertyMessage, cityBuyingOption: $cityBuyingOption, totalBuyingCost: $totalBuyingCost, cityBoughtMessage: $cityBoughtMessage, cities: cities, players: players)
-                                        .padding(.vertical, 4)
+                            HStack (spacing:0) {
+                                Text("time")
+                                Text(": \(String(format: "%.1f", timeLeft))")
+                            }
+                            .font(.system(size: 9.5, weight: .bold, design: .monospaced))
+                            .frame(width: 80, height: 16)
+                            .cornerRadius(3)
+                            .offset(x: -75, y: -92)
+                        }
+                        .opacity(player1Turn ? 1 : 0)
+                        
+                        /// END TURN BUTTON VIEW
+                        ZStack {
+                            Button {
+                                endTurnMessage = true
+                            } label: {
+                                Text("end-turn")
+                            }
+                            .frame(width: 55, height: 16)
+                            .background(.blue.opacity(0.9))
+                            .cornerRadius(4)
+                            .font(.system(size: 9.5, weight: .bold, design: .default))
+                            .foregroundColor(.white)
+                        }
+                        .offset(x: 85, y: -92)
+                        .opacity(player1Turn ? 1 : 0)
+                        
+                        /// END TURN MESSAGE VIEW
+                        ZStack {
+                            VStack (spacing: 0) {
+                                Text("do-you-want-to-end")
+                                Text("your-turn-here")
+                                    .padding(.top, 4)
+                                
+                                HStack {
+                                    Button {
+                                        withAnimation(.easeInOut(duration: 0.5)) {
+                                            endTurnMessage = false
+                                            buyingPropertyMessage = false
+                                            wentToTourTileMessage = false
+                                        }
+                                        stopPlayerTimer(playerId: 1)
+                                    } label: {
+                                        Text("yes")
+                                    }
+                                    
+                                    Button {
+                                        endTurnMessage = false
+                                    } label: {
+                                        Text("no")
+                                    }
+                                }
+                                .padding(.top, 4)
+                            }
+                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                        }
+                        .frame(width: 220, height: 80)
+                        .background(Color("BabyWhite"))
+                        .border(.black)
+                        .opacity(endTurnMessage ? 1 : 0)
+                        .zIndex(10)
+                    }
+                    
+                    /// PROPERTY BUYING & BOUGT MESSAGE VIEW
+                    ZStack {
+                        /// BUYING MESSAGE VIEW
+                        ZStack {
+                            Color.gray.opacity(0.4)
+                                .ignoresSafeArea()
+                            ZStack {
+                                if (tiles[players.players[0].tilePositionId].type == .city) {
+                                    VStack (spacing: 4){
+                                        BuyingCityView(buyingMessage: $buyingPropertyMessage, cityBuyingOption: $cityBuyingOption, totalBuyingCost: $totalBuyingCost, cityBoughtMessage: $cityBoughtMessage, cities: cities, players: players)
+                                            .padding(.vertical, 4)
+                                    }
+                                }
+                                else if (tiles[players.players[0].tilePositionId].type == .beach) {
+                                    VStack (spacing: 4){
+                                        BuyingBeachView(buyingMessage: $buyingPropertyMessage, totalBuyingCost: $totalBuyingCost, beachBoughtMessage: $beachBoughtMessage, beaches: beaches, players: players)
+                                            .padding(.vertical, 4)
+                                    }
                                 }
                             }
-                            else if (tiles[players.players[0].tilePositionId].type == .beach) {
-                                VStack (spacing: 4){
-                                    BuyingBeachView(buyingMessage: $buyingPropertyMessage, totalBuyingCost: $totalBuyingCost, beachBoughtMessage: $beachBoughtMessage, beaches: beaches, players: players)
-                                        .padding(.vertical, 4)
+                            .frame(width: 240, height: 240)
+                            .background(.white)
+                        }
+                        .opacity(buyingPropertyMessage ? 1 : 0)
+                        .animation(.linear(duration: 0.3), value: buyingPropertyMessage)
+                        
+                        /// BEACH BOUGHT MESSAGE VIEW
+                        ZStack {
+                            VStack (spacing: 0) {
+                                ForEach(beaches.beaches.filter({ $0.tileId == players.players[currentGamePlayerId-1].tilePositionId})) { beach in
+                                    
+                                    HStack (spacing:0) {
+                                        Text("\(beach.beachName) ")
+                                        Text("bought-by")
+                                        Text(" \(currentPlayerName)")
+                                        
+                                    }
+                                    .font(.system(size: 12, weight: .heavy, design: .monospaced))
+                                    .foregroundColor(.white)
+                                    .frame(width: 210, height: 24)
+                                    .background(Color(currentPlayerColor))
+                                    .padding(.bottom, 4)
+                                    
+                                    ZStack {
+                                        VStack (spacing: 4){
+                                            ForEach(1..<5, id: \.self) { index in
+                                                if (index == 1) {
+                                                    HStack (spacing: 0){
+                                                        HStack (spacing: 0) {
+                                                            Text("level")
+                                                            Text(" \(beach.currentLevel)")
+                                                        }
+                                                        .frame(width: 130)
+                                                        Text("rent").frame(width: 60)
+                                                        Spacer()
+                                                    }
+                                                    .frame(width: 210, height: 24)
+                                                    .border(.black, width: 0.2)
+                                                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                                }
+                                                
+                                                HStack (spacing: 0) {
+                                                    HStack (spacing: 0) {
+                                                        Text("own")
+                                                        Text(" \(index) ")
+                                                        Text(index < 2 ? "beach" : "beaches")
+                                                    }
+                                                    .frame(width: 130)
+                                                    
+                                                    Text("\(beach.rentByLevel[index])$").frame(width: 60)
+                                                    Spacer()
+                                                }
+                                                .frame(width: 210, height: 16)
+                                                .font(.system(size: 12, weight: .regular, design: .monospaced))
+                                            }
+                                        }
+                                        .padding(.bottom, 4)
+                                        
+                                        
+                                        VStack (spacing: 0) {
+                                            Text("").frame(width: 24, height: 24)
+                                            ForEach(0..<beach.currentLevel, id: \.self) { _ in
+                                                Image(systemName: "checkmark.seal.fill")
+                                                    .font(.system(size: 13))
+                                                    .frame(width: 16, height: 16)
+                                                    .foregroundColor(Color(currentPlayerColor))
+                                                    .padding(.top, 5)
+                                            }
+                                            
+                                            if (beach.currentLevel == 4) {
+                                                Spacer().frame(width: 0, height: 0)
+                                            }
+                                            else {
+                                                Spacer()
+                                                
+                                            }
+                                        }
+                                        .frame(width: 24, height: 108)
+                                        .offset(x: 95)
+                                    }
+                                    .border(.black, width: 0.2)
+                                    .padding(.bottom, 4)
+                                    
+                                    VStack {
+                                        HStack (spacing:0) {
+                                            Text("total-amount-of")
+                                            Text(" 200$")
+                                        }
+                                        .font(.system(size: 13, weight: .bold, design: .default))
+                                        .frame(width: 180, height: 24)
+                                        .background(Color(currentPlayerColor))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(12)
+                                    }
                                 }
                             }
                         }
-                        .frame(width: 240, height: 240)
-                        .background(.white)
-                    }
-                    .opacity(buyingPropertyMessage ? 1 : 0)
-                    .animation(.linear(duration: 0.3), value: buyingPropertyMessage)
-
-                    /// BEACH BOUGHT MESSAGE VIEW
-                    ZStack {
-                        VStack (spacing: 0) {
-                            ForEach(beaches.beaches.filter({ $0.tileId == players.players[currentGamePlayerId-1].tilePositionId})) { beach in
-                                
-                                HStack (spacing:0) {
-                                    Text("\(beach.beachName) ")
-                                    Text("bought-by")
-                                    Text(" \(currentPlayerName)")
-
-                                }
-                                .font(.system(size: 12, weight: .heavy, design: .monospaced))
-                                .foregroundColor(.white)
-                                .frame(width: 210, height: 24)
-                                .background(Color(currentPlayerColor))
-                                .padding(.bottom, 4)
-
-                                ZStack {
-                                    VStack (spacing: 4){
-                                        ForEach(1..<5, id: \.self) { index in
+                        .frame(width: 220, height: 190)
+                        .offset(y: 10)
+                        .opacity(beachBoughtMessage ? 1 : 0)
+                        .animation(.linear(duration: 0.3), value: beachBoughtMessage)
+                        
+                        /// CITY BOUGHT MESSAGE VIEW
+                        ZStack {
+                            VStack (spacing: 0) {
+                                ForEach(cities.cities.filter({ $0.tileId == players.players[currentGamePlayerId-1].tilePositionId})) { city in
+                                    HStack (spacing:0) {
+                                        Text("\(city.cityName) ")
+                                        Text("bought-by")
+                                        Text(" \(currentPlayerName)")
+                                    }
+                                    .font(.system(size: 12, weight: .heavy, design: .monospaced))
+                                    .foregroundColor(.white)
+                                    .frame(width: 210, height: 24)
+                                    .background(Color(currentPlayerColor))
+                                    .padding(.bottom, 4)
+                                    
+                                    VStack (spacing: 3){
+                                        ForEach(1..<6, id: \.self) { index in
                                             if (index == 1) {
                                                 HStack (spacing: 0){
                                                     HStack (spacing: 0) {
                                                         Text("level")
-                                                        Text(" \(beach.currentLevel)")
+                                                        Text(" \(city.currentLevel)")
                                                     }
-                                                    .frame(width: 130)
-                                                    Text("rent").frame(width: 60)
-                                                    Spacer()
+                                                    .frame(width: 90)
+                                                    Text("rent").frame(width: 50)
+                                                    Text("cost").frame(width: 50)
+                                                    Spacer().frame(width: 20)
                                                 }
                                                 .frame(width: 210, height: 24)
                                                 .border(.black, width: 0.2)
                                                 .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                            }
-                                            
-                                            HStack (spacing: 0) {
-                                                HStack (spacing: 0) {
-                                                    Text("own")
-                                                    Text(" \(index) ")
-                                                    Text(index < 2 ? "beach" : "beaches")
+                                                
+                                                HStack (spacing: 0){
+                                                    Text("land").frame(width: 90)
+                                                    Text("\(city.rentByLevel[index])$").frame(width: 50)
+                                                    Text("\(city.costByLevel[index-1])$").frame(width: 50)
+                                                    Image(systemName:"checkmark.seal.fill")
+                                                        .opacity(cityBuyingOption.contains(index) ? 1 : 0)
+                                                        .frame(width: 20)
+                                                        .foregroundColor(Color(currentPlayerColor))
                                                 }
-                                                .frame(width: 130)
-
-                                                Text("\(beach.rentByLevel[index])$").frame(width: 60)
-                                                Spacer()
+                                                .frame(width: 210, height: 16)
+                                                .font(.system(size: 12, weight: .regular, design: .monospaced))
                                             }
-                                            .frame(width: 210, height: 16)
-                                            .font(.system(size: 12, weight: .regular, design: .monospaced))
-                                        }
-                                    }
-                                    .padding(.bottom, 4)
-
-                                    
-                                    VStack (spacing: 0) {
-                                        Text("").frame(width: 24, height: 24)
-                                        ForEach(0..<beach.currentLevel, id: \.self) { _ in
-                                            Image(systemName: "checkmark.seal.fill")
-                                                .font(.system(size: 13))
-                                                .frame(width: 16, height: 16)
-                                                .foregroundColor(Color(currentPlayerColor))
-                                                .padding(.top, 5)
-                                        }
-                                        
-                                        if (beach.currentLevel == 4) {
-                                            Spacer().frame(width: 0, height: 0)
-                                        }
-                                        else {
-                                            Spacer()
-                                            
-                                        }
-                                    }
-                                    .frame(width: 24, height: 108)
-                                    .offset(x: 95)
-                                }
-                                .border(.black, width: 0.2)
-                                .padding(.bottom, 4)
-
-                                VStack {
-                                    HStack (spacing:0) {
-                                        Text("total-amount-of")
-                                        Text(" 200$")
-                                    }
-                                    .font(.system(size: 13, weight: .bold, design: .default))
-                                    .frame(width: 180, height: 24)
-                                    .background(Color(currentPlayerColor))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(12)
-                                }
-                            }
-                        }
-                    }
-                    .frame(width: 220, height: 190)
-                    .offset(y: 10)
-                    .opacity(beachBoughtMessage ? 1 : 0)
-                    .animation(.linear(duration: 0.3), value: beachBoughtMessage)
-                    
-                    /// CITY BOUGHT MESSAGE VIEW
-                    ZStack {
-                        VStack (spacing: 0) {
-                            ForEach(cities.cities.filter({ $0.tileId == players.players[currentGamePlayerId-1].tilePositionId})) { city in
-                                HStack (spacing:0) {
-                                    Text("\(city.cityName) ")
-                                    Text("bought-by")
-                                    Text(" \(currentPlayerName)")
-                                }
-                                .font(.system(size: 12, weight: .heavy, design: .monospaced))
-                                .foregroundColor(.white)
-                                .frame(width: 210, height: 24)
-                                .background(Color(currentPlayerColor))
-                                .padding(.bottom, 4)
-
-                                VStack (spacing: 3){
-                                    ForEach(1..<6, id: \.self) { index in
-                                        if (index == 1) {
-                                            HStack (spacing: 0){
-                                                HStack (spacing: 0) {
-                                                    Text("level")
-                                                    Text(" \(city.currentLevel)")
+                                            else if (index == 5) {
+                                                HStack (spacing: 0){
+                                                    Text("hotel")
+                                                        .frame(width: 90)
+                                                    Text("\(city.rentByLevel[index])$").frame(width: 50)
+                                                    Text("\(city.costByLevel[index-1])$").frame(width: 50)
+                                                    Image(systemName:"checkmark.seal.fill")
+                                                        .opacity(cityBuyingOption.contains(index) ? 1 : 0)
+                                                        .frame(width: 20)
+                                                        .foregroundColor(Color(currentPlayerColor))
                                                 }
-                                                .frame(width: 90)
-                                                Text("rent").frame(width: 50)
-                                                Text("cost").frame(width: 50)
-                                                Spacer().frame(width: 20)
+                                                .frame(width: 210, height: 16)
+                                                .font(.system(size: 12, weight: .regular, design: .monospaced))
                                             }
-                                            .frame(width: 210, height: 24)
-                                            .border(.black, width: 0.2)
-                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                            
-                                            HStack (spacing: 0){
-                                                Text("land").frame(width: 90)
-                                                Text("\(city.rentByLevel[index])$").frame(width: 50)
-                                                Text("\(city.costByLevel[index-1])$").frame(width: 50)
-                                                Image(systemName:"checkmark.seal.fill")
-                                                    .opacity(cityBuyingOption.contains(index) ? 1 : 0)
-                                                    .frame(width: 20)
-                                                    .foregroundColor(Color(currentPlayerColor))
-                                            }
-                                            .frame(width: 210, height: 16)
-                                            .font(.system(size: 12, weight: .regular, design: .monospaced))
-                                        }
-                                        else if (index == 5) {
-                                            HStack (spacing: 0){
-                                                Text("hotel")
+                                            else {
+                                                HStack (spacing: 0){
+                                                    HStack(spacing: 0) {
+                                                        Text("house")
+                                                        Text(" \(index-1)")
+                                                    }
                                                     .frame(width: 90)
-                                                Text("\(city.rentByLevel[index])$").frame(width: 50)
-                                                Text("\(city.costByLevel[index-1])$").frame(width: 50)
-                                                Image(systemName:"checkmark.seal.fill")
-                                                    .opacity(cityBuyingOption.contains(index) ? 1 : 0)
-                                                    .frame(width: 20)
-                                                    .foregroundColor(Color(currentPlayerColor))
-                                            }
-                                            .frame(width: 210, height: 16)
-                                            .font(.system(size: 12, weight: .regular, design: .monospaced))
-                                        }
-                                        else {
-                                            HStack (spacing: 0){
-                                                HStack(spacing: 0) {
-                                                    Text("house")
-                                                    Text(" \(index-1)")
+                                                    
+                                                    Text("\(city.rentByLevel[index])$").frame(width: 50)
+                                                    Text("\(city.costByLevel[index-1])$").frame(width: 50)
+                                                    Image(systemName:"checkmark.seal.fill")
+                                                        .opacity(cityBuyingOption.contains(index) ? 1 : 0)
+                                                        .frame(width: 20)
+                                                        .foregroundColor(Color(currentPlayerColor))
                                                 }
-                                                .frame(width: 90)
-                                                
-                                                Text("\(city.rentByLevel[index])$").frame(width: 50)
-                                                Text("\(city.costByLevel[index-1])$").frame(width: 50)
-                                                Image(systemName:"checkmark.seal.fill")
-                                                    .opacity(cityBuyingOption.contains(index) ? 1 : 0)
-                                                    .frame(width: 20)
-                                                    .foregroundColor(Color(currentPlayerColor))
+                                                .frame(width: 210, height: 16)
+                                                .font(.system(size: 12, weight: .regular, design: .monospaced))
                                             }
-                                            .frame(width: 210, height: 16)
-                                            .font(.system(size: 12, weight: .regular, design: .monospaced))
                                         }
                                     }
-                                }
-                                .padding(.bottom, 4)
-                                .border(.black, width: 0.2)
-                                
-                                VStack {
-                                    HStack (spacing:0) {
-                                        Text("total-amount-of")
-                                        Text(" \(totalBuyingCost)$")
+                                    .padding(.bottom, 4)
+                                    .border(.black, width: 0.2)
+                                    
+                                    VStack {
+                                        HStack (spacing:0) {
+                                            Text("total-amount-of")
+                                            Text(" \(totalBuyingCost)$")
+                                        }
+                                        .font(.system(size: 13, weight: .bold, design: .default))
+                                        .frame(width: 190, height: 24)
+                                        .background(Color(currentPlayerColor))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(12)
+                                        .padding(.top, 4)
                                     }
-                                    .font(.system(size: 13, weight: .bold, design: .default))
-                                    .frame(width: 190, height: 24)
-                                    .background(Color(currentPlayerColor))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(12)
-                                    .padding(.top, 4)
                                 }
                             }
                         }
+                        .frame(width: 220, height: 190)
+                        .offset(y: 10)
+                        .opacity(cityBoughtMessage ? 1 : 0)
+                        .animation(.linear(duration: 0.3), value: cityBoughtMessage)
+                        
                     }
-                    .frame(width: 220, height: 190)
-                    .offset(y: 10)
-                    .opacity(cityBoughtMessage ? 1 : 0)
-                    .animation(.linear(duration: 0.3), value: cityBoughtMessage)
-        
-                }
-                .zIndex(-1)
-
-                /// PAID RENT + TAX // RECEIVE MONEY MESSAGE
-                ZStack {
-                    /// PAID RENT MESSAGE VIEW
-                    if rentPaidMessage {
-                        ZStack {
-                            // PAID RENT Text
+                    .zIndex(-1)
+                    
+                    /// PAID RENT + TAX // RECEIVE MONEY MESSAGE
+                    ZStack {
+                        /// PAID RENT MESSAGE VIEW
+                        if rentPaidMessage {
                             ZStack {
-                                VStack (spacing: 2){
-                                    Circle()
-                                        .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
-                                        .frame(width: 36)
-                                        .padding(.bottom, 4)
-
-                                    Text("\(players.players[currentGamePlayerId-1].name)")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                }
-                                .frame(width: 70, height: 100)
-                                .offset(x: -70)
-                                
-                                VStack (spacing: 4){
-                                    Text("paid")
-                                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                    Text("\(rentMoneyPaid)$")
-                                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                        .foregroundColor(.green)
-                                }
-                                
-                                VStack (spacing: 2){
-                                    Circle()
-                                        .stroke(Color("\(players.players[paidPropertyOwnerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
-                                        .frame(width: 36)
-                                        .padding(.bottom, 4)
-
-                                    Text("\(players.players[paidPropertyOwnerId-1].name)")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                }
-                                .frame(width: 70, height: 100)
-                                .offset(x: 70)
-                            }
-                            
-                            // PAID RENT Arrow Animation
-                            ZStack{
-                                ArrowAnimationView()
-                            }
-                            .offset(y: -7.5)
-                            .foregroundColor(.green)
-                        }
-                        .frame(width: 210, height: 160)
-                        .offset(y: 7.5)
-                        .animation(.linear(duration: 0.3), value: rentPaidMessage)
-                        .padding(.horizontal, 4)
-                        .frame(width: 220, height: 170)
-                        .border(.black)
-                    }
-                    
-                    /// PAID TAX TEXT MESSAGE VIEW
-                    if taxPaidMessage {
-                        ZStack {
-                            // PAID TAX Text
-                            ZStack {
-                                VStack (spacing: 2){
-                                    Circle()
-                                        .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
-                                        .frame(width: 36)
-                                        .padding(.bottom, 4)
-                                    
-                                    Text("\(players.players[currentGamePlayerId-1].name)")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    Text("")
-                                }
-                                .frame(width: 70, height: 100)
-                                .offset(x: -70)
-                                
-                                VStack (spacing: 4){
-                                    Text("paid-tax")
-                                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                    Text("\(taxMoneyPaid)$")
-                                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                        .foregroundColor(.green)
-                                }
-                                
-                                VStack (spacing: 2){
-                                    Rectangle()
-                                        .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
-                                        .frame(width: 36, height: 36)
-                                        .padding(.bottom, 4)
-
-                                    Text("RMIT")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    Text("University")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                }
-                                .frame(width: 70, height: 100)
-                                .offset(x: 70)
-                            }
-                            
-                            // PAID TAX Arrow Animation
-                            ZStack{
-                                ArrowAnimationView()
-                            }
-                            .offset(y: -15)
-                            .foregroundColor(.green)
-                        }
-                        .frame(width: 210, height: 160)
-                        .offset(y: 20)
-                        .animation(.linear(duration: 0.3), value: taxPaidMessage)
-                        .padding(.horizontal, 4)
-                        .frame(width: 220, height: 170)
-                        .border(.black)
-                    }
-                    
-                    /// RECEIVE MONEY TEXT MESSAGE VIEW
-                    if moneyReceivedMessage {
-                        ZStack {
-                            // RECEIVE MONEY Text
-                            ZStack {
-                                VStack (spacing: 2){
-                                    Circle()
-                                        .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
-                                        .frame(width: 36)
-                                        .padding(.bottom, 4)
-
-                                    
-                                    Text("\(players.players[currentGamePlayerId-1].name)")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    Text("")
-                                }
-                                .frame(width: 70, height: 100)
-                                .offset(x: -70)
-                                
-                                VStack (spacing: 4){
-                                    Text("receive-cash")
-                                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                    Text("\(moneyReceived)$")
-                                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                        .foregroundColor(.green)
-                                }
-                                
-                                VStack (spacing: 2){
-                                    Rectangle()
-                                        .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
-                                        .frame(width: 36, height: 36)
-                                        .padding(.bottom, 4)
-                                    
-                                    Text("RMIT")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    Text("University")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                }
-                                .frame(width: 70, height: 100)
-                                .offset(x: 70)
-                            }
-                            
-                            // RECEIVE MONEY Arrow Animation
-                            ZStack{
-                                ArrowAnimationView()
-                            }
-                            .offset(x: 0, y: -20)
-                            .foregroundColor(.green)
-                            .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
-                        }
-                        .offset(y: 20)
-                        .animation(.linear(duration: 0.3), value: moneyReceivedMessage)
-                        .padding(.horizontal, 4)
-                        .frame(width: 220, height: 170)
-                        .border(.black)
-                    }
-                    
-                    /// CROSSING START TILE MESSAGE VIEW
-                    if crossingStartTileMessage {
-                        ZStack {
-                            // CROSSING START TILE Text
-                            ZStack {
-                                VStack (spacing: 2){
-                                    Circle()
-                                        .stroke(Color("\(players.players[currentGamePlayerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
-                                        .frame(width: 36)
-                                        .padding(.bottom, 4)
-                                    
-                                    Text("\(players.players[currentGamePlayerId-1].name)")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    Text("")
-                                }
-                                .frame(width: 70, height: 100)
-                                .offset(x: -70)
-                                
-                                VStack (spacing: 4){
-                                    Text("receive-cash")
-                                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                    Text(!isChampionEmpty && championPlayerId == currentGamePlayerId ? "\(250)$" : "\(200)$")
-                                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                                        .foregroundColor(.green)
-                                }
-                                
-                                VStack (spacing: 2){
-                                    Rectangle()
-                                        .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
-                                        .frame(width: 36, height: 36)
-                                        .padding(.bottom, 4)
-                                    
-                                    Text("RMIT")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    Text("University")
-                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                }
-                                .frame(width: 70, height: 100)
-                                .offset(x: 70)
-                            }
-                            
-                            // RECEIVE MONEY Arrow Animation
-                            ZStack{
-                                ArrowAnimationView()
-                            }
-                            .offset(x: 0, y: -20)
-                            .foregroundColor(.green)
-                            .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
-                            
-                        }
-                        .frame(width: 210, height: 160)
-                        .offset(y: 20)
-                        .animation(.linear(duration: 0.3), value: crossingStartTileMessage)
-                        .zIndex(99)
-                        .padding(.horizontal, 4)
-                        .frame(width: 220, height: 170)
-                        .border(.black)
-                    }
-                }
-               
-                /// ISLAND TILE MESSAGE VIEW
-                ZStack {
-                    if wentToIslandTileMessage {
-                        if !isChampionEmpty && championPlayerId == currentGamePlayerId {
-                            VStack (alignment: .leading, spacing: 0) {
-                                HStack (alignment: .top, spacing: 0) {
-                                    Text(" \(currentPlayerName) ")
-                                    Text("has-attended-rmit-hearing")
-                                }
-                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                .padding(.bottom, 4)
-                                Text("but-nothing-can-stop-the-champion")
-                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                            }
-                            .opacity(wentToIslandTileMessage ? 1 : 0)
-                            .animation(.linear(duration: 0.3), value: wentToIslandTileMessage)
-                            .padding(.horizontal, 4)
-                            .frame(width: 220, height: 80)
-                            .border(.black)
-                        }
-                        else {
-                            VStack (alignment: .leading, spacing: 0) {
-                                HStack (alignment: .top, spacing: 0) {
-                                    Text("\(currentPlayerName) ")
-                                    Text("has-attended-rmit-hearing")
-                                }
-                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                .padding(.bottom, 4)
-                                
-                                Text("next-turn-movement-is-blocked")
-                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                            }
-                            .opacity(wentToIslandTileMessage ? 1 : 0)
-                            .animation(.linear(duration: 0.3), value: wentToIslandTileMessage)
-                            .padding(.horizontal, 4)
-                            .frame(width: 220, height: 80)
-                            .border(.black)
-
-
-                        }
-                    }
-                    
-                    if atIslandTileMessage {
-                        ZStack {
-                            VStack (alignment: .leading, spacing: 0) {
-                                HStack (alignment: .top, spacing: 0) {
-                                    Text("\(currentPlayerName) ")
-                                    Text("has-completed-rmit")
-                                }
-                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-
-                                Text("Hearing")
-                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    .padding(.bottom, 4)
-                                
-                                Text("next-turn-movement-is-granted")
-                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                            }
-                            .opacity(atIslandTileMessage ? 1 : 0)
-                            .animation(.linear(duration: 0.3), value: atIslandTileMessage)
-                        }
-                        .frame(width: 220, height: 80)
-                        .border(.black)
-                    }
-                }
-                
-                /// CHAMPION TILE MESSAGE
-                ZStack {
-                    if wentToChampionTileMessage {
-                        ZStack {
-                            VStack (alignment: .leading, spacing: 0) {
-                                HStack (alignment: .top, spacing: 0) {
-                                    Text("\(currentPlayerName) ")
-                                    Text("is-now-a-rmit-champion")
-                                }
-                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                .padding(.bottom, 4)
-                                
-                                Text("can-skip-session-at-hearing")
-                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    .padding(.bottom, 4)
-                                
-                                Text("reduce-tax-paid-and")
-                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    .padding(.bottom, 4)
-
-                                Text("increase-cash-received")
-                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                            }
-                            .opacity(wentToChampionTileMessage ? 1 : 0)
-                            .animation(.linear(duration: 0.3), value: wentToChampionTileMessage)
-                        }
-                        .padding(.horizontal, 4)
-                        .frame(width: 220, height: 120)
-                        .border(.black)
-                    }
-                    
-                    Image(systemName: "crown.fill")
-                        .rotation3DEffect(.degrees(isCrownAnimating ? 360 : 0), axis: (x: 0, y: 1, z: 0))
-                        .rotationEffect(Angle(degrees: -45))
-                        .font(.system(size: 9))
-                        .foregroundColor(Color(players.players[championPlayerId-1].color.rawValue))
-                        .offset(x: -165, y: -165)
-                        .opacity(!isChampionEmpty ? 1 : 0)
-                        .animation(.linear(duration: 1.5), value: isCrownAnimating)
-                        .onAppear{
-                            isCrownAnimating.toggle()
-                            Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
-                                self.isCrownAnimating.toggle()
-                            }
-                        }
-                }
-                
-                /// TOUR TILE MESSAGE
-                ZStack {
-                    if wentToTourTileMessage {
-                        ZStack {
-                            VStack (spacing: 0) {
-                                HStack (alignment: .top, spacing: 0) {
-                                    Text("\(currentPlayerName) ")
-                                    Text("is-in-rmit-world-tour")
-
-                                }
-                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                .padding(.bottom, 4)
-                                
-                                Text("can-move-extra-steps-this-turn")
-                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    .padding(.bottom, 4)
-                                
-                                HStack (alignment: .top, spacing: 0) {
-                                    Text("chosen-steps-max-35")
-                                    Text(": \(stepsGranted)")
-
-                                }
-                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                .frame(width: 210, height: 16)
-                                .padding(.bottom, 4)
-
-                                if currentGamePlayerId == 1 {
-                                    HStack {
-                                        Button {
-                                            stepsGranted <= 34 ? stepsGranted += 1 : nil
-                                        } label: {
-                                            Image(systemName: "plus")
-                                        }
-                                        Button {
-                                            stepsGranted >= 1 ? stepsGranted -= 1 : nil
-                                        } label: {
-                                            Image(systemName: "minus")
-                                        }
-                                    }
-                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                    .foregroundColor(.black)
-                                    .padding(.bottom, 4)
-
-                                    Button {
-                                        wentToTourTileMessage = false
-                                        if 27 + stepsGranted >= 36 {
-                                            moveForwardBySteps(steps: stepsGranted, player: &players.players[currentGamePlayerId-1])
-                                            
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                                crossingStartTileMessage = true
-                                            }
-                                            
-                                            if !isChampionEmpty && championPlayerId == currentGamePlayerId {
-                                                print("Player(Champion) \(currentGamePlayerId) crossing Start Tile", terminator: ", ")
-                                                players.players[currentGamePlayerId-1].money += 250
-                                                print("and receive 250$", terminator: ", ")
-                                            } else {
-                                                print("Player \(currentGamePlayerId) crossing Start Tile", terminator: ", ")
-                                                players.players[currentGamePlayerId-1].money += 200
-                                                print("and receive 200$", terminator: ", ")
-                                            }
-                                            
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.7) {
-                                                withAnimation(.linear(duration: 0.3)){
-                                                    crossingStartTileMessage = false
-                                                }
-                                            }
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                playerTileActions()
-                                            }
-                                        }
-                                        else {
-                                            moveForwardBySteps(steps: stepsGranted, player: &players.players[currentGamePlayerId-1])
-                                            playerTileActions()
-                                        }
-                                    } label: {
-                                        Text("done")
+                                // PAID RENT Text
+                                ZStack {
+                                    VStack (spacing: 2){
+                                        Circle()
+                                            .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
+                                            .frame(width: 36)
+                                            .padding(.bottom, 4)
+                                        
+                                        Text("\(players.players[currentGamePlayerId-1].name)")
                                             .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                            .foregroundColor(.red)
                                     }
+                                    .frame(width: 70, height: 100)
+                                    .offset(x: -70)
+                                    
+                                    VStack (spacing: 4){
+                                        Text("paid")
+                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                        Text("\(rentMoneyPaid)$")
+                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .foregroundColor(.green)
+                                    }
+                                    
+                                    VStack (spacing: 2){
+                                        Circle()
+                                            .stroke(Color("\(players.players[paidPropertyOwnerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
+                                            .frame(width: 36)
+                                            .padding(.bottom, 4)
+                                        
+                                        Text("\(players.players[paidPropertyOwnerId-1].name)")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    }
+                                    .frame(width: 70, height: 100)
+                                    .offset(x: 70)
                                 }
-                                else {
-                                    Text("done")
+                                
+                                // PAID RENT Arrow Animation
+                                ZStack{
+                                    ArrowAnimationView()
+                                }
+                                .offset(y: -7.5)
+                                .foregroundColor(.green)
+                            }
+                            .frame(width: 210, height: 160)
+                            .offset(y: 7.5)
+                            .animation(.linear(duration: 0.3), value: rentPaidMessage)
+                            .padding(.horizontal, 4)
+                            .frame(width: 220, height: 170)
+                            .border(.black)
+                        }
+                        
+                        /// PAID TAX TEXT MESSAGE VIEW
+                        if taxPaidMessage {
+                            ZStack {
+                                // PAID TAX Text
+                                ZStack {
+                                    VStack (spacing: 2){
+                                        Circle()
+                                            .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
+                                            .frame(width: 36)
+                                            .padding(.bottom, 4)
+                                        
+                                        Text("\(players.players[currentGamePlayerId-1].name)")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        Text("")
+                                    }
+                                    .frame(width: 70, height: 100)
+                                    .offset(x: -70)
+                                    
+                                    VStack (spacing: 4){
+                                        Text("paid-tax")
+                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                        Text("\(taxMoneyPaid)$")
+                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .foregroundColor(.green)
+                                    }
+                                    
+                                    VStack (spacing: 2){
+                                        Rectangle()
+                                            .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
+                                            .frame(width: 36, height: 36)
+                                            .padding(.bottom, 4)
+                                        
+                                        Text("RMIT")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        Text("University")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    }
+                                    .frame(width: 70, height: 100)
+                                    .offset(x: 70)
+                                }
+                                
+                                // PAID TAX Arrow Animation
+                                ZStack{
+                                    ArrowAnimationView()
+                                }
+                                .offset(y: -15)
+                                .foregroundColor(.green)
+                            }
+                            .frame(width: 210, height: 160)
+                            .offset(y: 20)
+                            .animation(.linear(duration: 0.3), value: taxPaidMessage)
+                            .padding(.horizontal, 4)
+                            .frame(width: 220, height: 170)
+                            .border(.black)
+                        }
+                        
+                        /// RECEIVE MONEY TEXT MESSAGE VIEW
+                        if moneyReceivedMessage {
+                            ZStack {
+                                // RECEIVE MONEY Text
+                                ZStack {
+                                    VStack (spacing: 2){
+                                        Circle()
+                                            .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
+                                            .frame(width: 36)
+                                            .padding(.bottom, 4)
+                                        
+                                        
+                                        Text("\(players.players[currentGamePlayerId-1].name)")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        Text("")
+                                    }
+                                    .frame(width: 70, height: 100)
+                                    .offset(x: -70)
+                                    
+                                    VStack (spacing: 4){
+                                        Text("receive-cash")
+                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                        Text("\(moneyReceived)$")
+                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .foregroundColor(.green)
+                                    }
+                                    
+                                    VStack (spacing: 2){
+                                        Rectangle()
+                                            .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
+                                            .frame(width: 36, height: 36)
+                                            .padding(.bottom, 4)
+                                        
+                                        Text("RMIT")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        Text("University")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    }
+                                    .frame(width: 70, height: 100)
+                                    .offset(x: 70)
+                                }
+                                
+                                // RECEIVE MONEY Arrow Animation
+                                ZStack{
+                                    ArrowAnimationView()
+                                }
+                                .offset(x: 0, y: -20)
+                                .foregroundColor(.green)
+                                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+                            }
+                            .offset(y: 20)
+                            .animation(.linear(duration: 0.3), value: moneyReceivedMessage)
+                            .padding(.horizontal, 4)
+                            .frame(width: 220, height: 170)
+                            .border(.black)
+                        }
+                        
+                        /// CROSSING START TILE MESSAGE VIEW
+                        if crossingStartTileMessage {
+                            ZStack {
+                                // CROSSING START TILE Text
+                                ZStack {
+                                    VStack (spacing: 2){
+                                        Circle()
+                                            .stroke(Color("\(players.players[currentGamePlayerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
+                                            .frame(width: 36)
+                                            .padding(.bottom, 4)
+                                        
+                                        Text("\(players.players[currentGamePlayerId-1].name)")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        Text("")
+                                    }
+                                    .frame(width: 70, height: 100)
+                                    .offset(x: -70)
+                                    
+                                    VStack (spacing: 4){
+                                        Text("receive-cash")
+                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                        Text(!isChampionEmpty && championPlayerId == currentGamePlayerId ? "\(250)$" : "\(200)$")
+                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .foregroundColor(.green)
+                                    }
+                                    
+                                    VStack (spacing: 2){
+                                        Rectangle()
+                                            .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
+                                            .frame(width: 36, height: 36)
+                                            .padding(.bottom, 4)
+                                        
+                                        Text("RMIT")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        Text("University")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    }
+                                    .frame(width: 70, height: 100)
+                                    .offset(x: 70)
+                                }
+                                
+                                // RECEIVE MONEY Arrow Animation
+                                ZStack{
+                                    ArrowAnimationView()
+                                }
+                                .offset(x: 0, y: -20)
+                                .foregroundColor(.green)
+                                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+                                
+                            }
+                            .frame(width: 210, height: 160)
+                            .offset(y: 20)
+                            .animation(.linear(duration: 0.3), value: crossingStartTileMessage)
+                            .zIndex(99)
+                            .padding(.horizontal, 4)
+                            .frame(width: 220, height: 170)
+                            .border(.black)
+                        }
+                    }
+                    
+                    /// ISLAND TILE MESSAGE VIEW
+                    ZStack {
+                        if wentToIslandTileMessage {
+                            if !isChampionEmpty && championPlayerId == currentGamePlayerId {
+                                VStack (alignment: .leading, spacing: 0) {
+                                    HStack (alignment: .top, spacing: 0) {
+                                        Text(" \(currentPlayerName) ")
+                                        Text("has-attended-rmit-hearing")
+                                    }
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    .padding(.bottom, 4)
+                                    Text("but-nothing-can-stop-the-champion")
                                         .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                        .foregroundColor(.red)
-                                        .onAppear {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                                stepsGranted = Int.random(in: 0...35)
+                                }
+                                .opacity(wentToIslandTileMessage ? 1 : 0)
+                                .animation(.linear(duration: 0.3), value: wentToIslandTileMessage)
+                                .padding(.horizontal, 4)
+                                .frame(width: 220, height: 80)
+                                .border(.black)
+                            }
+                            else {
+                                VStack (alignment: .leading, spacing: 0) {
+                                    HStack (alignment: .top, spacing: 0) {
+                                        Text("\(currentPlayerName) ")
+                                        Text("has-attended-rmit-hearing")
+                                    }
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    .padding(.bottom, 4)
+                                    
+                                    Text("next-turn-movement-is-blocked")
+                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                }
+                                .opacity(wentToIslandTileMessage ? 1 : 0)
+                                .animation(.linear(duration: 0.3), value: wentToIslandTileMessage)
+                                .padding(.horizontal, 4)
+                                .frame(width: 220, height: 80)
+                                .border(.black)
+                                
+                                
+                            }
+                        }
+                        
+                        if atIslandTileMessage {
+                            ZStack {
+                                VStack (alignment: .leading, spacing: 0) {
+                                    HStack (alignment: .top, spacing: 0) {
+                                        Text("\(currentPlayerName) ")
+                                        Text("has-completed-rmit")
+                                    }
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    
+                                    Text("Hearing")
+                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        .padding(.bottom, 4)
+                                    
+                                    Text("next-turn-movement-is-granted")
+                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                }
+                                .opacity(atIslandTileMessage ? 1 : 0)
+                                .animation(.linear(duration: 0.3), value: atIslandTileMessage)
+                            }
+                            .frame(width: 220, height: 80)
+                            .border(.black)
+                        }
+                    }
+                    
+                    /// CHAMPION TILE MESSAGE
+                    ZStack {
+                        if wentToChampionTileMessage {
+                            ZStack {
+                                VStack (alignment: .leading, spacing: 0) {
+                                    HStack (alignment: .top, spacing: 0) {
+                                        Text("\(currentPlayerName) ")
+                                        Text("is-now-a-rmit-champion")
+                                    }
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    .padding(.bottom, 4)
+                                    
+                                    Text("can-skip-session-at-hearing")
+                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        .padding(.bottom, 4)
+                                    
+                                    Text("reduce-tax-paid-and")
+                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        .padding(.bottom, 4)
+                                    
+                                    Text("increase-cash-received")
+                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                }
+                                .opacity(wentToChampionTileMessage ? 1 : 0)
+                                .animation(.linear(duration: 0.3), value: wentToChampionTileMessage)
+                            }
+                            .padding(.horizontal, 4)
+                            .frame(width: 220, height: 120)
+                            .border(.black)
+                        }
+                        
+                        Image(systemName: "crown.fill")
+                            .rotation3DEffect(.degrees(isCrownAnimating ? 360 : 0), axis: (x: 0, y: 1, z: 0))
+                            .rotationEffect(Angle(degrees: -45))
+                            .font(.system(size: 9))
+                            .foregroundColor(Color(players.players[championPlayerId-1].color.rawValue))
+                            .offset(x: -165, y: -165)
+                            .opacity(!isChampionEmpty ? 1 : 0)
+                            .animation(.linear(duration: 1.5), value: isCrownAnimating)
+                            .onAppear{
+                                isCrownAnimating.toggle()
+                                Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
+                                    self.isCrownAnimating.toggle()
+                                }
+                            }
+                    }
+                    
+                    /// TOUR TILE MESSAGE
+                    ZStack {
+                        if wentToTourTileMessage {
+                            ZStack {
+                                VStack (spacing: 0) {
+                                    HStack (alignment: .top, spacing: 0) {
+                                        Text("\(currentPlayerName) ")
+                                        Text("is-in-rmit-world-tour")
+                                        
+                                    }
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    .padding(.bottom, 4)
+                                    
+                                    Text("can-move-extra-steps-this-turn")
+                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        .padding(.bottom, 4)
+                                    
+                                    HStack (alignment: .top, spacing: 0) {
+                                        Text("chosen-steps-max-35")
+                                        Text(": \(stepsGranted)")
+                                        
+                                    }
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    .frame(width: 210, height: 16)
+                                    .padding(.bottom, 4)
+                                    
+                                    if currentGamePlayerId == 1 {
+                                        HStack {
+                                            Button {
+                                                stepsGranted <= 34 ? stepsGranted += 1 : nil
+                                            } label: {
+                                                Image(systemName: "plus")
                                             }
-                                            
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.7) {
-                                                wentToTourTileMessage = false
+                                            Button {
+                                                stepsGranted >= 1 ? stepsGranted -= 1 : nil
+                                            } label: {
+                                                Image(systemName: "minus")
+                                            }
+                                        }
+                                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                        .foregroundColor(.black)
+                                        .padding(.bottom, 4)
+                                        
+                                        Button {
+                                            wentToTourTileMessage = false
+                                            if 27 + stepsGranted >= 36 {
+                                                moveForwardBySteps(steps: stepsGranted, player: &players.players[currentGamePlayerId-1])
                                                 
-                                                if 27 + stepsGranted >= 36 {
-                                                    moveForwardBySteps(steps: stepsGranted, player: &players.players[currentGamePlayerId-1])
-                                                    
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                                        crossingStartTileMessage = true
-                                                    }
-                                                    
-                                                    if !isChampionEmpty && championPlayerId == currentGamePlayerId {
-                                                        print("Player(Champion) \(currentGamePlayerId) crossing Start Tile", terminator: ", ")
-                                                        players.players[currentGamePlayerId-1].money += 250
-                                                        print("and receive 250$", terminator: ", ")
-                                                    } else {
-                                                        print("Player \(currentGamePlayerId) crossing Start Tile", terminator: ", ")
-                                                        players.players[currentGamePlayerId-1].money += 200
-                                                        print("and receive 200$", terminator: ", ")
-                                                    }
-                                                    
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.7) {
-                                                        withAnimation(.linear(duration: 0.3)){
-                                                            crossingStartTileMessage = false
-                                                        }
-                                                    }
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                        playerTileActions()
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                                    crossingStartTileMessage = true
+                                                }
+                                                
+                                                if !isChampionEmpty && championPlayerId == currentGamePlayerId {
+                                                    print("Player(Champion) \(currentGamePlayerId) crossing Start Tile", terminator: ", ")
+                                                    players.players[currentGamePlayerId-1].money += 250
+                                                    print("and receive 250$", terminator: ", ")
+                                                } else {
+                                                    print("Player \(currentGamePlayerId) crossing Start Tile", terminator: ", ")
+                                                    players.players[currentGamePlayerId-1].money += 200
+                                                    print("and receive 200$", terminator: ", ")
+                                                }
+                                                
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.7) {
+                                                    withAnimation(.linear(duration: 0.3)){
+                                                        crossingStartTileMessage = false
                                                     }
                                                 }
-                                                else {
-                                                    moveForwardBySteps(steps: stepsGranted, player: &players.players[currentGamePlayerId-1])
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                                     playerTileActions()
                                                 }
                                             }
+                                            else {
+                                                moveForwardBySteps(steps: stepsGranted, player: &players.players[currentGamePlayerId-1])
+                                                playerTileActions()
+                                            }
+                                        } label: {
+                                            Text("done")
+                                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                                .foregroundColor(.red)
+                                        }
+                                    }
+                                    else {
+                                        Text("done")
+                                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                            .foregroundColor(.red)
+                                            .onAppear {
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                    stepsGranted = Int.random(in: 0...35)
+                                                }
+                                                
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 3.7) {
+                                                    wentToTourTileMessage = false
+                                                    
+                                                    if 27 + stepsGranted >= 36 {
+                                                        moveForwardBySteps(steps: stepsGranted, player: &players.players[currentGamePlayerId-1])
+                                                        
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                                            crossingStartTileMessage = true
+                                                        }
+                                                        
+                                                        if !isChampionEmpty && championPlayerId == currentGamePlayerId {
+                                                            print("Player(Champion) \(currentGamePlayerId) crossing Start Tile", terminator: ", ")
+                                                            players.players[currentGamePlayerId-1].money += 250
+                                                            print("and receive 250$", terminator: ", ")
+                                                        } else {
+                                                            print("Player \(currentGamePlayerId) crossing Start Tile", terminator: ", ")
+                                                            players.players[currentGamePlayerId-1].money += 200
+                                                            print("and receive 200$", terminator: ", ")
+                                                        }
+                                                        
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.7) {
+                                                            withAnimation(.linear(duration: 0.3)){
+                                                                crossingStartTileMessage = false
+                                                            }
+                                                        }
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                                            playerTileActions()
+                                                        }
+                                                    }
+                                                    else {
+                                                        moveForwardBySteps(steps: stepsGranted, player: &players.players[currentGamePlayerId-1])
+                                                        playerTileActions()
+                                                    }
+                                                }
+                                            }
                                     }
                                 }
+                                .animation(.linear(duration: 0.3), value: wentToTourTileMessage)
                             }
-                            .animation(.linear(duration: 0.3), value: wentToTourTileMessage)
+                            .padding(.horizontal, 4)
+                            .frame(width: 220, height: 120)
+                            .border(.black)
                         }
-                        .padding(.horizontal, 4)
-                        .frame(width: 220, height: 120)
-                        .border(.black)
                     }
-                }
-                
-                /// BANKCRUPT MESSAGE
-                ZStack {
-                    if bankcruptMessage {
-                        ZStack {
-                            VStack (spacing: 4) {
-                                HStack (spacing: 0) {
-                                    Text("\(currentPlayerName) ")
-                                    Text("has-declared-bankcruptcy")
-                                }
-                                .frame(height: 40)
-                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-
-                                HStack (spacing: 0) {
-                                    Text("we-never-see")
-                                    Text(" \(currentPlayerName) ")
-                                    Text("again")
-                                }
-                                .frame(height: 20)
-                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-
-
-                            }
-                        }
-                        .padding(.horizontal, 4)
-                        .frame(width: 220, height: 80)
-                        .border(.black)
-                    }
-                }
-                .zIndex(99)
-
-                /// WIN MESSAGE
-                ZStack {
-                    if gameWin {
-                        ZStack {
-                            VStack (spacing: 4) {
-                                Text("you-win-congrats")
-                                    .font(.system(size: 12, weight: .regular, design: .monospaced))
-                                    .frame(height: 20)
-                                
-                                Button {
-                                    
-                                } label: {
-                                    Text("click-here-to-continue")
-                                        .font(.system(size: 12, weight: .regular, design: .monospaced))
-                                        .frame(height: 20)
-                                }
-                            }
-                        }
-                        .padding(.horizontal, 4)
-                        .frame(width: 220, height: 80)
-                        .border(.black)
-                    }
-                }
-                .zIndex(99)
-    
-                /// LOST MESSAGE
-                ZStack {
-                    if gameOver {
-                        ZStack {
-                            VStack (spacing: 4) {
-                                Text("you-lost-nice-try")
-                                    .font(.system(size: 12, weight: .regular, design: .monospaced))
-                                    .frame(height: 20)
-                                
-                                Button {
-                                    
-                                } label: {
-                                    Text("click-here-to-continue")
-                                        .font(.system(size: 12, weight: .regular, design: .monospaced))
-                                        .frame(height: 20)
-                                }
-                               
-                            }
-                        }
-                        .padding(.horizontal, 4)
-                        .frame(width: 220, height: 80)
-                        .border(.black)
-                    }
-                }
-                .zIndex(99)
-
-            }
-            .frame(width: 210, height: 210)
-            .offset(y: -180)
-
-            Spacer()
-                .background(Color("BabyWhite"))
-                .frame(width: 360, height: 360)
-                .offset(y: -180)
-                .zIndex(-99)
-
-            /// BOARD VIEW
-            VStack{
-                
-                /// TOP BANNER
-                ZStack() {
-                    /// PLAYER POSITION VIEW
-                    ZStack {
-                        Image(systemName: "pawprint.fill")
-                            .offset(x: player1Tile.posX - 8, y: player1Tile.posY - 8)
-                            .font(.system(size: 10))
-                            .foregroundColor(Color(players.players[0].color.rawValue))
-                            .onChange(of: player1Turn) { turn in
-                                /// player 1 - start turn
-                                if turn  {
-                                    turnPlayedByPLayer()
-                                } else {
-                                    /// player 2 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + turnTimeNPC*0 + 1) {
-                                        resetPlayerTimer(newTime: turnTimeNPC)
-                                        startPlayerTimer(playerId: 2)
-                                    }
-                                    /// player 3 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + turnTimeNPC*1 + 2) {
-                                        resetPlayerTimer(newTime: turnTimeNPC)
-                                        startPlayerTimer(playerId: 3)
-                                    }
-                                    /// player 4 - start turn
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + turnTimeNPC*2 + 3) {
-                                        resetPlayerTimer(newTime: turnTimeNPC)
-                                        startPlayerTimer(playerId: 4)
-                                    }
-                                }
-                            }
-                        
-                        Image(systemName: "pawprint.fill")
-                            .offset(x: player2Tile.posX + 8, y: player2Tile.posY - 8)
-                            .font(.system(size: 10))
-                            .foregroundColor(Color(players.players[1].color.rawValue))
-                            .onChange(of: player2Turn) { turn in
-                                turn ? turnPlayedByPLayer() : nil
-                            }
-                        
-                        Image(systemName: "pawprint.fill")
-                            .offset(x: player3Tile.posX + 8, y: player3Tile.posY + 8)
-                            .font(.system(size: 10))
-                            .foregroundColor(Color(players.players[2].color.rawValue))
-                            .onChange(of: player3Turn) { turn in
-                                turn ? turnPlayedByPLayer() : nil
-                            }
-                        Image(systemName: "pawprint.fill")
-                            .offset(x: player4Tile.posX - 8, y: player4Tile.posY + 8)
-                            .font(.system(size: 10))
-                            .foregroundColor(Color(players.players[3].color.rawValue))
-                            .onChange(of: player4Turn) { turn in
-                                turn ? turnPlayedByPLayer() : nil
-                            }
-                    }.zIndex(90)
                     
-                    /// TILE VIEWS
+                    /// BANKCRUPT MESSAGE
                     ZStack {
-                        BottomTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
-                        
-                        LeftTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
-                        
-                        TopTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
-                        
-                        RightTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
-                    }.zIndex(-99)
-                }
-
-                /// MIDDLE BANNER
-                ZStack {
-                    HStack(spacing: 12) {
-                        VStack (spacing: 8) {
-                            /// PLAYER 1 VIEW
+                        if bankcruptMessage {
                             ZStack {
-                                HStack (spacing: 10) {
-                                    /// PLAYER NAME AND MONEY VIEW
-                                    PlayerNameMoneyView(players: players, playerId: 0)
-                                    ZStack {
-                                        if player1Turn {
-                                            Circle()
-                                                .trim(from: 0, to: CGFloat(timeLeft/60))
-                                                .stroke(Color(currentPlayerColor).opacity(0.6),  lineWidth: 3)
-                                                .frame(width: 43)
-                                                .rotationEffect(.degrees(-90))
-                                                .shadow(color: Color(currentPlayerColor), radius: 2)
-                                        }
-                                        else {
-                                            Circle()
-                                                .stroke(Color(.white).opacity(0.6),  lineWidth: 3)
-                                                .frame(width: 43)
-                                                .shadow(color: Color(.white), radius: 2)
-                                        }
-                                            
-                                        Image ("profile7")
-                                            .resizable()
-                                            .background(.red.opacity(0.4))
-                                            .frame(width: 40, height: 40)
-                                            .clipShape(Circle())
+                                VStack (spacing: 4) {
+                                    HStack (spacing: 0) {
+                                        Text("\(currentPlayerName) ")
+                                        Text("has-declared-bankcruptcy")
                                     }
-                                }
-                            }
-                            .frame(width: 130, height: 55)
-                            .background(player1Turn ? Color("LavenderBlush") : .gray.opacity(0.2))
-                            .cornerRadius(8)
-
-                            /// PLAYER 2 VIEW
-                            ZStack {
-                                HStack (spacing: 10) {
-                                    /// PLAYER NAME AND MONEY VIEW
-                                    PlayerNameMoneyView(players: players, playerId: 1)
-                                    ZStack {
-                                        if player2Turn {
-                                            Circle()
-                                                .trim(from: 0, to: CGFloat(timeLeft/turnTimeNPC))
-                                                .stroke(Color(currentPlayerColor).opacity(0.6),  lineWidth: 3)
-                                                .frame(width: 43)
-                                                .rotationEffect(.degrees(-90))
-                                                .shadow(color: Color(currentPlayerColor), radius: 2)
-                                        }
-                                        else {
-                                            Circle()
-                                                .stroke(Color(.white).opacity(0.6),  lineWidth: 3)
-                                                .frame(width: 43)
-                                                .shadow(color: Color(.white), radius: 2)
-                                        }
-                                            
-                                        Image ("profile2")
-                                            .resizable()
-                                            .background(.red.opacity(0.4))
-                                            .frame(width: 40, height: 40)
-                                            .clipShape(Circle())
-                                    }
-                                }
-                            }
-                            .frame(width: 130, height: 55)
-                            .background(player2Turn ? Color("LavenderBlush") : .gray.opacity(0.2))
-                            .cornerRadius(8)
-                        }
-                        .padding(.horizontal, 4)
-
-                        /// DICE BUTTON VIEW
-                        ZStack {
-                            Button  {
-                                /// TURN START with Player 1 move first
-                                endTurn = false
-                                game.game.turn += 1
-                                resetPlayerTimer(newTime: 60)
-                                startPlayerTimer(playerId: 1)
-                                player1Turn = true
-
-                            } label: {
-                                VStack {
-                                    Image("dice\(dice1)")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .cornerRadius(9)
+                                    .frame(height: 40)
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
                                     
-                                    Image("dice\(dice2)")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .cornerRadius(9)
-                                }
-                            }
-                            .disabled(!diceAvaialble)
-                        }
-                        
-                        VStack (spacing: 8) {
-                            /// PLAYER 3 VIEW
-                            ZStack {
-                                HStack (spacing: 10) {
-                                    /// PLAYER NAME AND MONEY VIEW
-                                    PlayerNameMoneyView(players: players, playerId: 2)
-                                    ZStack {
-                                        if player3Turn {
-                                            Circle()
-                                                .trim(from: 0, to: CGFloat(timeLeft/turnTimeNPC))
-                                                .stroke(Color(currentPlayerColor).opacity(0.6),  lineWidth: 3)
-                                                .frame(width: 43)
-                                                .rotationEffect(.degrees(-90))
-                                                .shadow(color: Color(currentPlayerColor), radius: 2)
-                                        }
-                                        else {
-                                            Circle()
-                                                .stroke(Color(.white).opacity(0.6),  lineWidth: 3)
-                                                .frame(width: 43)
-                                                .shadow(color: Color(.white), radius: 2)
-                                        }
-                                            
-                                        Image ("profile3")
-                                            .resizable()
-                                            .background(.red.opacity(0.4))
-                                            .frame(width: 40, height: 40)
-                                            .clipShape(Circle())
+                                    HStack (spacing: 0) {
+                                        Text("we-never-see")
+                                        Text(" \(currentPlayerName) ")
+                                        Text("again")
                                     }
+                                    .frame(height: 20)
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    
+                                    
                                 }
                             }
-                            .frame(width: 130, height: 55)
-                            .background(player3Turn ? Color("LavenderBlush") : .gray.opacity(0.2))
-                            .cornerRadius(8)
-                            
-                            /// PLAYER 4 VIEW
-                            ZStack {
-                                HStack (spacing: 10) {
-                                    /// PLAYER NAME AND MONEY VIEW
-                                    PlayerNameMoneyView(players: players, playerId: 3)
-                                    ZStack {
-                                        if player4Turn {
-                                            Circle()
-                                                .trim(from: 0, to: CGFloat(timeLeft/turnTimeNPC))
-                                                .stroke(Color(currentPlayerColor).opacity(0.6),  lineWidth: 3)
-                                                .frame(width: 43)
-                                                .rotationEffect(.degrees(-90))
-                                                .shadow(color: Color(currentPlayerColor), radius: 2)
-                                        }
-                                        else {
-                                            Circle()
-                                                .stroke(Color(.white).opacity(0.6),  lineWidth: 3)
-                                                .frame(width: 43)
-                                                .shadow(color: Color(.white), radius: 2)
-                                        }
-                                        Image ("profile4")
-                                            .resizable()
-                                            .background(.red.opacity(0.4))
-                                            .frame(width: 40, height: 40)
-                                            .clipShape(Circle())
-                                    }
-                                }
-                            }
-                            .frame(width: 130, height: 55)
-                            .background(player4Turn ? Color("LavenderBlush") : .gray.opacity(0.2))
-                            .cornerRadius(8)
+                            .padding(.horizontal, 4)
+                            .frame(width: 220, height: 80)
+                            .border(.black)
                         }
-                        .padding(.horizontal, 4)
                     }
-                    .padding(.vertical, 4)
+                    .zIndex(99)
+                    
+                    /// WIN MESSAGE
+                    ZStack {
+                        if gameWin {
+                            ZStack {
+                                VStack (spacing: 4) {
+                                    Text("you-win-congrats")
+                                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                                        .frame(height: 20)
+                                    
+                                    Button {
+                                        
+                                    } label: {
+                                        Text("click-here-to-continue")
+                                            .font(.system(size: 12, weight: .regular, design: .monospaced))
+                                            .frame(height: 20)
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, 4)
+                            .frame(width: 220, height: 80)
+                            .border(.black)
+                        }
+                    }
+                    .zIndex(99)
+                    
+                    /// LOST MESSAGE
+                    ZStack {
+                        if gameOver {
+                            ZStack {
+                                VStack (spacing: 4) {
+                                    Text("you-lost-nice-try")
+                                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                                        .frame(height: 20)
+                                    
+                                    Button {
+                                        
+                                    } label: {
+                                        Text("click-here-to-continue")
+                                            .font(.system(size: 12, weight: .regular, design: .monospaced))
+                                            .frame(height: 20)
+                                    }
+                                    
+                                }
+                            }
+                            .padding(.horizontal, 4)
+                            .frame(width: 220, height: 80)
+                            .border(.black)
+                        }
+                    }
+                    .zIndex(99)
+                    
                 }
-                .frame(width: 360, height: 130)
-                .background(Color("BabyWhite"))
-                .border(.black)
+                .frame(width: 210, height: 210)
+                .offset(y: -180)
+                .zIndex(1)
                 
-                Spacer()
+                /// BOARD VIEW
+                VStack{
+                    /// TOP BANNER
+                    ZStack() {
+                        /// PLAYER POSITION VIEW
+                        ZStack {
+                            Image(systemName: "pawprint.fill")
+                                .offset(x: player1Tile.posX - 8, y: player1Tile.posY - 8)
+                                .font(.system(size: 10))
+                                .foregroundColor(Color(players.players[0].color.rawValue))
+                                .onChange(of: player1Turn) { turn in
+                                    /// player 1 - start turn
+                                    if turn  {
+                                        turnPlayedByPLayer()
+                                    } else {
+                                        /// player 2 - start turn
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + turnTimeNPC*0 + 1) {
+                                            resetPlayerTimer(newTime: turnTimeNPC)
+                                            startPlayerTimer(playerId: 2)
+                                        }
+                                        /// player 3 - start turn
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + turnTimeNPC*1 + 2) {
+                                            resetPlayerTimer(newTime: turnTimeNPC)
+                                            startPlayerTimer(playerId: 3)
+                                        }
+                                        /// player 4 - start turn
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + turnTimeNPC*2 + 3) {
+                                            resetPlayerTimer(newTime: turnTimeNPC)
+                                            startPlayerTimer(playerId: 4)
+                                        }
+                                    }
+                                }
+                            
+                            Image(systemName: "pawprint.fill")
+                                .offset(x: player2Tile.posX + 8, y: player2Tile.posY - 8)
+                                .font(.system(size: 10))
+                                .foregroundColor(Color(players.players[1].color.rawValue))
+                                .onChange(of: player2Turn) { turn in
+                                    turn ? turnPlayedByPLayer() : nil
+                                }
+                            
+                            Image(systemName: "pawprint.fill")
+                                .offset(x: player3Tile.posX + 8, y: player3Tile.posY + 8)
+                                .font(.system(size: 10))
+                                .foregroundColor(Color(players.players[2].color.rawValue))
+                                .onChange(of: player3Turn) { turn in
+                                    turn ? turnPlayedByPLayer() : nil
+                                }
+                            Image(systemName: "pawprint.fill")
+                                .offset(x: player4Tile.posX - 8, y: player4Tile.posY + 8)
+                                .font(.system(size: 10))
+                                .foregroundColor(Color(players.players[3].color.rawValue))
+                                .onChange(of: player4Turn) { turn in
+                                    turn ? turnPlayedByPLayer() : nil
+                                }
+                        }.zIndex(90)
+                        
+                        /// TILE VIEWS
+                        ZStack {
+                            BottomTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                            
+                            LeftTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                            
+                            TopTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                            
+                            RightTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
+                        }
+                        .frame(width: 360, height: 360)
+                        .background(Color("BabyWhite"))
+                        .zIndex(-99)
+                    }
+                    .padding(.bottom, 8)
+                    
+                    /// MIDDLE BANNER
+                    ZStack {
+                        HStack(spacing: 12) {
+                            VStack (spacing: 8) {
+                                /// PLAYER 1 VIEW
+                                ZStack {
+                                    HStack (spacing: 10) {
+                                        /// PLAYER NAME AND MONEY VIEW
+                                        PlayerNameMoneyView(players: players, playerId: 0)
+                                        ZStack {
+                                            if player1Turn {
+                                                Circle()
+                                                    .trim(from: 0, to: CGFloat(timeLeft/60))
+                                                    .stroke(Color(currentPlayerColor).opacity(0.6),  lineWidth: 3)
+                                                    .frame(width: 43)
+                                                    .rotationEffect(.degrees(-90))
+                                                    .shadow(color: Color(currentPlayerColor), radius: 2)
+                                            }
+                                            else {
+                                                Circle()
+                                                    .stroke(Color(.white).opacity(0.6),  lineWidth: 3)
+                                                    .frame(width: 43)
+                                                    .shadow(color: Color(.white), radius: 2)
+                                            }
+                                            
+                                            Image ("profile7")
+                                                .resizable()
+                                                .background(.red.opacity(0.4))
+                                                .frame(width: 40, height: 40)
+                                                .clipShape(Circle())
+                                        }
+                                    }
+                                }
+                                .frame(width: 140, height: 55)
+                                .background(player1Turn ? Color("LavenderBlush") : .gray.opacity(0.2))
+                                .cornerRadius(8)
+                                
+                                /// PLAYER 2 VIEW
+                                ZStack {
+                                    HStack (spacing: 10) {
+                                        /// PLAYER NAME AND MONEY VIEW
+                                        PlayerNameMoneyView(players: players, playerId: 1)
+                                        ZStack {
+                                            if player2Turn {
+                                                Circle()
+                                                    .trim(from: 0, to: CGFloat(timeLeft/turnTimeNPC))
+                                                    .stroke(Color(currentPlayerColor).opacity(0.6),  lineWidth: 3)
+                                                    .frame(width: 43)
+                                                    .rotationEffect(.degrees(-90))
+                                                    .shadow(color: Color(currentPlayerColor), radius: 2)
+                                            }
+                                            else {
+                                                Circle()
+                                                    .stroke(Color(.white).opacity(0.6),  lineWidth: 3)
+                                                    .frame(width: 43)
+                                                    .shadow(color: Color(.white), radius: 2)
+                                            }
+                                            
+                                            Image ("profile2")
+                                                .resizable()
+                                                .background(.red.opacity(0.4))
+                                                .frame(width: 40, height: 40)
+                                                .clipShape(Circle())
+                                        }
+                                    }
+                                }
+                                .frame(width: 140, height: 55)
+                                .background(player2Turn ? Color("LavenderBlush") : .gray.opacity(0.2))
+                                .cornerRadius(8)
+                            }
+                            .padding(.horizontal, 2)
+                            
+                            /// DICE BUTTON VIEW
+                            ZStack {
+                                Button  {
+                                    /// TURN START with Player 1 move first
+                                    endTurn = false
+                                    game.game.turn += 1
+                                    resetPlayerTimer(newTime: 60)
+                                    startPlayerTimer(playerId: 1)
+                                    player1Turn = true
+                                    
+                                } label: {
+                                    VStack {
+                                        Image("dice\(dice1)")
+                                            .resizable()
+                                            .frame(width: 40, height: 40)
+                                            .cornerRadius(9)
+                                        
+                                        Image("dice\(dice2)")
+                                            .resizable()
+                                            .frame(width: 40, height: 40)
+                                            .cornerRadius(9)
+                                    }
+                                }
+                                .disabled(!diceAvaialble)
+                            }
+                            
+                            VStack (spacing: 8) {
+                                /// PLAYER 3 VIEW
+                                ZStack {
+                                    HStack (spacing: 10) {
+                                        /// PLAYER NAME AND MONEY VIEW
+                                        PlayerNameMoneyView(players: players, playerId: 2)
+                                        ZStack {
+                                            if player3Turn {
+                                                Circle()
+                                                    .trim(from: 0, to: CGFloat(timeLeft/turnTimeNPC))
+                                                    .stroke(Color(currentPlayerColor).opacity(0.6),  lineWidth: 3)
+                                                    .frame(width: 43)
+                                                    .rotationEffect(.degrees(-90))
+                                                    .shadow(color: Color(currentPlayerColor), radius: 2)
+                                            }
+                                            else {
+                                                Circle()
+                                                    .stroke(Color(.white).opacity(0.6),  lineWidth: 3)
+                                                    .frame(width: 43)
+                                                    .shadow(color: Color(.white), radius: 2)
+                                            }
+                                            
+                                            Image ("profile3")
+                                                .resizable()
+                                                .background(.red.opacity(0.4))
+                                                .frame(width: 40, height: 40)
+                                                .clipShape(Circle())
+                                        }
+                                    }
+                                }
+                                .frame(width: 140, height: 55)
+                                .background(player3Turn ? Color("LavenderBlush") : .gray.opacity(0.2))
+                                .cornerRadius(8)
+                                
+                                /// PLAYER 4 VIEW
+                                ZStack {
+                                    HStack (spacing: 10) {
+                                        /// PLAYER NAME AND MONEY VIEW
+                                        PlayerNameMoneyView(players: players, playerId: 3)
+                                        ZStack {
+                                            if player4Turn {
+                                                Circle()
+                                                    .trim(from: 0, to: CGFloat(timeLeft/turnTimeNPC))
+                                                    .stroke(Color(currentPlayerColor).opacity(0.6),  lineWidth: 3)
+                                                    .frame(width: 43)
+                                                    .rotationEffect(.degrees(-90))
+                                                    .shadow(color: Color(currentPlayerColor), radius: 2)
+                                            }
+                                            else {
+                                                Circle()
+                                                    .stroke(Color(.white).opacity(0.6),  lineWidth: 3)
+                                                    .frame(width: 43)
+                                                    .shadow(color: Color(.white), radius: 2)
+                                            }
+                                            Image ("profile4")
+                                                .resizable()
+                                                .background(.red.opacity(0.4))
+                                                .frame(width: 40, height: 40)
+                                                .clipShape(Circle())
+                                        }
+                                    }
+                                }
+                                .frame(width: 140, height: 55)
+                                .background(player4Turn ? Color("LavenderBlush") : .gray.opacity(0.2))
+                                .cornerRadius(8)
+                            }
+                            .padding(.horizontal, 2)
+                        }
+                        .padding(.vertical, 4)
+                    }
+                    .frame(width: 361.2, height: 130)
+                    .background(Color("BabyWhite"))
+                    .border(.black, width: 1.2)
+                    
+                    Spacer()
+                }
             }
+            
         }
-        .frame(width: 500)
+        .frame(width: 508)
 //        .background(Color("AzulBlue").opacity(0.8))
         .onChange(of: endTurn) { newTurn in
             game.game.cities = cities.cities
@@ -1268,12 +1271,13 @@ struct GameView: View {
         }
         .onAppear {
             loadGame()
-            
-            if game.game.turn == 0 {
-                game.game.cities = cities.cities
-                game.game.achivements = achivements.achievements
-                game.game.beaches = beaches.beaches
-                game.game.players = players.players
+            players.players = game.game.players
+            cities.cities = game.game.cities
+            beaches.beaches = game.game.beaches
+            achivements.achievements = game.game.achivements
+
+            if game.game.turn == 0 && !game.game.adjusted {
+                game.game = Game(username: "Eugene", startingMoney: 2000, language: "en", darkModeEnabled: false, turn: 0, players: PlayerModel().players, cities: CityModel().cities, beaches: BeachModel().beaches, achivements: AchievementModel().achievements, adjusted: false)
                 saveGame()
             }
         }
