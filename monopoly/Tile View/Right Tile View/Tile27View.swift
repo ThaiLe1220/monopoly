@@ -16,12 +16,12 @@ struct Tile27View: View {
             ZStack{
                 Text("RMIT")
                     .rotationEffect(Angle(degrees: 135))
-                    .font(.system(size: 8, weight: .light, design: .monospaced))
+                    .font(.system(size: 9, weight: .regular, design: .monospaced))
                     .offset(x: 6, y: 6)
                 
                 Text("WORLD TOUR")
                     .rotationEffect(Angle(degrees: 135))
-                    .font(.system(size: 8, weight: .light, design: .monospaced))
+                    .font(.system(size: 9, weight: .regular, design: .monospaced))
                     .offset(x: -2, y: -2)
                 /// BORDER
                 ZStack {

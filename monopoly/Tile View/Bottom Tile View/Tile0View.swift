@@ -19,16 +19,18 @@ struct Tile0View: View {
             ZStack{
                 ZStack {
                     Text("START")
-                        .font(.system(size: 10, weight: .light, design: .monospaced))
+                        .font(.system(size: 12, weight: .regular, design: .monospaced))
                         .rotation3DEffect(.degrees(isAnimating ? 360*4 : 0), axis: (x: 1, y: 0, z: 0))
                         .rotationEffect(Angle(degrees: -45))
                         .animation(.linear(duration: 3), value: isAnimating)
+                    
                      
                     Image(systemName: "arrowshape.turn.up.backward.2.fill")
                         .rotation3DEffect(.degrees(isAnimating ? 360*2 : 0), axis: (x: 0, y: 0, z: 1))
                         .font(.system(size: 9))
                         .offset(x: -19, y: -19)
                         .animation(.linear(duration: 1.5).delay(0.5), value: isAnimating)
+                        .foregroundColor(.red)
                         
                     Image(systemName: "arrowshape.turn.up.backward.2.fill")
                         .rotation3DEffect(.degrees(isAnimating ? 360*2 : 0), axis: (x: 0, y: 0, z: 1))
@@ -37,6 +39,8 @@ struct Tile0View: View {
                         .font(.system(size: 9))
                         .offset(x: 19, y: 19)
                         .animation(.linear(duration: 1.5).delay(0.5), value: isAnimating)
+                        .foregroundColor(.red)
+
                 }
                 .onAppear {
                     isAnimating.toggle()

@@ -36,7 +36,7 @@ struct CityTileView: View {
                     .rotationEffect(Angle(degrees: -90 + rotatedAngle))
                     .font(.system(size: 7.5, weight: .medium, design: .default))
                     .foregroundColor(cityColor)
-                    .offset(x: 10, y: 5)
+                    .offset(x: 8, y: 5)
                 
                 /// BORDER
                 ZStack {
@@ -62,15 +62,13 @@ struct CityTileView: View {
                         .offset(y:-30)
                 }
                 
-       
-                
                 if (cities.cities[cityId].currentLevel == 0) {
                     Text("\(cities.cities[cityId].rent) $")
                         .frame(width: 50, height: 10)
                         .rotationEffect(Angle(degrees: -90 + rotatedAngle))
                         .font(.system(size: 8.5, weight: .medium, design: .default))
                         .foregroundColor(.green)
-                        .offset(x: 0, y: 5)
+                        .offset(x: -5, y: 5)
                 }
                 else {
                     Text("\(cities.cities[cityId].rent) $")
@@ -78,7 +76,7 @@ struct CityTileView: View {
                         .rotationEffect(Angle(degrees: -90 + rotatedAngle))
                         .font(.system(size: 8.5, weight: .medium, design: .default))
                         .foregroundColor(.green)
-                        .offset(x: 0, y: 5)
+                        .offset(x: -5, y: 5)
                 }
                 
                 /// OWNER IDENTIFICATION VIEW

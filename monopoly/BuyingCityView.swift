@@ -46,7 +46,7 @@ struct BuyingCityView: View {
                 
                 VStack (spacing: 3){
                     ForEach(1..<6, id: \.self) { index in
-                        if (index == 1) {
+                        if index == 1 {
                             HStack (spacing: 0){
                                 Text("Level").frame(width: 90)
                                 Text("Rent").frame(width: 50)
@@ -70,7 +70,7 @@ struct BuyingCityView: View {
                             .frame(width: 210, height: 16)
                             .font(.system(size: 12, weight: .regular, design: .monospaced))
                         }
-                        else if (index == 5) {
+                        else if index == 5 {
                             HStack (spacing: 0){
                                 Text("Hotel")
                                     .frame(width: 90)
@@ -81,6 +81,8 @@ struct BuyingCityView: View {
                                         toggleBuyingOption(index, city)
                                     }
                                     .frame(width: 20)
+                                    .opacity(city.currentLevel == 4 ? 1 : 0)
+
                             }
                             .frame(width: 210, height: 16)
                             .font(.system(size: 12, weight: .regular, design: .monospaced))
@@ -91,11 +93,22 @@ struct BuyingCityView: View {
                                     .frame(width: 90)
                                 Text("\(city.rentByLevel[index])").frame(width: 50)
                                 Text("\(city.costByLevel[index-1])").frame(width: 50)
-                                Image(systemName: cityBuyingOption.contains(index) ? "checkmark.square" : "square")
-                                    .onTapGesture {
-                                        toggleBuyingOption(index, city)
-                                    }
-                                    .frame(width: 20)
+                                if index == 4 {
+                                    Image(systemName: cityBuyingOption.contains(index) ? "checkmark.square" : "square")
+                                        .onTapGesture {
+                                            toggleBuyingOption(index, city)
+                                        }
+                                        .frame(width: 20)
+                                        .opacity(city.currentLevel == 3 ? 1 : 0)
+                                }
+                                else {
+                                    Image(systemName: cityBuyingOption.contains(index) ? "checkmark.square" : "square")
+                                        .onTapGesture {
+                                            toggleBuyingOption(index, city)
+                                        }
+                                        .frame(width: 20)
+                                }
+
                             }
                             .frame(width: 210, height: 16)
                             .font(.system(size: 12, weight: .regular, design: .monospaced))
@@ -108,9 +121,10 @@ struct BuyingCityView: View {
                 VStack {
                     Button {
                         cities.buyCity(player: &players.players[0], options: cityBuyingOption)
-                        withAnimation(.linear(duration: 0.5)) {
+                        withAnimation(.linear(duration: 0.3)) {
                             buyingMessage = false
                         }
+                        
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                 cityBoughtMessage = true
                         }

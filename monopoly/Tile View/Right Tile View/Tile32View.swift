@@ -14,11 +14,7 @@ struct Tile32View: View {
     var body: some View {
         ZStack {
             ZStack{
-                Text("CHANCE")
-                    .frame(width: 30, height: 10)
-                    .border(.black, width: 0.3)
-                    .font(.system(size: 7, weight: .ultraLight, design: .monospaced))
-                    .rotationEffect(Angle(degrees: 180))
+                ChanceTileView()
             }
             .frame(width: 30, height: 60)
             .border(.black, width: 0.2)

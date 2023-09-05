@@ -42,7 +42,6 @@ struct BuyingBeachView: View {
                 }
                 .padding(.bottom, 5)
 
-                
                 VStack (spacing: 4){
                     ForEach(1..<5, id: \.self) { index in
                         if (index == 1) {
@@ -72,7 +71,7 @@ struct BuyingBeachView: View {
                 VStack {
                     Button {
                         beaches.buyBeach(player: &players.players[0])
-                        withAnimation(.easeInOut(duration: 0.5)) {
+                        withAnimation(.linear(duration: 0.3)) {
                             buyingMessage = false
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {

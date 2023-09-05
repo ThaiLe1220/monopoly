@@ -16,7 +16,9 @@ struct Tile9View: View {
             ZStack{
                 Text("RMIT HEARING")
                     .rotationEffect(Angle(degrees: -45))
-                    .font(.system(size: 8, weight: .light, design: .monospaced))
+                    .font(.system(size: 9, weight: .regular, design: .monospaced))
+                    .frame(width: 80, height: 20)
+
                 
                 /// BORDER
                 ZStack {
