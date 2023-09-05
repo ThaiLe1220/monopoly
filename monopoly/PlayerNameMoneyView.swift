@@ -13,20 +13,22 @@ struct PlayerNameMoneyView: View {
     
     var body: some View {
             // PLAYER NAME AND MONEY VIEW
-        VStack () {
+        VStack {
             Text(players.players[playerId].name)
-                .font(.system(size: 12, weight: .bold, design: .default))
+                .font(.system(size: 12, weight: .bold, design: .monospaced))
                 .foregroundColor(.white)
-                .frame(width: 68, height: 20)
+                .frame(width: 70, height: 20)
                 .background(Color(players.players[playerId].color.rawValue))
-                .cornerRadius(4)
+                .cornerRadius(8)
+                .offset(y: -4)
             
-            Text("$ \(players.players[playerId].money)")
-                .font(.system(size: 12, weight: .medium, design: .default))
+            Text("$\(players.players[playerId].money)")
+                .font(.system(size: 12, weight: .semibold, design: .monospaced))
                 .foregroundColor(Color.green.opacity(0.9))
-            .frame(height: 8)
+                .frame(height: 6)
             
         }
+
     }
 }
 

@@ -46,8 +46,8 @@ struct BuyingBeachView: View {
                     ForEach(1..<5, id: \.self) { index in
                         if (index == 1) {
                             HStack (spacing: 0){
-                                Text("Level").frame(width: 150)
-                                Text("Rent").frame(width: 60)
+                                Text("level").frame(width: 150)
+                                Text("rent").frame(width: 60)
                             }
                             .frame(width: 210, height: 24)
                             .border(.black, width: 0.2)
@@ -56,9 +56,13 @@ struct BuyingBeachView: View {
 
                         
                         HStack (spacing: 0){
-                            Text(index < 2 ? "Own \(index) beach" : "Own \(index) beaches")
-                                .frame(width: 150)
-                            Text("\(beach.rentByLevel[index])").frame(width: 60)
+                            HStack (spacing: 0) {
+                                Text("own")
+                                Text(" \(index) ")
+                                Text(index < 2 ? "beach" : "beaches")
+                            }
+                            .frame(width: 150)
+                            Text("\(beach.rentByLevel[index])$").frame(width: 60)
                         }
                         .frame(width: 210, height: 16)
                         .font(.system(size: 12, weight: .regular, design: .monospaced))
@@ -85,9 +89,9 @@ struct BuyingBeachView: View {
                         }
                         
                     } label: {
-                        HStack {
-                            Text("Buy For: ")
-                            Text("\(beach.cost)$")
+                        HStack(spacing:0){
+                            Text("buy-for")
+                            Text(": \(beach.cost)$")
                         }
                         .font(.system(size: 13, weight: .bold, design: .default))
                         .frame(width: 160, height: 24)

@@ -48,9 +48,9 @@ struct BuyingCityView: View {
                     ForEach(1..<6, id: \.self) { index in
                         if index == 1 {
                             HStack (spacing: 0){
-                                Text("Level").frame(width: 90)
-                                Text("Rent").frame(width: 50)
-                                Text("Cost").frame(width: 50)
+                                Text("level").frame(width: 90)
+                                Text("rent").frame(width: 50)
+                                Text("cost").frame(width: 50)
                                 Spacer().frame(width: 20)
                             }
                             .frame(width: 210, height: 20)
@@ -72,7 +72,7 @@ struct BuyingCityView: View {
                         }
                         else if index == 5 {
                             HStack (spacing: 0){
-                                Text("Hotel")
+                                Text("hotel")
                                     .frame(width: 90)
                                 Text("\(city.rentByLevel[index])").frame(width: 50)
                                 Text("\(city.costByLevel[index-1])").frame(width: 50)
@@ -89,10 +89,13 @@ struct BuyingCityView: View {
                         }
                         else {
                             HStack (spacing: 0){
-                                Text("House \(index-1)")
-                                    .frame(width: 90)
-                                Text("\(city.rentByLevel[index])").frame(width: 50)
-                                Text("\(city.costByLevel[index-1])").frame(width: 50)
+                                HStack(spacing: 0) {
+                                    Text("house")
+                                    Text(" \(index-1)")
+                                }
+                                .frame(width: 90)
+                                Text("\(city.rentByLevel[index])$").frame(width: 50)
+                                Text("\(city.costByLevel[index-1])$").frame(width: 50)
                                 if index == 4 {
                                     Image(systemName: cityBuyingOption.contains(index) ? "checkmark.square" : "square")
                                         .onTapGesture {
@@ -136,9 +139,9 @@ struct BuyingCityView: View {
                         }
 
                     } label: {
-                        HStack {
-                            Text("Buy For: ")
-                            Text("\(totalBuyingCost) $")
+                        HStack (spacing: 0) {
+                            Text("buy-for")
+                            Text(": \(totalBuyingCost)$")
                         }
                         .font(.system(size: 13, weight: .bold, design: .default))
                         .frame(width: 150, height: 24)

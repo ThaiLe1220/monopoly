@@ -10,11 +10,12 @@ import Foundation
 /// Defines Game struct
 struct Game: Codable, Hashable, Identifiable, Equatable{
     var id: Int
+    var userName: String
+    var turn: Int
     var players: [Player]
     var cities: [City]
     var beaches: [Beach]
-    var turn: Int
-
+    var achivements: [Achievement]
 
 }
 

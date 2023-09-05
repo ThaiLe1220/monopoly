@@ -8,9 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		954A5C5F2A8CC415008257D4 /* monopolyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A5C5E2A8CC415008257D4 /* monopolyApp.swift */; };
-		954A5C612A8CC415008257D4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A5C602A8CC415008257D4 /* ContentView.swift */; };
+		954A5C612A8CC415008257D4 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A5C602A8CC415008257D4 /* GameView.swift */; };
 		954A5C632A8CC416008257D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 954A5C622A8CC416008257D4 /* Assets.xcassets */; };
 		954A5C662A8CC416008257D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 954A5C652A8CC416008257D4 /* Preview Assets.xcassets */; };
+		95522F952AA6FA7C00C216FB /* Achievement.json in Resources */ = {isa = PBXBuildFile; fileRef = 95522F942AA6FA7C00C216FB /* Achievement.json */; };
+		95522F972AA6FE0C00C216FB /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95522F962AA6FE0C00C216FB /* Achievement.swift */; };
+		95522F992AA6FE9700C216FB /* AchievementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95522F982AA6FE9700C216FB /* AchievementModel.swift */; };
+		95522F9C2AA7068200C216FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95522F9E2AA7068200C216FB /* Localizable.strings */; };
+		95522FA12AA7466100C216FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95522FA02AA7466100C216FB /* ContentView.swift */; };
 		9558732D2AA6C3B900A6F00F /* ChanceTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9558732C2AA6C3B900A6F00F /* ChanceTileView.swift */; };
 		956CDD832A8E0E490019F0EC /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956CDD822A8E0E490019F0EC /* TilePosition.swift */; };
 		956CDD852A8E0F4E0019F0EC /* TilePositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956CDD842A8E0F4E0019F0EC /* TilePositionModel.swift */; };
@@ -80,9 +85,15 @@
 /* Begin PBXFileReference section */
 		954A5C5B2A8CC415008257D4 /* monopoly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = monopoly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		954A5C5E2A8CC415008257D4 /* monopolyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monopolyApp.swift; sourceTree = "<group>"; };
-		954A5C602A8CC415008257D4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		954A5C602A8CC415008257D4 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		954A5C622A8CC416008257D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		954A5C652A8CC416008257D4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		95522F942AA6FA7C00C216FB /* Achievement.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Achievement.json; sourceTree = "<group>"; };
+		95522F962AA6FE0C00C216FB /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		95522F982AA6FE9700C216FB /* AchievementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementModel.swift; sourceTree = "<group>"; };
+		95522F9D2AA7068200C216FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		95522F9F2AA7068600C216FB /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		95522FA02AA7466100C216FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9558732C2AA6C3B900A6F00F /* ChanceTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanceTileView.swift; sourceTree = "<group>"; };
 		956CDD802A8E0C250019F0EC /* TilePosition.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TilePosition.json; sourceTree = "<group>"; };
 		956CDD822A8E0E490019F0EC /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
@@ -181,7 +192,8 @@
 			children = (
 				959E37DF2A98A345006E7508 /* Tile View */,
 				954A5C5E2A8CC415008257D4 /* monopolyApp.swift */,
-				954A5C602A8CC415008257D4 /* ContentView.swift */,
+				95522FA02AA7466100C216FB /* ContentView.swift */,
+				954A5C602A8CC415008257D4 /* GameView.swift */,
 				95EE88842A977C9800EA5DE2 /* BuyingCityView.swift */,
 				D735704B2AA32BDB001FE585 /* BuyingBeachView.swift */,
 				95F83CF72A94D92A004D10B1 /* PlayerNameMoneyView.swift */,
@@ -191,7 +203,9 @@
 				954A5C622A8CC416008257D4 /* Assets.xcassets */,
 				956CDD802A8E0C250019F0EC /* TilePosition.json */,
 				95F83CF92A95F220004D10B1 /* City.json */,
+				95522F942AA6FA7C00C216FB /* Achievement.json */,
 				DE38FBBB2A9F7D5000424BEE /* Beach.json */,
+				95522F9E2AA7068200C216FB /* Localizable.strings */,
 				95F83C9B2A925126004D10B1 /* testing */,
 				954A5C642A8CC416008257D4 /* Preview Content */,
 			);
@@ -219,6 +233,8 @@
 				DE38FBBF2A9F808900424BEE /* BeachModel.swift */,
 				D7D48C0A2AA49DF100FA2269 /* Game.swift */,
 				D7D48C0C2AA49EC500FA2269 /* GameModel.swift */,
+				95522F962AA6FE0C00C216FB /* Achievement.swift */,
+				95522F982AA6FE9700C216FB /* AchievementModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -357,6 +373,7 @@
 			knownRegions = (
 				en,
 				Base,
+				vi,
 			);
 			mainGroup = 954A5C522A8CC415008257D4;
 			productRefGroup = 954A5C5C2A8CC415008257D4 /* Products */;
@@ -374,7 +391,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				954A5C662A8CC416008257D4 /* Preview Assets.xcassets in Resources */,
+				95522F952AA6FA7C00C216FB /* Achievement.json in Resources */,
 				954A5C632A8CC416008257D4 /* Assets.xcassets in Resources */,
+				95522F9C2AA7068200C216FB /* Localizable.strings in Resources */,
 				95F83CFA2A95F220004D10B1 /* City.json in Resources */,
 				DE38FBBC2A9F7D5000424BEE /* Beach.json in Resources */,
 				956CDD862A8E15F80019F0EC /* TilePosition.json in Resources */,
@@ -390,7 +409,7 @@
 			files = (
 				DE4D515F2A9CA89000CC7E82 /* TaxTileView.swift in Sources */,
 				956CDD852A8E0F4E0019F0EC /* TilePositionModel.swift in Sources */,
-				954A5C612A8CC415008257D4 /* ContentView.swift in Sources */,
+				954A5C612A8CC415008257D4 /* GameView.swift in Sources */,
 				95F83CCF2A94B279004D10B1 /* Tile22View.swift in Sources */,
 				95F83CC12A94B23D004D10B1 /* Tile15View.swift in Sources */,
 				D7D48C0D2AA49EC500FA2269 /* GameModel.swift in Sources */,
@@ -409,6 +428,8 @@
 				95F83CF32A94B543004D10B1 /* BottomTileView.swift in Sources */,
 				95F83C9D2A92514B004D10B1 /* SwiftUIView.swift in Sources */,
 				DE38FBBE2A9F808300424BEE /* Beach.swift in Sources */,
+				95522F992AA6FE9700C216FB /* AchievementModel.swift in Sources */,
+				95522F972AA6FE0C00C216FB /* Achievement.swift in Sources */,
 				95F83CB72A94B21D004D10B1 /* Tile10View.swift in Sources */,
 				95F83CA52A94B0B7004D10B1 /* Tile1View.swift in Sources */,
 				9558732D2AA6C3B900A6F00F /* ChanceTileView.swift in Sources */,
@@ -442,6 +463,7 @@
 				95F83CE12A94B2CB004D10B1 /* Tile30View.swift in Sources */,
 				95F83CD12A94B27E004D10B1 /* Tile23View.swift in Sources */,
 				959E37DE2A9864F8006E7508 /* CityTileView.swift in Sources */,
+				95522FA12AA7466100C216FB /* ContentView.swift in Sources */,
 				95F83CBF2A94B237004D10B1 /* Tile14View.swift in Sources */,
 				95F83CAF2A94B195004D10B1 /* Tile6View.swift in Sources */,
 				95F83CBB2A94B22B004D10B1 /* Tile12View.swift in Sources */,
@@ -455,6 +477,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		95522F9E2AA7068200C216FB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				95522F9D2AA7068200C216FB /* en */,
+				95522F9F2AA7068600C216FB /* vi */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		954A5C672A8CC416008257D4 /* Debug */ = {
