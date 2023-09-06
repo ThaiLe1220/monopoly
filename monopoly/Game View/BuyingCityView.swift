@@ -154,7 +154,6 @@ struct BuyingCityView: View {
             }
         }
         .frame(width: 210, height: 190)
-
     }
     
     func toggleBuyingOption(_ number: Int, _ city: City) {

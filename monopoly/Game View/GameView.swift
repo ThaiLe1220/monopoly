@@ -9,24 +9,8 @@ import SwiftUI
 
 struct GameView: View {
     @AppStorage("game") private var gameData: Data = Data()
-    @State var language:String  = "vi"
 
     var tiles:[TilePosition] = TilePositionModel().tiles
-    var turnTimeNPC: Double {
-        if tileIdBefore <= 34 && tileIdAfter >= 36 {
-            return 16
-        }
-        
-        if currentPlayerTileId == 27 {
-            return 20
-        }
-            
-        if lockedPLayerIds.contains(2) || lockedPLayerIds.contains(3) || lockedPLayerIds.contains(4) {
-            return 5
-        }
-        return 8
-    }
-    
     @StateObject var game = GameModel()
     
     @StateObject var cities:CityModel = CityModel()
@@ -40,7 +24,6 @@ struct GameView: View {
     @State var dice1: Int = 1
     @State var dice2: Int = 1
     var totalDice: Int { dice1 + dice2 }
-//    var totalDice: Int = 27
     var diceAvaialble: Bool {
         if player1Turn || player2Turn || player3Turn || player4Turn {
             return false
@@ -92,7 +75,8 @@ struct GameView: View {
 
     @State var timeLeft: Double = 60.0
     @State var timer: Timer?
-    
+    var turnTimeNPC: Double = 40
+
     @State var isTimerRunning = false
     @State var endTurnMessage = false
     
@@ -143,16 +127,44 @@ struct GameView: View {
         VStack {
             Spacer()
             ZStack {
+                
+                /// INBOARD TEXT VIEW
+                ZStack {
+                    
+                    if (buyingPropertyMessage||beachBoughtMessage||cityBoughtMessage||rentPaidMessage||taxPaidMessage||moneyReceivedMessage||crossingStartTileMessage) {
+                    }
+                    else {
+                        Image("monolopyLogo")
+                            .resizable()
+                            .frame(width: 230, height: 36)
+                            .rotationEffect(Angle(degrees: 45))
+                    }
+                    
+
+                }
+                .frame(width: 210, height: 210)
+                .offset(y: -170)
+                .zIndex(-1)
+
                 /// TURN VIEW
                 ZStack {
                     /// TURN NUMBER TEXT VIEW
                     ZStack {
                         HStack {
+                            Image("rmit-logo")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .padding(.horizontal, -4)
                             Text("turn")
                             Text("\(game.game.turn)")
+                            Image("rmit-logo")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .padding(.horizontal, -4)
+
                         }
                         .font(.system(size: 14, weight: .semibold, design: .monospaced))
-                        .offset(x: 0, y: -100)
+                        .offset(x: 0, y: -95)
                     }
                     
                     /// GAME UTILITY VIEW
@@ -178,13 +190,13 @@ struct GameView: View {
                                 Text("end-turn")
                             }
                             .frame(width: 55, height: 16)
-                            .background(.blue.opacity(0.9))
+                            .background(Color("GoldenBrown"))
                             .cornerRadius(4)
                             .font(.system(size: 9.5, weight: .bold, design: .default))
                             .foregroundColor(.white)
                         }
-                        .offset(x: 85, y: -92)
-                        .opacity(player1Turn ? 1 : 0)
+                        .offset(x: 85, y: -82)
+                        .opacity(!player1Turn ? 1 : 0)
                         
                         /// END TURN MESSAGE VIEW
                         ZStack {
@@ -218,6 +230,7 @@ struct GameView: View {
                         .frame(width: 220, height: 80)
                         .background(Color("BabyWhite"))
                         .border(.black)
+                        .offset(y: 8)
                         .opacity(endTurnMessage ? 1 : 0)
                         .zIndex(10)
                     }
@@ -226,10 +239,8 @@ struct GameView: View {
                     ZStack {
                         /// BUYING MESSAGE VIEW
                         ZStack {
-                            Color.gray.opacity(0.4)
-                                .ignoresSafeArea()
                             ZStack {
-                                if (tiles[players.players[0].tilePositionId].type == .city) {
+                                if (tiles[players.players[0].tilePositionId].type == .start) {
                                     VStack (spacing: 4){
                                         BuyingCityView(buyingMessage: $buyingPropertyMessage, cityBuyingOption: $cityBuyingOption, totalBuyingCost: $totalBuyingCost, cityBoughtMessage: $cityBoughtMessage, cities: cities, players: players)
                                             .padding(.vertical, 4)
@@ -242,11 +253,11 @@ struct GameView: View {
                                     }
                                 }
                             }
-                            .frame(width: 240, height: 240)
-                            .background(.white)
                         }
                         .opacity(buyingPropertyMessage ? 1 : 0)
                         .animation(.linear(duration: 0.3), value: buyingPropertyMessage)
+                        .offset(y: 8)
+                        .zIndex(22)
                         
                         /// BEACH BOUGHT MESSAGE VIEW
                         ZStack {
@@ -340,7 +351,7 @@ struct GameView: View {
                             }
                         }
                         .frame(width: 220, height: 190)
-                        .offset(y: 10)
+                        .offset(y: 20)
                         .opacity(beachBoughtMessage ? 1 : 0)
                         .animation(.linear(duration: 0.3), value: beachBoughtMessage)
                         
@@ -441,10 +452,9 @@ struct GameView: View {
                             }
                         }
                         .frame(width: 220, height: 190)
-                        .offset(y: 10)
+                        .offset(y: 20)
                         .opacity(cityBoughtMessage ? 1 : 0)
                         .animation(.linear(duration: 0.3), value: cityBoughtMessage)
-                        
                     }
                     .zIndex(-1)
                     
@@ -456,10 +466,23 @@ struct GameView: View {
                                 // PAID RENT Text
                                 ZStack {
                                     VStack (spacing: 2){
-                                        Circle()
-                                            .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
-                                            .frame(width: 36)
-                                            .padding(.bottom, 4)
+                                        ZStack {
+                                            Circle()
+                                                .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
+                                                .frame(width: 42)
+                                                .padding(.bottom, 4)
+                                            
+                                            Circle()
+                                                .stroke(.white, lineWidth: 2)
+                                                .frame(width: 38)
+                                                .padding(.bottom, 4)
+                                            
+                                            Image ("profile\(currentGamePlayerId)")
+                                                .resizable()
+                                                .frame(width: 36, height: 36)
+                                                .clipShape(Circle())
+                                                .padding(.bottom, 4)
+                                        }
                                         
                                         Text("\(players.players[currentGamePlayerId-1].name)")
                                             .font(.system(size: 11, weight: .semibold, design: .monospaced))
@@ -469,18 +492,31 @@ struct GameView: View {
                                     
                                     VStack (spacing: 4){
                                         Text("paid")
-                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .font(.system(size: 13, weight: .semibold, design: .monospaced))
                                         Text("\(rentMoneyPaid)$")
-                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .font(.system(size: 13, weight: .semibold, design: .monospaced))
                                             .foregroundColor(.green)
                                     }
                                     
                                     VStack (spacing: 2){
-                                        Circle()
-                                            .stroke(Color("\(players.players[paidPropertyOwnerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
-                                            .frame(width: 36)
+                                        ZStack {
+                                            Circle()
+                                                .stroke(Color("\(players.players[paidPropertyOwnerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
+                                                .frame(width: 42)
                                             .padding(.bottom, 4)
-                                        
+                                            
+                                            Circle()
+                                                .stroke(.white, lineWidth: 2)
+                                                .frame(width: 38)
+                                                .padding(.bottom, 4)
+                                            
+                                            Image ("profile\(currentGamePlayerId)")
+                                                .resizable()
+                                                .frame(width: 36, height: 36)
+                                                .clipShape(Circle())
+                                                .padding(.bottom, 4)
+                                        }
+
                                         Text("\(players.players[paidPropertyOwnerId-1].name)")
                                             .font(.system(size: 11, weight: .semibold, design: .monospaced))
                                     }
@@ -495,12 +531,9 @@ struct GameView: View {
                                 .offset(y: -7.5)
                                 .foregroundColor(.green)
                             }
-                            .frame(width: 210, height: 160)
-                            .offset(y: 7.5)
+                            .offset(y: 17.5)
                             .animation(.linear(duration: 0.3), value: rentPaidMessage)
                             .padding(.horizontal, 4)
-                            .frame(width: 220, height: 170)
-                            .border(.black)
                         }
                         
                         /// PAID TAX TEXT MESSAGE VIEW
@@ -509,10 +542,23 @@ struct GameView: View {
                                 // PAID TAX Text
                                 ZStack {
                                     VStack (spacing: 2){
-                                        Circle()
-                                            .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
-                                            .frame(width: 36)
-                                            .padding(.bottom, 4)
+                                        ZStack {
+                                            Circle()
+                                                .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
+                                                .frame(width: 42)
+                                                .padding(.bottom, 4)
+                                            
+                                            Circle()
+                                                .stroke(.white, lineWidth: 2)
+                                                .frame(width: 38)
+                                                .padding(.bottom, 4)
+                                            
+                                            Image ("profile\(currentGamePlayerId)")
+                                                .resizable()
+                                                .frame(width: 36, height: 36)
+                                                .clipShape(Circle())
+                                                .padding(.bottom, 4)
+                                        }
                                         
                                         Text("\(players.players[currentGamePlayerId-1].name)")
                                             .font(.system(size: 11, weight: .semibold, design: .monospaced))
@@ -523,17 +569,16 @@ struct GameView: View {
                                     
                                     VStack (spacing: 4){
                                         Text("paid-tax")
-                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .font(.system(size: 13, weight: .semibold, design: .monospaced))
                                         Text("\(taxMoneyPaid)$")
-                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .font(.system(size: 13, weight: .semibold, design: .monospaced))
                                             .foregroundColor(.green)
                                     }
                                     
                                     VStack (spacing: 2){
-                                        Rectangle()
-                                            .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
-                                            .frame(width: 36, height: 36)
-                                            .padding(.bottom, 4)
+                                        Image("rmit-logo")
+                                            .resizable()
+                                            .frame(width: 42, height: 42)
                                         
                                         Text("RMIT")
                                             .font(.system(size: 11, weight: .semibold, design: .monospaced))
@@ -551,12 +596,9 @@ struct GameView: View {
                                 .offset(y: -15)
                                 .foregroundColor(.green)
                             }
-                            .frame(width: 210, height: 160)
                             .offset(y: 20)
                             .animation(.linear(duration: 0.3), value: taxPaidMessage)
                             .padding(.horizontal, 4)
-                            .frame(width: 220, height: 170)
-                            .border(.black)
                         }
                         
                         /// RECEIVE MONEY TEXT MESSAGE VIEW
@@ -565,11 +607,23 @@ struct GameView: View {
                                 // RECEIVE MONEY Text
                                 ZStack {
                                     VStack (spacing: 2){
-                                        Circle()
-                                            .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
-                                            .frame(width: 36)
-                                            .padding(.bottom, 4)
-                                        
+                                        ZStack {
+                                            Circle()
+                                                .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
+                                                .frame(width: 42)
+                                                .padding(.bottom, 4)
+                                            
+                                            Circle()
+                                                .stroke(.white, lineWidth: 2)
+                                                .frame(width: 38)
+                                                .padding(.bottom, 4)
+                                            
+                                            Image ("profile\(currentGamePlayerId)")
+                                                .resizable()
+                                                .frame(width: 36, height: 36)
+                                                .clipShape(Circle())
+                                                .padding(.bottom, 4)
+                                        }
                                         
                                         Text("\(players.players[currentGamePlayerId-1].name)")
                                             .font(.system(size: 11, weight: .semibold, design: .monospaced))
@@ -580,17 +634,16 @@ struct GameView: View {
                                     
                                     VStack (spacing: 4){
                                         Text("receive-cash")
-                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .font(.system(size: 13, weight: .semibold, design: .monospaced))
                                         Text("\(moneyReceived)$")
-                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .font(.system(size: 13, weight: .semibold, design: .monospaced))
                                             .foregroundColor(.green)
                                     }
                                     
                                     VStack (spacing: 2){
-                                        Rectangle()
-                                            .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
-                                            .frame(width: 36, height: 36)
-                                            .padding(.bottom, 4)
+                                        Image("rmit-logo")
+                                            .resizable()
+                                            .frame(width: 42, height: 42)
                                         
                                         Text("RMIT")
                                             .font(.system(size: 11, weight: .semibold, design: .monospaced))
@@ -612,8 +665,6 @@ struct GameView: View {
                             .offset(y: 20)
                             .animation(.linear(duration: 0.3), value: moneyReceivedMessage)
                             .padding(.horizontal, 4)
-                            .frame(width: 220, height: 170)
-                            .border(.black)
                         }
                         
                         /// CROSSING START TILE MESSAGE VIEW
@@ -622,10 +673,23 @@ struct GameView: View {
                                 // CROSSING START TILE Text
                                 ZStack {
                                     VStack (spacing: 2){
-                                        Circle()
-                                            .stroke(Color("\(players.players[currentGamePlayerId-1].color.rawValue)").opacity(0.8),  lineWidth: 2.5)
-                                            .frame(width: 36)
-                                            .padding(.bottom, 4)
+                                        ZStack {
+                                            Circle()
+                                                .stroke(Color(currentPlayerColor).opacity(0.8),  lineWidth: 2.5)
+                                                .frame(width: 42)
+                                                .padding(.bottom, 4)
+                                            
+                                            Circle()
+                                                .stroke(.white, lineWidth: 2)
+                                                .frame(width: 38)
+                                                .padding(.bottom, 4)
+                                            
+                                            Image ("profile\(currentGamePlayerId)")
+                                                .resizable()
+                                                .frame(width: 36, height: 36)
+                                                .clipShape(Circle())
+                                                .padding(.bottom, 4)
+                                        }
                                         
                                         Text("\(players.players[currentGamePlayerId-1].name)")
                                             .font(.system(size: 11, weight: .semibold, design: .monospaced))
@@ -636,17 +700,16 @@ struct GameView: View {
                                     
                                     VStack (spacing: 4){
                                         Text("receive-cash")
-                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .font(.system(size: 13, weight: .semibold, design: .monospaced))
                                         Text(!isChampionEmpty && championPlayerId == currentGamePlayerId ? "\(250)$" : "\(200)$")
-                                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                                            .font(.system(size: 13, weight: .semibold, design: .monospaced))
                                             .foregroundColor(.green)
                                     }
                                     
                                     VStack (spacing: 2){
-                                        Rectangle()
-                                            .stroke(.gray.opacity(0.8),  lineWidth: 2.5)
-                                            .frame(width: 36, height: 36)
-                                            .padding(.bottom, 4)
+                                        Image("rmit-logo")
+                                            .resizable()
+                                            .frame(width: 42, height: 42)
                                         
                                         Text("RMIT")
                                             .font(.system(size: 11, weight: .semibold, design: .monospaced))
@@ -666,13 +729,10 @@ struct GameView: View {
                                 .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                                 
                             }
-                            .frame(width: 210, height: 160)
                             .offset(y: 20)
                             .animation(.linear(duration: 0.3), value: crossingStartTileMessage)
                             .zIndex(99)
                             .padding(.horizontal, 4)
-                            .frame(width: 220, height: 170)
-                            .border(.black)
                         }
                     }
                     
@@ -1008,7 +1068,7 @@ struct GameView: View {
                 }
                 .frame(width: 210, height: 210)
                 .offset(y: -180)
-                .zIndex(1)
+                .zIndex(2)
                 
                 /// BOARD VIEW
                 VStack{
@@ -1078,10 +1138,11 @@ struct GameView: View {
                             RightTileView(cities: cities, beaches: beaches, players: players, showTileDetailedInfo: $showTileDetailedInfo, selectedTileId: $selectedTileId)
                         }
                         .frame(width: 360, height: 360)
-                        .background(Color("BabyWhite"))
+                        .background(Color("MonopolyBackground"))
                         .zIndex(-99)
                     }
                     .padding(.bottom, 8)
+                    
                     
                     /// MIDDLE BANNER
                     ZStack {
@@ -1253,15 +1314,13 @@ struct GameView: View {
                     }
                     .frame(width: 361.2, height: 130)
                     .background(Color("BabyWhite"))
-                    .border(.black, width: 1.2)
-                    
+                    .border(.black.opacity(0.8), width: 1.4)
+
                     Spacer()
                 }
             }
-            
         }
         .frame(width: 508)
-//        .background(Color("AzulBlue").opacity(0.8))
         .onChange(of: endTurn) { newTurn in
             game.game.cities = cities.cities
             game.game.achivements = achivements.achievements
@@ -1281,7 +1340,7 @@ struct GameView: View {
                 saveGame()
             }
         }
-        .environment(\.locale, Locale.init(identifier: language))
+        .environment(\.locale, Locale.init(identifier: game.game.language))
 
     }
     
@@ -2053,6 +2112,8 @@ struct GameView: View {
             print("Error loading game")
         }
     }
+    
+    
 }
 
 struct GameView_Previews: PreviewProvider {

@@ -40,3 +40,46 @@
 "you-win-congrats" = "You win :D - Congrats";
 "click-here-to-continue" = "Click here to continue";
 "you-lost-nice-try" = "You Lost D: - Nice try";
+
+"general-information" = "General Information";
+"dice-rule" = "Dice Rule";
+"turn-rule" = "Turn Rule";
+"winning-and-game-over" = "Winning & Game Over";
+"start-tile" = "Start Tile";
+"city-tile" = "City Tile";
+"beach-tile" = "Beach Tile";
+"tax-tile" = "Tax tile";
+"money-tile" = "Money Tile";
+"lost-island-tile" = "RMIT Hearing Tile";
+"championship-tile" = "RMIT Champion Tile";
+"world-tour-tile" = "RMIT World Tour Tile";
+"chances-tile" = "Chance Tile";
+
+"general-information-detail" = "This is a Monopoly-like game inspired by RMIT.";
+"dice-rule-detail" = "Each player will roll two dices at the start of their turn.";
+"turn-rule-detail" = "Players take turns in a clockwise manner.";
+"winning-and-game-over-detail" = "The game continues until only one player remains solvent.";
+"start-tile-detail" = "This is where you begin. Everyone starts here.";
+"city-tile-detail" = "Land here to buy properties in famous city";
+"beach-tile-detail" = "Own a slice of beachfront property.";
+"tax-tile-detail" = "Pay your dues to the bank.";
+"money-tile-detail" = "Land here to get some extra cash.";
+"lost-island-tile-detail" = "Stuck for a turn!";
+"championship-tile-detail" = "Win bonuses like extra cash and advantages.";
+"world-tour-tile-detail" = "Move extra steps this turn.";
+"chances-tile-detail" = "This is still under development.";
+
+"setting" = "Settings";
+"user-detail" = "User Details";
+"game" = "Game";
+"starting-money" = "Starting Money";
+"language" = "Language";
+"dark-mode" = "Dark Mode";
+"utility" = "Utilities";
+"save-change" = "Save Changes";
+"restore-default" = "Restore Defaults";
+
+"save-change-message" = "Bạn có chắc chắn muốn lưu các thay đổi không?";
+"username" = "Tên người chơi";
+"amount" = "Số tiền";
+"restore-default-message" = "Bạn có chắc chắn muốn khôi phục cài đặt mặc định không?";

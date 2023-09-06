@@ -40,3 +40,46 @@
 "you-win-congrats" = "Bạn đã thắng :D - hjhj";
 "click-here-to-continue" = "Nhấn để tiếp tục";
 "you-lost-nice-try" = "Bạn đã thua D: - T.T";
+
+"general-information" = "Thông Tin Chung";
+"dice-rule" = "Quy Tắc Xúc Xắc";
+"turn-rule" = "Quy Tắc Lượt";
+"winning-and-game-over" = "Quy Tắc Thắng Thua";
+"start-tile" = "Ô Bắt Đầu";
+"city-tile" = "Ô Thành Phố";
+"beach-tile" = "Ô Bãi Biển";
+"tax-tile" = "Ô Thuế";
+"money-tile" = "Ô Tiền";
+"lost-island-tile" = "Ô Điều Trần RMIT";
+"championship-tile" = "Ô Đại Za RMIT";
+"world-tour-tile" = "Ô Zu Lịch RMIT";
+"chances-tile" = "Ô Cơ Hội";
+
+"general-information-detail" = "Đây là một trò chơi giống Monopoly và được lấy cảm hứng từ những bài assignment hơii chán tại RMIT.";
+"dice-rule-detail" = "Mỗi người chơi sẽ lắc hai xúc xắc ở đầu lượt của họ.";
+"turn-rule-detail" = "Người chơi sẽ thực hiện lượt theo chiều kim đồng hồ.";
+"winning-and-game-over-detail" = "Trò chơi tiếp tục cho đến khi chỉ còn một người chơi còn tiền.";
+"start-tile-detail" = "Đây là nơi bạn bắt đầu. Mọi người đều bắt đầu từ đây.";
+"city-tile-detail" = "Đến đây để mua các tài sản";
+"beach-tile-detail" = "Sở hữu một phần của bãi biển.";
+"tax-tile-detail" = "Nộp thuế cho ngân hàng.";
+"money-tile-detail" = "Đến đây để nhận thêm tiền mặt.";
+"lost-island-tile-detail" = "Mắc kẹt trong một lượt!";
+"championship-tile-detail" = "Thắng các phần thưởng như tiền mặt và lợi thế.";
+"world-tour-tile-detail" =  "Di chuyển thêm bước trong lượt này.";
+"chances-tile-detail" = "Phần này vẫn đang trong quá trình phát triển.";
+
+"setting" = "Cài Đặt";
+"user-detail" = "Thông Tin Người Dùng";
+"game" = "Trò Chơi";
+"starting-money" = "Số Tiền Ban Đầu";
+"language" = "Ngôn Ngữ";
+"dark-mode" = "Chế Độ Tối";
+"utility" = "Tiện Ích";
+"save-change" = "Lưu Thay Đổi";
+"restore-default" = "Khôi Phục Mặc Định";
+
+"save-change-message" = "Are you sure you want to save the changes?";
+"username" = "Username";
+"amount" = "Amount";
+"restore-default-message" = "Are you sure you want to restore default settings?";

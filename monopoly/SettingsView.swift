@@ -9,48 +9,49 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("game") private var gameData: Data = Data()
-      
     @StateObject var game = GameModel()
+    
     @State private var isSaveAlertPresented = false
     @State private var isRestoreAlertPresented = false
     
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("User Details")) {
-                    TextField("Username", text: $game.game.username)
+                Section(header: Text("user-detail")) {
+                    TextField("username", text: $game.game.username)
                 }
 
-                Section (header: Text("Game")) {
+                Section (header: Text("game")) {
                     HStack {
-                        Text("Starting Money:")
+                        Text("starting-money")
                         Spacer()
-                        TextField("Amount", value: $game.game.startingMoney, formatter: NumberFormatter())
+                        TextField("amount", value: $game.game.startingMoney, formatter: NumberFormatter())
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
                     }
-                    Picker("Language", selection: $game.game.language) {
+                    Picker("language", selection: $game.game.language) {
                         Text("English").tag("en")
                         Text("Tiếng Việt").tag("vi")
                     }
-                    Toggle("Dark Mode", isOn: $game.game.darkModeEnabled)
+                    Toggle("dark-mode", isOn: $game.game.darkModeEnabled)
                 }
 
-                Section (header: Text("Utility")){
+                Section (header: Text("utilities")){
                     Button(action: {
                         isSaveAlertPresented = true
                     }) {
-                        Text("Save Changes")
+                        Text("save-change")
                             .foregroundColor(.blue)
                     }
                     .alert(isPresented: $isSaveAlertPresented) {
                             Alert(
-                                title: Text("Save Changes"),
-                                message: Text("Are you sure you want to save the changes?"),
-                                primaryButton: .default(Text("Yes")) {
+                                title: Text("save-change"),
+                                message: Text("save-change-message"),
+                                primaryButton: .default(Text("yes")) {
                                     saveUserName()
                                     saveStartingMoney()
                                     saveGame()
+                                    loadGame()
                                 },
                                 secondaryButton: .cancel()
                             )
@@ -59,14 +60,14 @@ struct SettingsView: View {
                     Button(action: {
                         isRestoreAlertPresented = true
                     }) {
-                        Text("Restore Default Settings")
+                        Text("restore-default")
                             .foregroundColor(.orange)
                     }
                     .alert(isPresented: $isRestoreAlertPresented) {
                         Alert(
-                            title: Text("Restore Default Settings"),
-                            message: Text("Are you sure you want to restore default settings?"),
-                            primaryButton: .default(Text("Yes")) {
+                            title: Text("restore-default"),
+                            message: Text("restore-default-message"),
+                            primaryButton: .default(Text("yes")) {
                                 restoreDefaults()
                             },
                             secondaryButton: .cancel()
@@ -77,7 +78,6 @@ struct SettingsView: View {
             .navigationBarTitle("Settings")
             .onAppear {
                 loadGame()
-
             }
             .onChange(of: game.game) { _ in
                 game.game.adjusted = true
@@ -86,9 +86,8 @@ struct SettingsView: View {
                 saveUserName()
                 saveStartingMoney()
                 saveGame()
-
             }
-
+            .environment(\.locale, Locale.init(identifier: game.game.language))
 
         }
     }

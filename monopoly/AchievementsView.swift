@@ -15,9 +15,11 @@ struct AchievementsView: View {
             List {
                 ForEach(achivements.achievements) { achievement in
                     AchievementView(achievement: achievement)
+                        .padding(.horizontal, -24)
+                        .padding(.horizontal, -2)
                 }
             }
-            .navigationBarTitle("Achievements", displayMode: .inline)
+            .navigationBarTitle("Achievements")
         }
     }
 }

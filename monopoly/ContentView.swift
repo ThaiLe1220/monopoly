@@ -8,37 +8,61 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State private var selectedTab = 0
+    @AppStorage("game") private var gameData: Data = Data()
+    @StateObject var game = GameModel()
 
-    
+    @State private var selectedTab = 0
+    @State private var isbackgroundPlaying: Bool = false
+    @State private var showingInfo = false
+
     var body: some View {
-        GeometryReader { geometry in
+        ZStack {
             TabView (selection: $selectedTab){
                 /// GAME VIEW
                 ZStack  {
-                 
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            showingInfo.toggle()
+                        }) {
+                            Image(systemName: "info.circle")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.black.opacity(0.8))
+                        }
+                        .sheet(isPresented: $showingInfo) {
+                            HowToPlayView()
+                        }
+                        .padding()
+                    }
+                    .frame(width: 360, height: 40)
+                    .border(.black.opacity(0.8), width: 1.4)
+                    .offset(y: -340)
+                    .zIndex(99)
+                    
                     GameView()
+                        .offset(y: 40)
+
                 }
                 .background(.regularMaterial)
                 .tabItem {Label("Game", systemImage: "gamecontroller.fill")}
                 .tag(0)
 
-                /// ACHIVEMENT VIEW
+                /// LEADERBOARD VIEW
                 VStack {
-                    
+                    LeaderboardView()
                 }
                 .tabItem {Label("Leaderboard", systemImage: "list.bullet.rectangle.portrait.fill")}
                 .tag(1)
 
-                /// Search View
+                /// ACHIEVEMENT VIEW
                 VStack {
-                    
+                    AchievementsView()
                 }
                 .tabItem {Label("Achievement", systemImage: "trophy.fill")}
                 .tag(2)
 
-                /// Setting View
+                /// SETTING VIEW
                 VStack  {
                    SettingsView()
                 }
@@ -46,36 +70,29 @@ struct ContentView: View {
                 .tag(3)
             }
             .onAppear {
-                playBackground()
-            }
-            .overlay(
-                /// overlay navbar
-                HStack {
-                    Spacer()
+                loadGame()
 
-                    Button(action: {
-                        withAnimation(.linear(duration: 1)) {
-                            selectedTab = 1
-                        }
-                    }) {
-                        Image(systemName: "cart.fill")
-                            .font(.system(size: 22))
-                            .foregroundColor(Color("DarkGold"))
-                                              
-                    }
-                    
-                    Button(action: {
-                    }) {
-                        Image(systemName: "moon")
-                            .font(.system(size: 22))
-                            .foregroundColor(Color("DarkGold"))
-                    }
-                }
-                .padding(.horizontal, 8)
-                .padding(.top, 0),
-                alignment: .top
-                
-        )}
+//                playBackground()
+//                Timer.scheduledTimer(withTimeInterval: 150, repeats: true) { timer in
+//                    self.isbackgroundPlaying.toggle()
+//                }
+            }
+            .onChange(of: isbackgroundPlaying, perform: { _ in
+//                playBackground()
+            })
+        }
+        .background(.ultraThinMaterial)
+        .environment(\.locale, Locale.init(identifier: game.game.language))
+    }
+    
+    func loadGame() {
+        do {
+            let decoded = try JSONDecoder().decode(Game.self, from: gameData)
+            self.game.game = decoded
+            print("[game loaded]", terminator: ", ")
+        } catch {
+            print("Error loading game")
+        }
     }
 
 }

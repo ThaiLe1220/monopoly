@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		951D8BA82AA8398B00DF5922 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951D8BA72AA8398B00DF5922 /* LeaderboardView.swift */; };
 		954A5C5F2A8CC415008257D4 /* monopolyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A5C5E2A8CC415008257D4 /* monopolyApp.swift */; };
 		954A5C612A8CC415008257D4 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A5C602A8CC415008257D4 /* GameView.swift */; };
 		954A5C632A8CC416008257D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 954A5C622A8CC416008257D4 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 		956CDD832A8E0E490019F0EC /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956CDD822A8E0E490019F0EC /* TilePosition.swift */; };
 		956CDD852A8E0F4E0019F0EC /* TilePositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956CDD842A8E0F4E0019F0EC /* TilePositionModel.swift */; };
 		956CDD862A8E15F80019F0EC /* TilePosition.json in Resources */ = {isa = PBXBuildFile; fileRef = 956CDD802A8E0C250019F0EC /* TilePosition.json */; };
+		959D81DC2AA825910088E4C3 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959D81DB2AA825910088E4C3 /* HowToPlayView.swift */; };
 		959E37DE2A9864F8006E7508 /* CityTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959E37DD2A9864F8006E7508 /* CityTileView.swift */; };
 		95B62A392A91E9F400FE1FDD /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B62A382A91E9F400FE1FDD /* PlayerModel.swift */; };
 		95EE88852A977C9800EA5DE2 /* BuyingCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE88842A977C9800EA5DE2 /* BuyingCityView.swift */; };
@@ -88,6 +90,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		951D8BA72AA8398B00DF5922 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		954A5C5B2A8CC415008257D4 /* monopoly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = monopoly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		954A5C5E2A8CC415008257D4 /* monopolyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monopolyApp.swift; sourceTree = "<group>"; };
 		954A5C602A8CC415008257D4 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -103,6 +106,7 @@
 		956CDD802A8E0C250019F0EC /* TilePosition.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TilePosition.json; sourceTree = "<group>"; };
 		956CDD822A8E0E490019F0EC /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
 		956CDD842A8E0F4E0019F0EC /* TilePositionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePositionModel.swift; sourceTree = "<group>"; };
+		959D81DB2AA825910088E4C3 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		959E37DD2A9864F8006E7508 /* CityTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTileView.swift; sourceTree = "<group>"; };
 		95B62A382A91E9F400FE1FDD /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		95EE88842A977C9800EA5DE2 /* BuyingCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingCityView.swift; sourceTree = "<group>"; };
@@ -200,20 +204,19 @@
 		954A5C5D2A8CC415008257D4 /* monopoly */ = {
 			isa = PBXGroup;
 			children = (
-				959E37DF2A98A345006E7508 /* Tile View */,
 				954A5C5E2A8CC415008257D4 /* monopolyApp.swift */,
 				95522FA02AA7466100C216FB /* ContentView.swift */,
-				954A5C602A8CC415008257D4 /* GameView.swift */,
-				95EE88842A977C9800EA5DE2 /* BuyingCityView.swift */,
-				D735704B2AA32BDB001FE585 /* BuyingBeachView.swift */,
-				95F83CF72A94D92A004D10B1 /* PlayerNameMoneyView.swift */,
+				959D81D82AA8195D0088E4C3 /* Game View */,
+				959D81DB2AA825910088E4C3 /* HowToPlayView.swift */,
 				DED51EDD2AA7588D009A58DC /* SettingsView.swift */,
 				DED51EE32AA76F73009A58DC /* AchievementView.swift */,
 				DED51EE52AA76FA8009A58DC /* AchievementsView.swift */,
 				95F83CF52A94C987004D10B1 /* PLayerInfoView.swift */,
+				951D8BA72AA8398B00DF5922 /* LeaderboardView.swift */,
 				95FF4D0D2A8F8F4F00229C64 /* ArrowAnimationView.swift */,
 				956CDD812A8E0E2F0019F0EC /* Model */,
 				954A5C622A8CC416008257D4 /* Assets.xcassets */,
+				DED51EDF2AA76D0F009A58DC /* SoundController.swift */,
 				DED51EE12AA76D81009A58DC /* background.mp3 */,
 				956CDD802A8E0C250019F0EC /* TilePosition.json */,
 				95F83CF92A95F220004D10B1 /* City.json */,
@@ -237,7 +240,6 @@
 		956CDD812A8E0E2F0019F0EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DED51EDF2AA76D0F009A58DC /* SoundController.swift */,
 				956CDD822A8E0E490019F0EC /* TilePosition.swift */,
 				956CDD842A8E0F4E0019F0EC /* TilePositionModel.swift */,
 				95FF4D0B2A8F4DD000229C64 /* Player.swift */,
@@ -252,6 +254,18 @@
 				95522F982AA6FE9700C216FB /* AchievementModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		959D81D82AA8195D0088E4C3 /* Game View */ = {
+			isa = PBXGroup;
+			children = (
+				959E37DF2A98A345006E7508 /* Tile View */,
+				954A5C602A8CC415008257D4 /* GameView.swift */,
+				95EE88842A977C9800EA5DE2 /* BuyingCityView.swift */,
+				D735704B2AA32BDB001FE585 /* BuyingBeachView.swift */,
+				95F83CF72A94D92A004D10B1 /* PlayerNameMoneyView.swift */,
+			);
+			path = "Game View";
 			sourceTree = "<group>";
 		};
 		959E37DF2A98A345006E7508 /* Tile View */ = {
@@ -463,6 +477,7 @@
 				95F83CEF2A94B524004D10B1 /* TopTileView.swift in Sources */,
 				95F83CFC2A95F22F004D10B1 /* City.swift in Sources */,
 				95F83CE52A94B2D8004D10B1 /* Tile32View.swift in Sources */,
+				951D8BA82AA8398B00DF5922 /* LeaderboardView.swift in Sources */,
 				D735704C2AA32BDB001FE585 /* BuyingBeachView.swift in Sources */,
 				95F83CB52A94B211004D10B1 /* Tile9View.swift in Sources */,
 				95F83CF82A94D92A004D10B1 /* PlayerNameMoneyView.swift in Sources */,
@@ -470,6 +485,7 @@
 				95FF4D0C2A8F4DD000229C64 /* Player.swift in Sources */,
 				DE38FBB82A9F7CED00424BEE /* BeachTileView.swift in Sources */,
 				95F83CDB2A94B2B2004D10B1 /* Tile27View.swift in Sources */,
+				959D81DC2AA825910088E4C3 /* HowToPlayView.swift in Sources */,
 				95F83CB32A94B1F5004D10B1 /* Tile8View.swift in Sources */,
 				956CDD832A8E0E490019F0EC /* TilePosition.swift in Sources */,
 				95F83CB12A94B1EB004D10B1 /* Tile7View.swift in Sources */,
