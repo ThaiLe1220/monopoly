@@ -77,6 +77,7 @@
 		D735704E2AA36719001FE585 /* DollarSignAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D735704D2AA36719001FE585 /* DollarSignAnimation.swift */; };
 		D7D48C0B2AA49DF100FA2269 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D48C0A2AA49DF100FA2269 /* Game.swift */; };
 		D7D48C0D2AA49EC500FA2269 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D48C0C2AA49EC500FA2269 /* GameModel.swift */; };
+		DE1921E22AA89E2A00B14CEB /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1921E12AA89E2A00B14CEB /* MenuView.swift */; };
 		DE38FBB82A9F7CED00424BEE /* BeachTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38FBB72A9F7CED00424BEE /* BeachTileView.swift */; };
 		DE38FBBC2A9F7D5000424BEE /* Beach.json in Resources */ = {isa = PBXBuildFile; fileRef = DE38FBBB2A9F7D5000424BEE /* Beach.json */; };
 		DE38FBBE2A9F808300424BEE /* Beach.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE38FBBD2A9F808300424BEE /* Beach.swift */; };
@@ -162,6 +163,7 @@
 		D735704D2AA36719001FE585 /* DollarSignAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarSignAnimation.swift; sourceTree = "<group>"; };
 		D7D48C0A2AA49DF100FA2269 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		D7D48C0C2AA49EC500FA2269 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		DE1921E12AA89E2A00B14CEB /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		DE38FBB72A9F7CED00424BEE /* BeachTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeachTileView.swift; sourceTree = "<group>"; };
 		DE38FBBB2A9F7D5000424BEE /* Beach.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Beach.json; sourceTree = "<group>"; };
 		DE38FBBD2A9F808300424BEE /* Beach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beach.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 			children = (
 				959E37DF2A98A345006E7508 /* Tile View */,
 				954A5C602A8CC415008257D4 /* GameView.swift */,
+				DE1921E12AA89E2A00B14CEB /* MenuView.swift */,
 				95EE88842A977C9800EA5DE2 /* BuyingCityView.swift */,
 				D735704B2AA32BDB001FE585 /* BuyingBeachView.swift */,
 				95F83CF72A94D92A004D10B1 /* PlayerNameMoneyView.swift */,
@@ -470,6 +473,7 @@
 				95F83CF12A94B52F004D10B1 /* LeftTileView.swift in Sources */,
 				95F83CE32A94B2D1004D10B1 /* Tile31View.swift in Sources */,
 				95F83CD52A94B28D004D10B1 /* Tile25View.swift in Sources */,
+				DE1921E22AA89E2A00B14CEB /* MenuView.swift in Sources */,
 				95F83CF62A94C987004D10B1 /* PLayerInfoView.swift in Sources */,
 				954A5C5F2A8CC415008257D4 /* monopolyApp.swift in Sources */,
 				95FF4D0E2A8F8F4F00229C64 /* ArrowAnimationView.swift in Sources */,

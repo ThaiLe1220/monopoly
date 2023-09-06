@@ -25,7 +25,7 @@
 "next-turn-movement-is-granted" = "Next turn movement is granted";
 "champion" = "Champion";
 "but-nothing-can-stop-the-champion" = "But nothing can stop the CHAD";
-"has-completed-rmit" = "has completed RMIT";
+"has-completed-rmit-hearing" = "has completed RMIT Hearing";
 "is-now-a-rmit-champion" = "is now a RMIT Champion";
 "can-skip-session-at-hearing" = "Can skip session at Hearing";
 "reduce-tax-paid-and" = "Reduce tax paid and";
@@ -34,7 +34,7 @@
 "can-move-extra-steps-this-turn" = "Can move extra steps this turn";
 "chosen-steps-max-35" = "Chosen Steps (max 35)";
 "done" = "Done";
-"has-declared-bankcruptcy" = "has declared bankcruptcy";
+"has-declared-bankruptcy" = "has declared bankruptcy";
 "we-never-see" = "We never see";
 "again" = "again";
 "you-win-congrats" = "You win :D - Congrats";

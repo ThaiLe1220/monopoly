@@ -78,7 +78,7 @@ struct BuyingBeachView: View {
                         withAnimation(.linear(duration: 0.3)) {
                             buyingMessage = false
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
                                 beachBoughtMessage = true
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {

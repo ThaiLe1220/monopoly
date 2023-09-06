@@ -25,7 +25,7 @@
 "next-turn-movement-is-granted" = "Lượt sau được trả tự do";
 "champion" = "Đại Za";
 "but-nothing-can-stop-the-champion" = "Nhưng không gì có thể ngăn cản Đại Za";
-"has-completed-rmit" = "đã hoàn thành RMIT";
+"has-completed-rmit-hearing" = "đã hoàn thành RMIT Hearing";
 "is-now-a-rmit-champion" = "bây giờ là Đại Za RMIT";
 "can-skip-session-at-hearing" = "Tránh hầu toà tại Hearing";
 "reduce-tax-paid-and" = "Giảm tiền thuế và";
@@ -34,7 +34,7 @@
 "can-move-extra-steps-this-turn" = "Có thể đi thêm ở lượt này";
 "chosen-steps-max-35" = "Chọn số bước (max 35)";
 "done" = "Xong";
-"has-declared-bankcruptcy" = "đã tuyên bố phá sản";
+"has-declared-bankruptcy" = "đã tuyên bố phá sản";
 "we-never-see" = "Ta không còn thấy";
 "again" = "nữa";
 "you-win-congrats" = "Bạn đã thắng :D - hjhj";

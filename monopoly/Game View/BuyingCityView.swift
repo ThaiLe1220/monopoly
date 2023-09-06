@@ -128,7 +128,7 @@ struct BuyingCityView: View {
                             buyingMessage = false
                         }
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
                                 cityBoughtMessage = true
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {

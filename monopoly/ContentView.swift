@@ -19,7 +19,7 @@ struct ContentView: View {
         ZStack {
             TabView (selection: $selectedTab){
                 /// GAME VIEW
-                ZStack  {
+                VStack {
                     HStack {
                         Spacer()
                         Button(action: {
@@ -37,11 +37,9 @@ struct ContentView: View {
                     }
                     .frame(width: 360, height: 40)
                     .border(.black.opacity(0.8), width: 1.4)
-                    .offset(y: -340)
-                    .zIndex(99)
+                    .padding(.vertical, 8)
                     
                     GameView()
-                        .offset(y: 40)
 
                 }
                 .background(.regularMaterial)
