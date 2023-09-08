@@ -1,98 +1,84 @@
-//
-//  ContentView.swift
-//  monopoly
-//
-//  Created by Lê Ngọc Trâm on 05/09/2023.
-//
+
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Hong Thai
+  ID: s3752577
+  Created  date: 16/08/2023
+  Last modified: 8/09/2023
+  Acknowledgement: Acknowledge the resources that you use here.
+*/
 
 import SwiftUI
 
 struct ContentView: View {
     @AppStorage("game") private var gameData: Data = Data()
-    @StateObject var game = GameModel()
 
-    @State private var selectedTab = 0
-    @State private var isbackgroundPlaying: Bool = false
-    @State private var showingInfo = false
+    @State private var showMenu = false
+    @State private var name: String = ""
+    @StateObject var game: GameModel = GameModel() 
+    @State var showAlert: Bool = false
+    @State var showCustomAlert: Bool = false
 
     var body: some View {
-        ZStack {
-            TabView (selection: $selectedTab){
-                /// GAME VIEW
-                VStack {
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            showingInfo.toggle()
-                        }) {
-                            Image(systemName: "info.circle")
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .foregroundColor(.black.opacity(0.8))
-                        }
-                        .sheet(isPresented: $showingInfo) {
-                            HowToPlayView()
-                        }
-                        .padding()
+        VStack {
+            if game.game.turn > 0 {
+                Text("Would you like to continue or start a new game?")
+                    .padding()
+                Button("Continue") {
+                    self.showMenu = true
+                }
+                .padding()
+
+                Button("New Game") {
+                    game.game.turn = 0 // Reset the turn to 0
+                    self.showCustomAlert = true
+                }
+                .padding()
+            } else {
+                Text("Enter your name to start the game.")
+                    .padding()
+                TextField("Name", text: $name)
+                    .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Button("Start Game") {
+                    if !name.isEmpty {
+                        game.game.username = name
+                        self.showMenu = true
                     }
-                    .frame(width: 360, height: 40)
-                    .border(.black.opacity(0.8), width: 1.4)
-                    .padding(.vertical, 8)
-                    
-                    GameView()
-
                 }
-                .background(.regularMaterial)
-                .tabItem {Label("Game", systemImage: "gamecontroller.fill")}
-                .tag(0)
-
-                /// LEADERBOARD VIEW
-                VStack {
-                    LeaderboardView()
-                }
-                .tabItem {Label("Leaderboard", systemImage: "list.bullet.rectangle.portrait.fill")}
-                .tag(1)
-
-                /// ACHIEVEMENT VIEW
-                VStack {
-                    AchievementsView()
-                }
-                .tabItem {Label("Achievement", systemImage: "trophy.fill")}
-                .tag(2)
-
-                /// SETTING VIEW
-                VStack  {
-                   SettingsView()
-                }
-                .tabItem {Label("Setting", systemImage: "gearshape.2.fill")}
-                .tag(3)
+                .padding()
+                .disabled(name.isEmpty)
             }
-            .onAppear {
-                loadGame()
-
-//                playBackground()
-//                Timer.scheduledTimer(withTimeInterval: 150, repeats: true) { timer in
-//                    self.isbackgroundPlaying.toggle()
-//                }
-            }
-            .onChange(of: isbackgroundPlaying, perform: { _ in
-//                playBackground()
-            })
         }
-        .background(.ultraThinMaterial)
-        .environment(\.locale, Locale.init(identifier: game.game.language))
+        .sheet(isPresented: $showMenu) {
+            MenuView()
+        }
+        .sheet(isPresented: $showCustomAlert, content: {
+            CustomAlertView(name: $name, showMenu: $showMenu)
+        })
     }
-    
-    func loadGame() {
-        do {
-            let decoded = try JSONDecoder().decode(Game.self, from: gameData)
-            self.game.game = decoded
-            print("[game loaded]", terminator: ", ")
-        } catch {
-            print("Error loading game")
+}
+
+struct CustomAlertView: View {
+    @Binding var name: String
+    @Binding var showMenu: Bool
+
+    var body: some View {
+        VStack {
+            Text("Enter your name:")
+            TextField("Name", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            Button("OK") {
+                if !name.isEmpty {
+                    showMenu = true
+                }
+            }
+            .padding()
         }
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {

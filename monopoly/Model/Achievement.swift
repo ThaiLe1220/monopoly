@@ -17,4 +17,6 @@ struct Achievement: Codable, Hashable, Identifiable, Equatable{
 }
 
 
+let testAchievemnt = Achievement(id: -1, title: "hello", tag: "hello", tagVar: 0, completed: false)
+
 

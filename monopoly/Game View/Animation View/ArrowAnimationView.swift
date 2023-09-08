@@ -1,3 +1,17 @@
+
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Hong Thai
+  ID: s3752577
+  Created  date: 16/08/2023
+  Last modified: 8/09/2023
+  Acknowledgement: Acknowledge the resources that you use here.
+*/
+
+
 import SwiftUI
 
 struct ArrowAnimationView: View {
@@ -6,16 +20,6 @@ struct ArrowAnimationView: View {
     @State private var delayTime = 0.25
     var body: some View {
         ZStack {
-//                // Arrows
-//            ForEach(0..<5) { index in
-//                Image(systemName: "arrowtriangle.forward.fill")
-//                    .resizable()
-//                    .frame(width: 4 * CGFloat(3 - index) * 0.7, height: 3 * CGFloat(4 - index) * 0.7)
-//                    .rotationEffect(Angle(degrees: Double(index) * 16 - 36))
-//                    .offset(x: CGFloat(index) * 25 - 45, y: CGFloat(index) * -10 - 30)
-//                    .opacity(showDollar ? 0 : 1)
-//                    .animation(.easeInOut(duration: 0.5).delay(Double(index) * 0.2))
-//            }
             Image(systemName: "arrowtriangle.forward.fill")
                 .resizable()
                 .frame(width: 4*3.7, height: 3*3.9)

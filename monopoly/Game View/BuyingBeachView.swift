@@ -1,9 +1,16 @@
-//
-//  BuyingBeachView.swift
-//  monopoly
-//
-//  Created by Trang Le on 02/09/2023.
-//
+
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Hong Thai
+  ID: s3752577
+  Created  date: 16/08/2023
+  Last modified: 8/09/2023
+  Acknowledgement: Acknowledge the resources that you use here.
+*/
+
 
 import SwiftUI
 
@@ -17,8 +24,6 @@ struct BuyingBeachView: View {
     
     var body: some View {
         VStack (spacing: 0){
-            Spacer().frame(height: 30)
-
             ForEach(beaches.beaches.filter({ $0.tileId == players.players[0].tilePositionId})) { beach in
                 ZStack {
                     Text("\(beach.beachName)")
@@ -28,9 +33,7 @@ struct BuyingBeachView: View {
                         .background(Color(players.players[0].color.rawValue).opacity(0.8))
                     
                     Button {
-                        withAnimation(.easeInOut(duration: 0.5)) {
-                            buyingMessage = false
-                        }
+                        buyingMessage = false
                     } label: {
                         Image(systemName: "xmark")
                             .frame(width: 24, height: 24)
@@ -74,36 +77,52 @@ struct BuyingBeachView: View {
                 
                 VStack {
                     Button {
-                        beaches.buyBeach(player: &players.players[0])
-                        withAnimation(.linear(duration: 0.3)) {
-                            buyingMessage = false
+                        buyingMessage = false
+                        if beaches.buyBeach(player: &players.players[0]) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
+                                    beachBoughtMessage = true
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) {
+                                    beachBoughtMessage = false
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                totalBuyingCost = 0
+                            }
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
-                                beachBoughtMessage = true
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
-                                beachBoughtMessage = false
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        else {
                             totalBuyingCost = 0
                         }
-                        
                     } label: {
-                        HStack(spacing:0){
-                            Text("buy-for")
-                            Text(": \(beach.cost)$")
+                        if (players.players[0].money >= beach.cost) {
+                            HStack (spacing: 0) {
+                                Text("buy-for")
+                                Text(": \(beach.cost)$")
+                            }
+                            .font(.system(size: 13, weight: .bold, design: .default))
+                            .frame(width: 150, height: 24)
+                            .background(Color(players.players[0].color.rawValue))
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                            .padding(.top, 5)
                         }
-                        .font(.system(size: 13, weight: .bold, design: .default))
-                        .frame(width: 160, height: 24)
-                        .background(Color(players.players[0].color.rawValue))
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
-                        .padding(.top, 5)
+                        else {
+                            HStack (spacing: 0) {
+                                Text("not-enough-money")
+                            }
+                            .font(.system(size: 13, weight: .bold, design: .default))
+                            .frame(width: 160, height: 24)
+                            .background(Color(players.players[0].color.rawValue))
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                            .padding(.top, 5)
+                        }
                     }
                 }
+                .padding(.bottom, 6)
+
             }
         }
-        .frame(width: 210, height: 190)
+        .border(.black, width: 0.2)
     }
 }
 

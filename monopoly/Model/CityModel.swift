@@ -33,7 +33,8 @@ class CityModel: ObservableObject{
     }
     
     // Buy unowned Property and Upgrade owned Property by game player
-    func buyCity (player: inout Player, options:  Set<Int>) {        
+    func buyCity (player: inout Player, options:  Set<Int>) -> Bool {
+        var bought = false
         print("buyCity invoked by Player: \(player.id)", terminator: " ")
         if let index = cities.firstIndex(where: {$0.tileId == player.tilePositionId}) {
             print("in city: \(cities[index].id),", terminator: " ")
@@ -41,6 +42,7 @@ class CityModel: ObservableObject{
             
             for _ in cities[index].currentLevel..<n { // loop from city current level to the level chosen by player
                 if player.money >= cities[index].cost && cities[index].ownerId == -1 { //sufficient player money && city unowned
+                    bought = true
                     cities[index].ownerId = player.id
                     player.tilePropertyIds.append(cities[index].tileId)
                     cities[index].totalCost += cities[index].cost
@@ -62,10 +64,13 @@ class CityModel: ObservableObject{
         }
         
         else { print("but can not find city") }
+        
+        return bought
     }
     
     // Autimatically Buy unowned Property and Upgrade owned Property by game player
-    func buyCityAutomatically (player: inout Player, totalBuyingCost: inout Int) {
+    func buyCityAutomatically (player: inout Player, totalBuyingCost: inout Int) -> Bool {
+        var bought = false
         print("buyCityAutomatically invoked by Player: \(player.id),", terminator: " ")
         if let index = cities.firstIndex(where: {$0.tileId == player.tilePositionId}) {
             print("in city: \(cities[index].id)", terminator: " ")
@@ -73,6 +78,7 @@ class CityModel: ObservableObject{
             // always bought if sufficient player money && city unowned
             if cities[index].currentLevel == 0 {
                 if player.money >= cities[index].cost && cities[index].ownerId == -1 { //sufficient player money && city unowned
+                    bought = true
                     cities[index].ownerId = player.id
                     player.tilePropertyIds.append(cities[index].tileId)
                     cities[index].totalCost += cities[index].cost
@@ -114,6 +120,8 @@ class CityModel: ObservableObject{
         }
         
         else {  print("but can not find city") }
+        
+        return bought
     }
     
     // Sell Property owned by game player

@@ -8,11 +8,38 @@
 import Foundation
 
 class GameModel: ObservableObject {
+    @Published var games: [Game]
     @Published var game: Game
-    
-    init () {
-        game = Game(username: "Eugene", startingMoney: 2000, language: "en", darkModeEnabled: false, turn: 0, players: PlayerModel().players, cities: CityModel().cities, beaches: BeachModel().beaches, achivements: AchievementModel().achievements, adjusted: false)
+    var lastId: Int {
+        var max = 0
+        for game in games {
+            if game.id > max {
+                max = game.id
+            }
+        }
+        return max
     }
     
+    init () {
+        game = defaultGame
+        
+        games = []
+    }
+    
+    func addGame (game: Game) {
+        print("addGame evoked")
+        var newGame = game
+        newGame.id = lastId+1
+        games.append(newGame)
+    }
+    
+    func deleteGame (game: Game) {
+        print("deleteGame evoked")
+        for g in games {
+            if g.id == game.id {
+                games.remove(at: g.id)
+            }
+        }
+    }
     
 }

@@ -33,21 +33,30 @@ class BeachModel: ObservableObject{
     }
     
     // Buy Beach by game player
-    func buyBeach (player: inout Player) {
+    func buyBeach (player: inout Player) -> Bool {
+        var bought = false
         print("buyBeach invoked by Player: \(player.id)", terminator: " ")
         if let index = beaches.firstIndex(where: {$0.tileId == player.tilePositionId}) {
             print("in beach: \(beaches[index].id),", terminator: " ")
             
             if player.money >= beaches[index].cost && beaches[index].ownerId == -1 { //sufficient player money && beach unowned
+                bought = true
                 beaches[index].ownerId = player.id
                 player.tilePropertyIds.append(beaches[index].tileId)
                 player.money -= beaches[index].cost
                 
-                beaches[index].currentLevel = 0
+                var ownedBeachCount = 0
                 for tileId in player.tilePropertyIds {
                     for beach in beaches {
                         if tileId == beach.tileId {
-                            beaches[index].currentLevel += 1
+                            ownedBeachCount += 1
+                        }
+                    }
+                }
+                for tileId in player.tilePropertyIds {
+                    for beach in beaches {
+                        if tileId == beach.tileId {
+                            beaches[beach.id].currentLevel = ownedBeachCount
                         }
                     }
                 }
@@ -58,6 +67,8 @@ class BeachModel: ObservableObject{
         }
         
         else { print("but can not find beach") }
+        
+        return bought
     }
     
 

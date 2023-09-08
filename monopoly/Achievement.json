@@ -1,52 +1,37 @@
 [
     {
         "id": 0,
-        "title": "First time Here. Welcome",
-        "tag": "first",
-        "tagVar": 0,
+        "title": "first-time-here",
+        "tag": "turn-1",
+        "tagVar": 1,
         "completed": false
     },
     {
         "id": 1,
-        "title": "Player plays for 3 turns",
-        "tag": "turn-1",
-        "tagVar": 3,
+        "title": "5-turn-milestone",
+        "tag": "turn-2",
+        "tagVar": 5,
         "completed": false
     },
     {
         "id": 2,
-        "title": "Player total cash reach 3000",
-        "tag": "cash-1",
+        "title": "3000-income",
+        "tag": "income-1",
         "tagVar": 3000,
         "completed": false
     },
     {
         "id": 3,
-        "title": "One time rent paid reach 1000",
+        "title": "1000-rent-paid",
         "tag": "rent-paid-1",
         "tagVar": 1000,
         "completed": false
     },
     {
         "id": 4,
-        "title": "Player single property rent reach 1000",
-        "tag": "property-rent-1",
-        "tagVar": 1000,
-        "completed": false
-    },
-    {
-        "id": 5,
-        "title": "Player one time tax paid reach 1000",
+        "title": "500-tax-paid",
         "tag": "tax-paid-1",
-        "tagVar": 1000,
+        "tagVar": 500,
         "completed": false
-    },
-    {
-        "id": 6,
-        "title": "Player own all 4 beaches",
-        "tag": "beach",
-        "tagVar": 4,
-        "completed": false
-
     },
 ]

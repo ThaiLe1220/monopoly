@@ -32,7 +32,7 @@
 "increase-cash-received" = "Increase cash received";
 "is-in-rmit-world-tour" = "is in RMIT WORLD TOUR";
 "can-move-extra-steps-this-turn" = "Can move extra steps this turn";
-"chosen-steps-max-35" = "Chosen Steps (max 35)";
+"chosen-steps-max-17" = "Chosen Steps (max 17)";
 "done" = "Done";
 "has-declared-bankruptcy" = "has declared bankruptcy";
 "we-never-see" = "We never see";
@@ -70,16 +70,21 @@
 "chances-tile-detail" = "This is still under development.";
 
 "setting" = "Settings";
-"user-detail" = "User Details";
+"user-detail" = "Please Enter Your Name To Continue";
 "game" = "Game";
 "starting-money" = "Starting Money";
 "language" = "Language";
+"difficulty" = "Difficulty";
 "dark-mode" = "Dark Mode";
 "utility" = "Utilities";
 "save-change" = "Save Changes";
 "restore-default" = "Restore Defaults";
 
-"save-change-message" = "Bạn có chắc chắn muốn lưu các thay đổi không?";
+"save-change-message" = "Are you sure you want to save the changes?";
 "username" = "Tên người chơi";
 "amount" = "Số tiền";
-"restore-default-message" = "Bạn có chắc chắn muốn khôi phục cài đặt mặc định không?";
+"restore-default-message" = "Are you sure you want to restore default settings?";
+
+"not-enough-money" = "Not Enough Money";
+"score" = "Score";
+"city" = "City";
