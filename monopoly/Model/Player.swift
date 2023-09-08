@@ -10,10 +10,10 @@ import Foundation
 /// Defines Player struct
 struct Player:Codable, Hashable, Identifiable, Equatable{
     var id: Int
+    var name: String
     var posX: CGFloat
     var posY: CGFloat
     var tilePositionId : Int
-
     var tilePropertyIds: [Int]
     var color: Color
 
@@ -27,14 +27,9 @@ struct Player:Codable, Hashable, Identifiable, Equatable{
         case player4 = "Player4"
     }
     
-//    mutating func updateByTilePositionId(inputId: Int) {
-//        tilePositionId = inputId
-//        po
-//    }
-    
     mutating func updateTilePositionId () {
-        if let current = TilePositionModel().tiles.first(where: {$0.posX == posX && $0.posY == posY}) {
-            tilePositionId = current.id
+        if let currentTile = TilePositionModel().tiles.first(where: {$0.posX == posX && $0.posY == posY}) {
+            tilePositionId = currentTile.id
         } else {
             tilePositionId = -1
         }
@@ -45,20 +40,20 @@ struct Player:Codable, Hashable, Identifiable, Equatable{
         posY = y
     }
 
-    func printBasicInfo () {
+    func printPlayerBasicInfo () {
         print("id \(id), x: \(posX), y: \(posY), tile: \(tilePositionId)")
     }
     
-    func printEveryInfo () {
+    func printPlayerAllInfo () {
         print("id \(id), x: \(posX), y: \(posY), tile: \(tilePositionId), own: \(tilePropertyIds), money: \(money)")
     }
 }
 
+var testPlayer = Player(id: 0, name: "Eugene", posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [1, 2], color: .player0, money: 2000)
 
-var testPlayer = Player(id: 0, posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [1, 2, 4], color: .player0, money: 10000)
-var player1 = Player(id: 1, posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [1, 2, 4], color: .player1, money: 10000)
-var player2 = Player(id: 2, posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [10, 11, 17], color: .player2, money: 10000)
-var player3 = Player(id: 3, posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [19, 25, 26], color: .player3, money: 10000)
-var player4 = Player(id: 4, posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [28, 33, 35], color: .player4, money: 10000)
+var player1 = Player(id: 1, name: "Eugene", posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [], color: .player1, money: 1000)
+var player2 = Player(id: 2, name: "Hera", posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [], color: .player2, money: 100)
+var player3 = Player(id: 3, name: "Peterson", posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [], color: .player3, money: 100)
+var player4 = Player(id: 4, name: "Robert", posX: 150, posY: 150, tilePositionId: 0, tilePropertyIds: [], color: .player4, money: 100)
 
 var testPlayers = [player1, player2, player3, player4]

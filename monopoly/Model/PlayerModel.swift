@@ -7,8 +7,14 @@
 
 import Foundation
 
-class PlayerModel {
-    var players: [Player] = []
+class PlayerModel: ObservableObject {
+    @Published var players: [Player] = []
 
+    init () {
+        players = [player1, player2, player3, player4]
+    }
+    
+    
+    
 }
 
